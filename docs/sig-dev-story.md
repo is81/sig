@@ -1,6 +1,6 @@
 # 💊 Sig — 花半天做了个用药提醒APP
 
-> *Built with Claude Code, one afternoon at a time.*
+> *Built with Claude Code, one morning at a time.*
 
 ---
 
@@ -8,7 +8,7 @@
 
 2026 年 8 月 4 日早上，我想做个用药提醒——妈妈总忘记吃药。
 
-第一个版本就是 `sig/index.html`，纯前端：localStorage 存数据，浏览器 Notification API 发通知。单文件搞定，CSS 暗色模式、手机适配、动画全都塞进去了。
+第一个版本纯前端：localStorage 存数据，浏览器 Notification API 发通知。单文件搞定，CSS 暗色模式、手机适配、动画全都塞进去了。
 
 ![开始](sig-pic/0开始.png)
 
@@ -62,7 +62,7 @@ Claude Code 先生成了一份详细的实施计划，然后把整个项目拆�
 
 ## 代码审查 & 打磨
 
-Claude Code 做了一次 7 角度全量代码审查，找出 10 个问题——从 `MAX(id)` 竞态到 PUT 操作丢失 taken 状态，从 XSS 到 N+1 查询。逐项修完，一个下午十项清零。
+Claude Code 做了一次 7 角度全量代码审查，找出 10 个问题——从 `MAX(id)` 竞态到 PUT 操作丢失 taken 状态，从 XSS 到 N+1 查询。逐项修完，一会会十项清零。
 
 ![代码审查](sig-pic/11代码审查.png)
 

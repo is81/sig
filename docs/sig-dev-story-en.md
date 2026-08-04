@@ -1,12 +1,12 @@
 # 💊 Sig — Building a Medication Reminder in Half a Day
 
-> *Built with Claude Code, one afternoon at a time.*
+> *Built with Claude Code, one morning at a time.*
 
 ---
 
 ## The Spark
 
-August 4, 2026. My mom keeps forgetting to take her pills. I built a single-file medication reminder — `sig/index.html`. Pure frontend: localStorage, browser Notification API, dark mode, mobile-first. Done in one file.
+August 4, 2026. My mom keeps forgetting to take her pills. I built a single-file medication reminder. Pure frontend: localStorage, browser Notification API, dark mode, mobile-first. Done in one file.
 
 ![Plan](sig-pic/1%E8%AE%A1%E5%88%92.png)
 
@@ -52,7 +52,7 @@ Deployed to Windows Server + IIS: static files served by IIS, `/api/*` reverse-p
 
 ## Code Review & Polish
 
-Claude Code ran a 7-angle code review, surfaced 10 issues — `MAX(id)` race conditions, PUT losing taken status, XSS vectors, N+1 queries. Fixed them all in an afternoon.
+Claude Code ran a 7-angle code review, surfaced 10 issues — `MAX(id)` race conditions, PUT losing taken status, XSS vectors, N+1 queries. Fixed them all in no time.
 
 ![Code review](sig-pic/11%E4%BB%A3%E7%A0%81%E5%AE%A1%E6%9F%A5.png)
 
