@@ -88,7 +88,8 @@ See `CLAUDE.md` in the repo root for full IIS + pm2 deployment guide.
 
 **Your data stays on your server.** All medication records, user accounts, and push subscription tokens are stored in your own SQLite database. No data is shared with the developer or any third party. If you use the hosted demo at is81.net/sig, data resides on that server only.
 
-- 🔒 Passwords are hashed with bcrypt
+- 🔒 All user passwords are hashed with bcrypt, JWT tokens expire after 7 days
+- 🔐 HTTPS is required in production — Web Push and secure authentication depend on it
 - 🗄️ All data stored locally in SQLite — no cloud, no analytics, no tracking
 - 🔔 Push notifications are sent via standard Web Push protocol (your browser vendor may route them through their servers)
 - 📍 The live demo at [is81.net/sig](https://is81.net/sig/) is a personal instance — data is not shared or sold
