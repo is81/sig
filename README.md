@@ -7,7 +7,7 @@
   <a href="#"><img src="https://img.shields.io/badge/i18n-4%20languages-8b5cf6?style=flat-square" alt="4 languages"></a>
 </p>
 
-A lightweight, multi-language medication reminder web app with Web Push notifications. Built with vanilla JS frontend + Node.js + SQLite backend.
+Sig is a simple, caring medication reminder that lives on your phone. Set up your meds in seconds, get gentle nudges when it's time, and share it with family — each person's data stays private. No complex setup required. Just you, your health, and a little digital nudge.
 
 **Live demo:** [is81.net/sig](https://is81.net/sig/)
 
