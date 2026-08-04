@@ -1,0 +1,7 @@
+node_modules/
+server/sig.db
+server/sig.db-journal
+server/.env
+vapid-keys.json
+test-browser.mjs
+*.7z

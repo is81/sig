@@ -1,0 +1,15 @@
+{
+  "name": "用药助手",
+  "short_name": "用药助手",
+  "start_url": "/sig/",
+  "display": "standalone",
+  "background_color": "#F7F9FC",
+  "theme_color": "#2A7DE1",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='40' fill='%232A7DE1'/><text x='96' y='120' text-anchor='middle' font-size='100'>💊</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ]
+}
