@@ -23,6 +23,7 @@ import authRoutes    from './routes/auth.js';
 import reminderRoutes from './routes/reminders.js';
 import pushRoutes    from './routes/push.js';
 import statsRoutes   from './routes/stats.js';
+import adminRoutes   from './routes/admin.js';
 
 const app = express();
 const PORT = parseInt(process.env.PORT, 10) || 3001;
@@ -79,6 +80,7 @@ app.use('/api/auth',      authRoutes);
 app.use('/api/reminders', reminderRoutes);
 app.use('/api/push',      pushRoutes);
 app.use('/api/stats',     statsRoutes);
+app.use('/api/admin',     adminRoutes);
 
 // 健康检查
 app.get('/api/health', (_req, res) => res.json({ ok: true }));

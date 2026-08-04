@@ -1012,8 +1012,10 @@
             <div class="top-row">
                 <div class="title"><span>💊</span> <span id="appTitle">用药助手</span></div>
                 <div style="display:flex;align-items:center;gap:10px;">
+                    <button class="btn-logout" id="adminBtn" title="管理" style="display:none;font-size:14px;padding:3px 6px;">⚙️</button>
+                    <button class="btn-logout" id="pwdBtn" title="修改密码" style="font-size:14px;padding:3px 6px;">🔑</button>
                     <div class="date-badge" id="dateBadge">今天</div>
-                    <button class="btn-logout" id="logoutBtn">退出</button>
+                    <button class="btn-logout" id="logoutBtn" title="退出" style="font-size:14px;padding:3px 6px;">🚪</button>
                 </div>
             </div>
             <div class="stats">
@@ -1089,6 +1091,34 @@
         </div>
     </div>
 
+    <!-- ===== 改密码弹窗 ===== -->
+    <div class="modal-overlay" id="pwdOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>🔑 修改密码</h2>
+                <button class="close-btn" id="pwdCloseBtn">✕</button>
+            </div>
+            <div class="form-group"><label>旧密码</label><input type="password" id="oldPassword" /></div>
+            <div class="form-group"><label>新密码</label><input type="password" id="newPassword" placeholder="至少4个字符" /></div>
+            <div class="form-actions">
+                <button class="btn-cancel" id="pwdCancelBtn">取消</button>
+                <button class="btn-save" id="pwdSaveBtn">确认修改</button>
+            </div>
+            <div id="pwdMsg" style="text-align:center;margin-top:10px;font-size:14px;"></div>
+        </div>
+    </div>
+
+    <!-- ===== 管理员面板 ===== -->
+    <div class="modal-overlay" id="adminOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>👥 用户管理</h2>
+                <button class="close-btn" id="adminCloseBtn">✕</button>
+            </div>
+            <div id="adminUserList" style="max-height:50vh;overflow-y:auto;"></div>
+        </div>
+    </div>
+
     <script>
 (function() {
 'use strict';
@@ -1096,6 +1126,7 @@
 const API_BASE = '/api';
 
 let token = null;
+let userRole = 'user';
 let reminders = [];
 let editingId = null;
 let notifTimeout = null;
@@ -1253,8 +1284,10 @@ authForm.addEventListener('submit', async (e) => {
         const data = await res.json();
         if (!res.ok) { showAuthError(data.error || t('auth.operationFailed')); authSubmitBtn.disabled = false; authSubmitBtn.textContent = isLoginMode ? t('auth.loginBtn') : t('auth.registerBtn'); return; }
         saveToken(data.token);
+        userRole = data.role || 'user';
         authContainer.classList.remove('active');
         app.classList.remove('hidden');
+        if (userRole === 'admin') { const ab = document.getElementById('adminBtn'); if (ab) ab.style.display = 'block'; }
         await initApp();
     } catch (err) { showAuthError(t('auth.networkError')); authSubmitBtn.disabled = false; authSubmitBtn.textContent = isLoginMode ? t('auth.loginBtn') : t('auth.registerBtn'); }
 });
@@ -1528,6 +1561,69 @@ addTimeBtn.addEventListener('click', () => {
 });
 permBtn.addEventListener('click', requestPushPermission);
 
+// ---------- 改密码 ----------
+const pwdBtn = document.getElementById('pwdBtn');
+const pwdOverlay = document.getElementById('pwdOverlay');
+const pwdCloseBtn = document.getElementById('pwdCloseBtn');
+const pwdCancelBtn = document.getElementById('pwdCancelBtn');
+const pwdSaveBtn = document.getElementById('pwdSaveBtn');
+const pwdMsg = document.getElementById('pwdMsg');
+
+pwdBtn.addEventListener('click', () => { pwdOverlay.classList.add('active'); pwdMsg.textContent = ''; document.getElementById('oldPassword').value = ''; document.getElementById('newPassword').value = ''; });
+pwdCloseBtn.addEventListener('click', () => pwdOverlay.classList.remove('active'));
+pwdCancelBtn.addEventListener('click', () => pwdOverlay.classList.remove('active'));
+pwdOverlay.addEventListener('click', (e) => { if (e.target === pwdOverlay) pwdOverlay.classList.remove('active'); });
+
+pwdSaveBtn.addEventListener('click', async () => {
+    const oldPwd = document.getElementById('oldPassword').value;
+    const newPwd = document.getElementById('newPassword').value;
+    if (!oldPwd || !newPwd) { pwdMsg.textContent = '请填写旧密码和新密码'; pwdMsg.style.color = 'var(--danger)'; return; }
+    if (newPwd.length < 4) { pwdMsg.textContent = '新密码至少4个字符'; pwdMsg.style.color = 'var(--danger)'; return; }
+    try {
+        const res = await fetch(API_BASE + '/auth/change-password', {
+            method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+            body: JSON.stringify({ oldPassword: oldPwd, newPassword: newPwd })
+        });
+        const data = await res.json();
+        if (res.ok) { pwdMsg.textContent = '✅ 密码修改成功'; pwdMsg.style.color = 'var(--success)'; setTimeout(() => pwdOverlay.classList.remove('active'), 1500); }
+        else { pwdMsg.textContent = data.error; pwdMsg.style.color = 'var(--danger)'; }
+    } catch (e) { pwdMsg.textContent = '网络错误'; pwdMsg.style.color = 'var(--danger)'; }
+});
+
+// ---------- 管理员 ----------
+const adminBtn = document.getElementById('adminBtn');
+const adminOverlay = document.getElementById('adminOverlay');
+const adminCloseBtn = document.getElementById('adminCloseBtn');
+const adminUserList = document.getElementById('adminUserList');
+
+adminBtn.addEventListener('click', async () => {
+    try {
+        const res = await fetch(API_BASE + '/admin/users', { headers: { 'Authorization': 'Bearer ' + token } });
+        const data = await res.json();
+        let html = '<div style="font-size:14px;">';
+        for (const u of data.users) {
+            html += '<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--gray-border);">';
+            html += '<span><strong>' + escapeHtml(u.username) + '</strong> (' + escapeHtml(u.display_name||'-') + ') <span style="color:var(--gray);font-size:12px;">' + u.created_at + '</span></span>';
+            html += '<span>' + (u.role === 'admin' ? '👑' : '') + (u.username !== 'zt' ? '<button onclick="deleteUser(' + u.id + ')" style="background:var(--danger-light);color:var(--danger);border:none;padding:2px 8px;border-radius:6px;cursor:pointer;font-size:12px;">删除</button>' : '') + '</span>';
+            html += '</div>';
+        }
+        html += '</div>';
+        adminUserList.innerHTML = html;
+        adminOverlay.classList.add('active');
+    } catch (e) { alert('加载失败: ' + e.message); }
+});
+
+adminCloseBtn.addEventListener('click', () => adminOverlay.classList.remove('active'));
+adminOverlay.addEventListener('click', (e) => { if (e.target === adminOverlay) adminOverlay.classList.remove('active'); });
+
+window.deleteUser = async function(id) {
+    if (!confirm('确定要删除该用户吗？此操作不可恢复')) return;
+    try {
+        await fetch(API_BASE + '/admin/users/' + id, { method: 'DELETE', headers: { 'Authorization': 'Bearer ' + token } });
+        adminBtn.click(); // 刷新
+    } catch (e) { alert('删除失败: ' + e.message); }
+};
+
 // 显示推送订阅状态
 async function showPushStatus() {
     if (!('serviceWorker' in navigator)) return;
@@ -1616,7 +1712,7 @@ function refreshUI() {
     const appTitle = document.getElementById('appTitle');
     if (appTitle) appTitle.textContent = t('app.name');
     const logoutBtnEl = document.getElementById('logoutBtn');
-    if (logoutBtnEl) logoutBtnEl.textContent = t('auth.logout');
+    // logout button is now icon 🚪, no text update needed
     const labelTotal = document.getElementById('labelTotalMeds');
     if (labelTotal) labelTotal.textContent = t('header.todayMeds');
     const labelTaken = document.getElementById('labelTaken');

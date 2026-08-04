@@ -31,9 +31,13 @@ export async function initDB() {
       username      TEXT    UNIQUE NOT NULL,
       password_hash TEXT    NOT NULL,
       display_name  TEXT    DEFAULT '',
-      created_at    TEXT    DEFAULT (datetime('now','localtime'))
+      created_at    TEXT    DEFAULT (datetime('now','localtime')),
+      role          TEXT    DEFAULT 'user'
     )
   `);
+
+  // 迁移：旧表补 role 列
+  try { db.run('ALTER TABLE users ADD COLUMN role TEXT DEFAULT \'user\''); } catch(e) { /* already exists */ }
 
   db.run(`
     CREATE TABLE IF NOT EXISTS reminders (
@@ -142,12 +146,28 @@ export const stmts = {
   user_insert(username, password_hash, displayName) {
     db.run('INSERT INTO users (username, password_hash, display_name) VALUES (?, ?, ?)', [username, password_hash, displayName]);
     const id = lastInsertId();
-    saveToDisk();
+    flushSync();
     return id;
   },
   user_count() {
     const row = getRow(db.prepare('SELECT COUNT(*) AS cnt FROM users'));
     return row ? row.cnt : 0;
+  },
+  user_changePassword(id, newHash) {
+    db.run('UPDATE users SET password_hash = ? WHERE id = ?', [newHash, id]);
+    flushSync();
+  },
+  // admin
+  admin_listUsers() {
+    return getAll(db.prepare('SELECT id, username, display_name, role, created_at FROM users ORDER BY id'));
+  },
+  admin_deleteUser(id) {
+    db.run('DELETE FROM users WHERE id = ?', [id]);
+    flushSync();
+  },
+  admin_setRole(id, role) {
+    db.run('UPDATE users SET role = ? WHERE id = ?', [role, id]);
+    flushSync();
   },
 
   // reminders
@@ -170,7 +190,7 @@ export const stmts = {
   rem_insert(userId, name, dosage, note) {
     db.run('INSERT INTO reminders (user_id, name, dosage, note) VALUES (?, ?, ?, ?)', [userId, name, dosage, note]);
     const id = lastInsertId();
-    saveToDisk();
+    flushSync();
     return id;
   },
   rem_update(name, dosage, note, id) {
