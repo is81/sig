@@ -93,15 +93,11 @@ The phone buzzed.
 
 Add to Home Screen on iPhone, and it feels like a native app.
 
-<img src="sig-pic/18%E7%99%BB%E5%BD%95.jpg" width="280" alt="Login">
+<img src="sig-pic/18%E7%99%BB%E5%BD%95.jpg" width="280" alt="Login"> <img src="sig-pic/19%E6%B7%BB%E5%8A%A0%E8%8D%AF%E5%93%81.jpg" width="280" alt="Add meds">
 
-<img src="sig-pic/19%E6%B7%BB%E5%8A%A0%E8%8D%AF%E5%93%81.jpg" width="280" alt="Add meds">
+<img src="sig-pic/24%E6%B7%BB%E5%8A%A0%E4%BF%A1%E6%81%AF.jpg" width="280" alt="Add info"> <img src="sig-pic/22%E6%B7%BB%E5%8A%A0%E5%85%B1%E4%BA%AB.png" width="280" alt="Add to Home Screen">
 
-<img src="sig-pic/24%E6%B7%BB%E5%8A%A0%E4%BF%A1%E6%81%AF.jpg" width="280" alt="Add info">
-
-<img src="sig-pic/22%E6%B7%BB%E5%8A%A0%E5%85%B1%E4%BA%AB.png" width="400" alt="Add to Home Screen">
-
-<img src="sig-pic/25%E5%BC%80%E5%90%AF%E6%8F%90%E9%86%92.png" width="400" alt="Enable notifications">
+<img src="sig-pic/25%E5%BC%80%E5%90%AF%E6%8F%90%E9%86%92.png" width="280" alt="Enable notifications">
 
 ---
 
