@@ -11,6 +11,8 @@ Sig is a simple, caring medication reminder that lives on your phone. Set up you
 
 **Live demo:** [is81.net/sig](https://is81.net/sig/)
 
+📖 **Dev Story:** [中文](https://github.com/is81/sig/blob/master/docs/sig-dev-story.md) · [English](https://github.com/is81/sig/blob/master/docs/sig-dev-story-en.md)
+
 > 📱 **iPhone users:** After opening in Safari, tap **Share → Add to Home Screen** to enable push notifications even when the browser is closed.
 
 ## Features
