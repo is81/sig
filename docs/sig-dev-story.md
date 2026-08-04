@@ -95,15 +95,15 @@ Claude Code 做了一次 7 角度全量代码审查，找出 10 个问题——�
 
 iPhone 从 Safari 添加到主屏幕，就是一个原生 App 的体验。
 
-![登录](sig-pic/18登录.jpg)
+<img src="sig-pic/18%E7%99%BB%E5%BD%95.jpg" width="280" alt="登录">
 
-![添加药品](sig-pic/19添加药品.jpg)
+<img src="sig-pic/19%E6%B7%BB%E5%8A%A0%E8%8D%AF%E5%93%81.jpg" width="280" alt="添加药品">
 
-![添加信息](sig-pic/24添加信息.jpg)
+<img src="sig-pic/24%E6%B7%BB%E5%8A%A0%E4%BF%A1%E6%81%AF.jpg" width="280" alt="添加信息">
 
-![添加共享](sig-pic/22添加共享.png)
+<img src="sig-pic/22%E6%B7%BB%E5%8A%A0%E5%85%B1%E4%BA%AB.png" width="600" alt="添加共享">
 
-![开启提醒](sig-pic/25开启提醒.png)
+<img src="sig-pic/25%E5%BC%80%E5%90%AF%E6%8F%90%E9%86%92.png" width="600" alt="开启提醒">
 
 ---
 
