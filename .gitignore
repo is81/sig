@@ -5,3 +5,4 @@ server/.env
 vapid-keys.json
 test-browser.mjs
 *.7z
+docs/sig-dev-story-wechat.md
