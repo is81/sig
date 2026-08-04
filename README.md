@@ -82,6 +82,15 @@ npx web-push generate-vapid-keys
 
 See `CLAUDE.md` in the repo root for full IIS + pm2 deployment guide.
 
+## Privacy
+
+**Your data stays on your server.** Sig is self-hosted software — all medication records, user accounts, and push subscription tokens are stored **locally** in your own SQLite database. No data is ever sent to the developer or any third party.
+
+- 🔒 Passwords are hashed with bcrypt
+- 🗄️ All data stored locally in SQLite — no cloud, no analytics, no tracking
+- 🔔 Push notifications are sent via standard Web Push protocol (your browser vendor may route them through their servers)
+- 📍 The live demo at [is81.net/sig](https://is81.net/sig/) is a personal instance — data is not shared or sold
+
 ## License
 
 MIT
