@@ -1,8 +1,17 @@
 # 💊 Sig — Multi-User Medication Reminder
 
+<p align="center">
+  <a href="https://github.com/is81/sig/stargazers"><img src="https://img.shields.io/github/stars/is81/sig?style=flat-square&color=2A7DE1" alt="GitHub stars"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/is81/sig?style=flat-square&color=2EBB77" alt="License MIT"></a>
+  <a href="#"><img src="https://img.shields.io/badge/PRs-welcome-2A7DE1?style=flat-square" alt="PRs Welcome"></a>
+  <a href="#"><img src="https://img.shields.io/badge/i18n-4%20languages-8b5cf6?style=flat-square" alt="4 languages"></a>
+</p>
+
 A lightweight, multi-language medication reminder web app with Web Push notifications. Built with vanilla JS frontend + Node.js + SQLite backend.
 
 **Live demo:** [is81.net/sig](https://is81.net/sig/)
+
+> 📱 **iPhone users:** After opening in Safari, tap **Share → Add to Home Screen** to enable push notifications even when the browser is closed.
 
 ## Features
 
