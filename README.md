@@ -84,7 +84,7 @@ See `CLAUDE.md` in the repo root for full IIS + pm2 deployment guide.
 
 ## Privacy
 
-**Your data stays on your server.** Sig is self-hosted software — all medication records, user accounts, and push subscription tokens are stored **locally** in your own SQLite database. No data is ever sent to the developer or any third party.
+**Your data stays on your server.** All medication records, user accounts, and push subscription tokens are stored in your own SQLite database. No data is shared with the developer or any third party. If you use the hosted demo at is81.net/sig, data resides on that server only.
 
 - 🔒 Passwords are hashed with bcrypt
 - 🗄️ All data stored locally in SQLite — no cloud, no analytics, no tracking

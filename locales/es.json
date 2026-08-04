@@ -26,6 +26,8 @@
   "stats.users": "{n} usuarios están usando Recordatorio Médico",
 
   "disclaimer": "Aviso: Esta herramienta es solo para referencia personal de recordatorio de medicamentos. No reemplaza el diagnóstico ni la prescripción médica. Sigue siempre las indicaciones de tu médico. El desarrollador no asume ninguna responsabilidad por las consecuencias derivadas del uso de esta herramienta.",
+  "privacy.text": "🔒 Privacidad: Datos solo en este servidor, nunca compartidos ni vendidos",
+  "privacy.link": "https://github.com/is81/sig#privacy",
 
   "header.todayMeds": "Hoy",
   "header.taken": "Tomado",

@@ -26,6 +26,8 @@
   "stats.users": "{n} users are using Medication Reminder",
 
   "disclaimer": "Disclaimer: This tool is for personal medication reminder reference only. It does not replace medical diagnosis or prescription. Always follow your doctor's advice. The developer assumes no liability for any consequences arising from the use of this tool.",
+  "privacy.text": "🔒 Privacy: Data is stored on this server only, never shared or sold",
+  "privacy.link": "https://github.com/is81/sig#privacy",
 
   "header.todayMeds": "Today",
   "header.taken": "Taken",

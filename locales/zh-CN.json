@@ -26,6 +26,8 @@
   "stats.users": "已有 {n} 位用户在使用用药助手",
 
   "disclaimer": "免责声明：本工具仅供个人用药提醒参考，不能替代医生诊断或处方。请遵医嘱用药。开发者不承担因使用本工具而产生的任何医疗责任。",
+  "privacy.text": "🔒 隐私保护：数据仅存储在本服务器，不会分享或出售给第三方",
+  "privacy.link": "https://github.com/is81/sig#privacy",
 
   "header.todayMeds": "今日用药",
   "header.taken": "已服",

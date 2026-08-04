@@ -1000,9 +1000,10 @@
         <div class="auth-switch">
             <span id="authSwitchText">还没有账号？</span> <a id="authSwitchLink" href="#" role="button">立即注册</a>
         </div>
-        <div class="auth-disclaimer" id="disclaimerText">
-            
-        </div>
+        <div class="auth-disclaimer" id="disclaimerText"></div>
+        <p class="auth-disclaimer" style="margin-top:0;font-size:11px;">
+            <a id="privacyLink" href="https://github.com/is81/sig#privacy" target="_blank" rel="noopener" style="color:var(--gray);">隐私说明</a>
+        </p>
     </div>
 
     <div class="app-container hidden" id="app">
@@ -1226,6 +1227,8 @@ function showAuthMode(isLogin) {
     loadStats();
     const disc = document.getElementById('disclaimerText');
     if (disc) disc.textContent = t('disclaimer');
+    const privacy = document.getElementById('privacyLink');
+    if (privacy) { privacy.textContent = t('privacy.text'); privacy.href = t('privacy.link'); }
     document.title = t('app.icon') + ' ' + t('app.name');
     ['authUsername','authPassword','authDisplayName'].forEach(id => {
         const el = document.getElementById(id);
