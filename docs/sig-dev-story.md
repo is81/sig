@@ -10,7 +10,7 @@
 
 第一个版本就是 `sig/index.html`，纯前端：localStorage 存数据，浏览器 Notification API 发通知。单文件搞定，CSS 暗色模式、手机适配、动画全都塞进去了。
 
-![计划](sig-pic/1计划.png)
+![开始](sig-pic/0开始.png)
 
 但单页应用有天花板——页面关了通知就没了；只能一个人用；数据清缓存就丢。
 
@@ -21,6 +21,8 @@
 ## 搭建
 
 Claude Code 先生成了一份详细的实施计划，然后把整个项目拆成了后端基础设施：
+
+![计划](sig-pic/1计划.png)
 
 - Express 服务入口
 - SQLite 数据库（sql.js，纯 WebAssembly，零编译依赖）
@@ -37,6 +39,12 @@ Claude Code 先生成了一份详细的实施计划，然后把整个项目拆�
 一口气写完所有路由、中间件、服务层，前端从 localStorage 改成 fetch API。pm2 启动，IIS 反向代理配好。
 
 ![准备收尾](sig-pic/5准备收尾.png)
+
+![做好了](sig-pic/6做好了.png)
+
+一边试用一边修修bug
+
+![修bug](sig-pic/8发现bug.png)
 
 ---
 
@@ -95,12 +103,21 @@ Claude Code 做了一次 7 角度全量代码审查，找出 10 个问题——�
 
 iPhone 从 Safari 添加到主屏幕，就是一个原生 App 的体验。
 
-<img src="sig-pic/18%E7%99%BB%E5%BD%95.jpg" width="280" alt="登录"> <img src="sig-pic/19%E6%B7%BB%E5%8A%A0%E8%8D%AF%E5%93%81.jpg" width="280" alt="添加药品">
+![添加共享](sig-pic/22添加共享.png)
 
-<img src="sig-pic/24%E6%B7%BB%E5%8A%A0%E4%BF%A1%E6%81%AF.jpg" width="280" alt="添加信息"> <img src="sig-pic/22%E6%B7%BB%E5%8A%A0%E5%85%B1%E4%BA%AB.png" width="280" alt="添加共享">
+![添加到主屏幕](sig-pic/23.png)
 
-<img src="sig-pic/25%E5%BC%80%E5%90%AF%E6%8F%90%E9%86%92.png" width="280" alt="开启提醒">
+![添加信息](sig-pic/24添加信息.jpg)
 
+![开启提醒](sig-pic/25开启提醒.png)
+
+![登录](sig-pic/18登录.jpg)
+
+![添加药品](sig-pic/19添加药品.jpg)
+
+![药品列表](sig-pic/20.jpg)
+
+![提醒消息](sig-pic/21.jpg)
 ---
 
 ## 最终架构
