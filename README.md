@@ -25,6 +25,7 @@ Sig is a simple, caring medication reminder that lives on your phone. Set up you
 - 🗄️ **SQLite** — Zero-config database via sql.js (WebAssembly)
 - 🌙 **Dark mode** — Auto-detected via `prefers-color-scheme`
 - ⏰ **Daily auto-reset** — `taken` status resets at midnight
+- 🛡️ **Rate limiting & security headers** — Built-in protection for auth endpoints
 
 ## Tech Stack
 
@@ -48,6 +49,7 @@ sig/
 ├── locales/
 │   ├── zh-CN.json / en.json / ja.json / es.json
 │   └── i18n.js             # i18n module
+├── docs/                   # Dev story & screenshots
 └── server/
     ├── server.js           # Express entry (port 3001)
     ├── db.js               # SQLite init & queries
