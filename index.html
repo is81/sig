@@ -1736,7 +1736,7 @@ function render() {
             '<button class="btn-take ' + (isTaken ? 'taken-btn' : '') + '" data-action="take">' + (isTaken ? t('reminder.taken') : t('reminder.take')) + '</button>' +
             '<button class="btn-delete" data-action="delete" aria-label="' + t('reminder.delete') + '">🗑</button></div></div>';
     });
-    listContainer.innerHTML = html + '<div style="text-align:center;padding:24px 0 8px;color:var(--gray);font-size:13px;opacity:0.5;">' + t('list.end') + '</div>';
+    listContainer.innerHTML = html + '<div style="text-align:center;padding:24px 0 4px;color:var(--gray);font-size:13px;opacity:0.5;">' + t('list.end') + '</div><div style="text-align:center;padding:0 0 12px;color:var(--gray);font-size:10px;opacity:0.3;">v2.0</div>';
 
     listContainer.querySelectorAll('.reminder-card').forEach(card => {
         const remId = Number(card.dataset.reminderId), timeId = Number(card.dataset.timeId);

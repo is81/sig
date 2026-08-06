@@ -1,6 +1,6 @@
 {
   "name": "sig-medication-reminder",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "💊 吃药啦 — 多用户吃药提醒服务",
   "type": "module",
   "main": "server.js",
