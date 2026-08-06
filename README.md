@@ -8,7 +8,7 @@
 
 吃药啦 (Pill Time) is a simple, caring medication reminder. Set up your meds in seconds, get gentle nudges when it's time, and share it with family — each person's data stays private.
 
-**欢迎直接使用：** [is81.net/sig](https://is81.net/sig/)
+**Try it now:** [is81.net/sig](https://is81.net/sig/)
 
 📖 **Dev Story:** [中文](https://github.com/is81/sig/blob/master/docs/sig-dev-story.md) · [English](https://github.com/is81/sig/blob/master/docs/sig-dev-story-en.md)
 
@@ -98,7 +98,7 @@ See `CLAUDE.md` in repo root for IIS + pm2 deployment guide.
 - 🔐 HTTPS required in production
 - 🗄️ SQLite — no cloud, no analytics, no tracking
 - 🔔 Push via standard Web Push protocol
-- 📍 [is81.net/sig](https://is81.net/sig/) 为官方托管实例，欢迎直接使用
+- 📍 [is81.net/sig](https://is81.net/sig/) is the official hosted instance — feel free to use it
 
 ## License
 
