@@ -1697,7 +1697,7 @@ function render() {
             const emptyLoginBtn = document.getElementById('emptyLoginBtn');
             const emptyRegLink = document.getElementById('emptyRegLink');
             if (emptyLoginBtn) emptyLoginBtn.addEventListener('click', showAuthModal);
-            if (emptyRegLink) emptyRegLink.addEventListener('click', (e) => { e.preventDefault(); showAuthMode(false); showAuthModal(); });
+            if (emptyRegLink) emptyRegLink.addEventListener('click', (e) => { e.preventDefault(); showAuthModal(false); });
             loadStats();
         } else {
             listContainer.innerHTML = '<div class="empty-state"><img src="logo.png" class="icon" style="width:56px;height:56px;border-radius:12px;"><h3>' + t('empty.title') + '</h3><p>' + t('empty.desc') + '</p></div>';
@@ -2214,8 +2214,8 @@ async function loadStats() {
     } catch (e) {}
 }
 
-function showAuthModal() {
-    showAuthMode(true);
+function showAuthModal(isLogin = true) {
+    showAuthMode(isLogin);
     authOverlay.classList.add('active');
     authOverlay.classList.remove('hidden');
     authContainer.classList.add('active');
