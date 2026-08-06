@@ -39,6 +39,20 @@ export async function initDB() {
   // 迁移：旧表补 role 列
   try { db.run('ALTER TABLE users ADD COLUMN role TEXT DEFAULT \'user\''); } catch(e) { /* already exists */ }
 
+  // 药品分组表
+  db.run(`
+    CREATE TABLE IF NOT EXISTS med_groups (
+      id         INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id    INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      name       TEXT    NOT NULL,
+      start_date TEXT    DEFAULT '',
+      end_date   TEXT    DEFAULT '',
+      note       TEXT    DEFAULT '',
+      sort_order INTEGER DEFAULT 0,
+      created_at TEXT    DEFAULT (datetime('now','localtime'))
+    )
+  `);
+
   db.run(`
     CREATE TABLE IF NOT EXISTS reminders (
       id         INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -75,6 +89,12 @@ export async function initDB() {
   db.run('CREATE INDEX IF NOT EXISTS idx_reminders_user ON reminders(user_id, created_at)');
   db.run('CREATE INDEX IF NOT EXISTS idx_reminder_times_rid ON reminder_times(reminder_id)');
   db.run('CREATE INDEX IF NOT EXISTS idx_push_sub_user ON push_subscriptions(user_id)');
+  db.run('CREATE INDEX IF NOT EXISTS idx_med_groups_user ON med_groups(user_id, sort_order)');
+
+  // 迁移：reminders 表补新列
+  try { db.run('ALTER TABLE reminders ADD COLUMN group_id INTEGER DEFAULT NULL'); } catch(e) { /* already exists */ }
+  try { db.run('ALTER TABLE reminders ADD COLUMN start_date TEXT DEFAULT \'\''); } catch(e) { /* already exists */ }
+  try { db.run('ALTER TABLE reminders ADD COLUMN end_date TEXT DEFAULT \'\''); } catch(e) { /* already exists */ }
 
   // 首次写入
   saveToDisk();
@@ -187,14 +207,16 @@ export const stmts = {
   rem_findById(id) {
     return getRow(db.prepare('SELECT * FROM reminders WHERE id = ?', [id]));
   },
-  rem_insert(userId, name, dosage, note) {
-    db.run('INSERT INTO reminders (user_id, name, dosage, note) VALUES (?, ?, ?, ?)', [userId, name, dosage, note]);
+  rem_insert(userId, name, dosage, note, groupId, startDate, endDate) {
+    db.run('INSERT INTO reminders (user_id, name, dosage, note, group_id, start_date, end_date) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      [userId, name, dosage, note, groupId || null, startDate || '', endDate || '']);
     const id = lastInsertId();
     flushSync();
     return id;
   },
-  rem_update(name, dosage, note, id) {
-    db.run('UPDATE reminders SET name = ?, dosage = ?, note = ? WHERE id = ?', [name, dosage, note, id]);
+  rem_update(name, dosage, note, groupId, startDate, endDate, id) {
+    db.run('UPDATE reminders SET name = ?, dosage = ?, note = ?, group_id = ?, start_date = ?, end_date = ? WHERE id = ?',
+      [name, dosage, note, groupId || null, startDate || '', endDate || '', id]);
     saveToDisk();
   },
   rem_delete(id) {
@@ -245,5 +267,33 @@ export const stmts = {
   push_delete(endpoint) {
     db.run('DELETE FROM push_subscriptions WHERE endpoint = ?', [endpoint]);
     saveToDisk();
+  },
+
+  // 分组
+  group_list(userId) {
+    return getAll(db.prepare(`
+      SELECT g.*, (SELECT COUNT(*) FROM reminders r WHERE r.group_id = g.id) AS med_count
+      FROM med_groups g WHERE g.user_id = ? ORDER BY g.sort_order, g.id
+    `, [userId]));
+  },
+  group_create(userId, name, startDate, endDate, note) {
+    db.run('INSERT INTO med_groups (user_id, name, start_date, end_date, note) VALUES (?, ?, ?, ?, ?)',
+      [userId, name, startDate, endDate, note]);
+    const id = getRow(db.prepare('SELECT last_insert_rowid() AS id')).id;
+    saveToDisk();
+    return id;
+  },
+  group_update(id, name, startDate, endDate, note) {
+    db.run('UPDATE med_groups SET name = ?, start_date = ?, end_date = ?, note = ? WHERE id = ?',
+      [name, startDate, endDate, note, id]);
+    saveToDisk();
+  },
+  group_delete(id) {
+    db.run('UPDATE reminders SET group_id = NULL WHERE group_id = ?', [id]);
+    db.run('DELETE FROM med_groups WHERE id = ?', [id]);
+    saveToDisk();
+  },
+  group_findById(id) {
+    return getRow(db.prepare('SELECT * FROM med_groups WHERE id = ?', [id]));
   },
 };

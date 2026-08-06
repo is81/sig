@@ -1,10 +1,10 @@
 {
-  "app.name": "用药助手",
-  "app.tagline": "记录用药，准时提醒",
+  "app.name": "吃药了",
+  "app.tagline": "记录吃药，准时提醒",
   "app.icon": "💊",
 
-  "auth.loginTitle": "登录用药助手",
-  "auth.registerTitle": "注册用药助手",
+  "auth.loginTitle": "登录吃药了",
+  "auth.registerTitle": "注册吃药了",
   "auth.username": "用户名",
   "auth.password": "密码",
   "auth.displayName": "显示名称（选填）",
@@ -23,32 +23,33 @@
   "auth.logout": "退出",
   "auth.logoutConfirm": "确定要退出登录吗？",
 
-  "stats.users": "已有 {n} 位用户在使用用药助手",
+  "stats.users": "已有 {n} 位用户在使用吃药了",
 
   "disclaimer": "免责声明：本工具仅供个人用药提醒参考，不能替代医生诊断或处方。请遵医嘱用药。开发者不承担因使用本工具而产生的任何医疗责任。",
+  "disclaimerShort": "⚠️ 仅供参考，不能替代医生诊断或处方",
   "privacy.text": "🔒 隐私保护：数据仅存储在本服务器，不会分享或出售给第三方",
   "privacy.link": "https://github.com/is81/sig#privacy",
 
-  "header.todayMeds": "今日用药",
+  "header.todayMeds": "今日吃药",
   "header.taken": "已服",
   "header.date": "今天",
 
-  "empty.title": "还没有用药提醒",
-  "empty.desc": "点击右下角的 ＋ 按钮添加你的第一个用药提醒吧",
+  "empty.title": "还没有吃药提醒",
+  "empty.desc": "点击右下角的 ＋ 按钮添加你的第一个吃药提醒吧",
 
   "reminder.take": "标记已服",
   "reminder.taken": "已服用",
   "reminder.delete": "删除",
-  "reminder.deleteConfirm": "确定要删除这个用药提醒吗？",
+  "reminder.deleteConfirm": "确定要删除这个吃药提醒吗？",
   "reminder.untakeConfirm": "确定要撤销已服用状态吗？",
 
-  "modal.addTitle": "添加用药提醒",
-  "modal.editTitle": "编辑用药提醒",
+  "modal.addTitle": "添加吃药提醒",
+  "modal.editTitle": "编辑吃药提醒",
   "modal.drugName": "💊 药品名称",
   "modal.drugPlaceholder": "例如：阿莫西林",
   "modal.dosage": "📏 剂量",
   "modal.dosagePlaceholder": "例如：0.5g / 1片",
-  "modal.time": "🕐 用药时间",
+  "modal.time": "🕐 吃药时间",
   "modal.note": "📝 备注",
   "modal.notePlaceholder": "例如：饭后服用",
   "modal.addTime": "＋ 添加时间",
@@ -56,16 +57,16 @@
   "modal.cancel": "取消",
   "modal.required": "*",
   "modal.drugRequired": "请输入药品名称",
-  "modal.timeRequired": "请至少设置一个用药时间",
+  "modal.timeRequired": "请至少设置一个吃药时间",
   "modal.saveError": "保存失败: ",
 
-  "notif.title": "⏰ 用药提醒",
-  "notif.body": "该服用药品了",
+  "notif.title": "⏰ 吃药提醒",
+  "notif.body": "该吃药了",
   "notif.takeNow": "✅ 已服用",
   "notif.dismiss": "稍后",
-  "notif.doseTime": "用药时间到了",
+  "notif.doseTime": "吃药时间到了",
 
-  "perm.banner": "🔔 开启通知，不错过用药时间",
+  "perm.banner": "🔔 开启通知，不错过吃药时间",
   "perm.enable": "开启通知",
   "perm.denied": "已禁用，请到浏览器设置开启",
 
@@ -80,6 +81,16 @@
 
   "sw.markFailed": "标记已服失败",
   "sw.noToken": "无 token，无法标记已服——请重新登录",
+
+  "bottom.meds": "药品",
+  "bottom.reminders": "提醒",
+  "bottom.language": "语言",
+  "bottom.account": "账户",
+
+  "group.noGroup": "无分组",
+
+  "action.registerPrompt": "注册或登录后即可添加吃药提醒",
+  "action.loginRequired": "请先登录",
 
   "projectX.title": "Project X",
   "projectX.desc": "新项目探索中，敬请期待。如果你有医疗数据相关的痛点或想法，欢迎交流。",

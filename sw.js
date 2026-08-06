@@ -1,5 +1,5 @@
 // ================================================================
-//  💊 用药助手 Service Worker — Web Push 通知
+//  💊 吃药了 Service Worker — Web Push 通知
 // ================================================================
 
 const API_BASE = '/api';
@@ -40,7 +40,7 @@ self.addEventListener('push', (event) => {
   try {
     payload = event.data.json();
   } catch {
-    payload = { title: '💊 用药提醒', body: event.data.text() };
+    payload = { title: '💊 吃药提醒', body: event.data.text() };
   }
 
   const { title, body, reminderId, timeId } = payload;

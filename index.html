@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="用药助手" />
+    <meta name="apple-mobile-web-app-title" content="吃药了" />
     <link rel="manifest" href="manifest.json" />
-    <title>💊 用药助手</title>
+    <title>💊 吃药了</title>
     <script src="locales/i18n.js"></script>
     <style>
         /* ===== CSS 变量 & 重置 ===== */
@@ -104,10 +104,113 @@
             min-width: 24px;
             text-align: center;
         }
+        /* 顶部栏大字化 */
+        .app-header .title { font-size: 18px; }
+        .app-header .title span { font-size: 20px; }
+        .app-header .date-badge { font-size: inherit; }
+
+        /* ===== 底部状态栏 ===== */
+        .bottom-bar {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid var(--gray-border);
+            padding: 6px 0 calc(6px + env(safe-area-inset-bottom, 0px));
+            z-index: 60;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .bottom-tab {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            font-size: 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px 16px;
+            color: var(--gray);
+            transition: color 0.2s;
+            border-radius: 10px;
+            min-width: 56px;
+        }
+        .bottom-tab span {
+            font-size: 10px;
+            font-weight: 500;
+        }
+        .bottom-tab.active {
+            color: var(--primary);
+        }
+        .bottom-tab:active {
+            background: rgba(0,0,0,0.05);
+        }
+
+        /* ===== 账户操作菜单 ===== */
+        .account-sheet {
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+        .account-sheet .sheet-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            animation: overlayIn 0.2s ease;
+        }
+        .account-sheet .sheet-content {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            background: #fff;
+            border-radius: 16px 16px 0 0;
+            padding: 8px 16px calc(16px + env(safe-area-inset-bottom, 0px));
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            animation: slideUp 0.25s ease;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+        .sheet-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+            padding: 14px 8px;
+            border: none;
+            background: none;
+            font-size: 15px;
+            cursor: pointer;
+            border-radius: 10px;
+            color: inherit;
+            text-align: left;
+        }
+        .sheet-item:active { background: rgba(0,0,0,0.06); }
+        .sheet-item-danger { color: #E53E3E; }
+        .sheet-cancel {
+            border-top: 1px solid var(--gray-border);
+            margin-top: 4px;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--gray);
+        }
+        .dark-mode .sheet-content { background: #1E232C; }
+        .dark-mode .sheet-item:active { background: rgba(255,255,255,0.06); }
 
         /* ===== 提醒列表 ===== */
         .list-container {
-            padding: 16px 16px 8px;
+            padding: 16px 16px 80px;
             max-width: 500px;
             margin: 0 auto;
         }
@@ -288,7 +391,7 @@
         /* ===== 浮动添加按钮 ===== */
         .fab {
             position: fixed;
-            bottom: calc(24px + var(--safe-bottom));
+            bottom: 84px;
             right: 24px;
             width: 62px;
             height: 62px;
@@ -301,7 +404,7 @@
             box-shadow: var(--shadow-lg);
             cursor: pointer;
             transition: all 0.25s ease;
-            z-index: 60;
+            z-index: 65;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -887,16 +990,25 @@
             color: #fff;
             border: none;
             padding: 14px;
-            border-radius: var(--radius-sm);
-            font-size: 16px;
+            border-radius: 14px;
+            font-size: 17px;
             font-weight: 700;
+            letter-spacing: 2px;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             min-height: 52px;
             margin-top: 4px;
+            box-shadow: 0 4px 18px rgba(42, 125, 225, 0.35);
+            position: relative;
+            overflow: hidden;
+        }
+        .auth-container .auth-form .btn-submit:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 24px rgba(42, 125, 225, 0.45);
         }
         .auth-container .auth-form .btn-submit:active {
             transform: scale(0.97);
+            box-shadow: 0 2px 8px rgba(42, 125, 225, 0.25);
         }
         .auth-container .auth-switch {
             text-align: center;
@@ -981,14 +1093,15 @@
 </head>
 <body>
 
-    <!-- ===== 登录/注册 ===== -->
-    <div class="auth-container active" id="authContainer">
+    <!-- ===== 登录/注册 模态框 ===== -->
+    <div class="modal-overlay hidden" id="authOverlay">
+    <div class="auth-container" id="authContainer">
+        <button class="close-btn" id="authCloseBtn" style="position:absolute;top:12px;right:12px;z-index:10;">✕</button>
         <div class="auth-header">
             <span class="auth-icon">💊</span>
-            <h2 id="authTitle">登录用药助手</h2>
-            <p data-i18n="app.tagline">记录用药，准时提醒</p>
+            <h2 id="authTitle">登录吃药了</h2>
+            <p data-i18n="app.tagline">记录吃药，准时提醒</p>
         </div>
-        <div class="auth-lang"><select id="langSelect" style="font-size:13px;padding:4px 8px;border-radius:6px;border:1px solid var(--gray-border);background:var(--gray-light);color:inherit;"><option value="zh-CN">🇨🇳 中文</option><option value="en">🇬🇧 English</option><option value="ja">🇯🇵 日本語</option><option value="es">🇪🇸 Español</option></select></div>
         <div class="auth-stats" id="statsText"></div>
         <div class="auth-error" id="authError"></div>
         <form class="auth-form" id="authForm" autocomplete="off">
@@ -1001,30 +1114,24 @@
             <span id="authSwitchText">还没有账号？</span> <a id="authSwitchLink" href="#" role="button">立即注册</a>
         </div>
         <div class="auth-disclaimer" id="disclaimerText"></div>
-        <p class="auth-disclaimer" style="margin-top:0;font-size:11px;">
-            <a id="privacyLink" href="https://github.com/is81/sig#privacy" target="_blank" rel="noopener" style="color:var(--gray);">隐私说明</a>
-        </p>
+    </div>
     </div>
 
-    <div class="app-container hidden" id="app">
+    <div class="app-container" id="app">
         <!-- ===== 顶部 ===== -->
         <header class="app-header">
             <div class="top-row">
-                <div class="title"><span>💊</span> <span id="appTitle">用药助手</span></div>
-                <div style="display:flex;align-items:center;gap:10px;">
-                    <button class="btn-logout" id="adminBtn" title="管理" style="display:none;font-size:14px;padding:3px 6px;">⚙️</button>
-                    <button class="btn-logout" id="pwdBtn" title="修改密码" style="font-size:14px;padding:3px 6px;">🔑</button>
-                    <div class="date-badge" id="dateBadge">今天</div>
-                    <button class="btn-logout" id="logoutBtn" title="退出" style="font-size:14px;padding:3px 6px;">🚪</button>
-                </div>
+                <div class="title"><span>💊</span> <span id="appTitle">吃药了</span></div>
+                <button id="topLangBtn" title="切换语言" style="background:rgba(255,255,255,0.18);border:none;color:#fff;font-size:15px;padding:3px 8px;border-radius:20px;cursor:pointer;backdrop-filter:blur(4px);">🌐</button>
             </div>
             <div class="stats">
                 <div class="stat-item">
-                    📋 <span id="labelTotalMeds">今日用药</span> <span class="num" id="totalCount">0</span>
+                    📋 <span id="labelTotalMeds">今日吃药</span> <span class="num" id="totalCount">0</span>
                 </div>
                 <div class="stat-item">
                     ✅ <span id="labelTaken">已服</span> <span class="num" id="takenCount">0</span>
                 </div>
+                <div class="date-badge" id="dateBadge" style="margin-left:auto;background:none;padding:0;font-size:inherit;opacity:0.7;">今天</div>
             </div>
         </header>
 
@@ -1039,14 +1146,32 @@
             <!-- 由 JS 动态渲染 -->
         </div>
 
+        <!-- ===== 底部状态栏 ===== -->
+        <nav class="bottom-bar" id="bottomBar">
+            <button class="bottom-tab active" data-tab="meds" title="药品">💊<span data-i18n="bottom.meds">药品</span></button>
+            <button class="bottom-tab" data-tab="notify" title="提醒">🔔<span data-i18n="bottom.reminders">提醒</span></button>
+            <button class="bottom-tab" data-tab="account" id="bottomAccountBtn" title="账户">👤<span data-i18n="bottom.account">账户</span></button>
+        </nav>
+
+        <!-- ===== 账户菜单 ===== -->
+        <div class="account-sheet hidden" id="accountSheet">
+            <div class="sheet-backdrop" id="sheetBackdrop"></div>
+            <div class="sheet-content">
+                <button class="sheet-item" id="sheetPwdBtn">🔑 <span>修改密码</span></button>
+                <button class="sheet-item hidden" id="sheetAdminBtn">⚙️ <span>用户管理</span></button>
+                <button class="sheet-item sheet-item-danger" id="sheetLogoutBtn">🚪 <span>退出登录</span></button>
+                <button class="sheet-item sheet-cancel" id="sheetCancelBtn">取消</button>
+            </div>
+        </div>
+
         <!-- ===== 浮动添加按钮 ===== -->
-        <button class="fab" id="fabBtn" aria-label="添加用药提醒">＋</button>
+        <button class="fab" id="fabBtn" aria-label="添加吃药提醒">＋</button>
 
         <!-- ===== 模态框 ===== -->
         <div class="modal-overlay" id="modalOverlay">
             <div class="modal">
                 <div class="modal-header">
-                    <h2 id="modalTitle">添加用药提醒</h2>
+                    <h2 id="modalTitle">添加吃药提醒</h2>
                     <button class="close-btn" id="modalCloseBtn">✕</button>
                 </div>
 
@@ -1057,11 +1182,42 @@
 
                 <div class="form-group">
                     <label>📏 剂量</label>
-                    <input type="text" id="inputDosage" placeholder="" data-i18n-placeholder="modal.dosagePlaceholder" maxlength="20" />
+                    <div class="dosage-row" style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+                        <input type="number" id="dosageValue" placeholder="剂量" step="any" min="0" style="width:64px;padding:8px;border-radius:8px;border:1px solid var(--gray-border);font-size:14px;background:var(--gray-light);color:inherit;" />
+                        <select id="dosageUnit" style="width:68px;padding:8px 4px;border-radius:8px;border:1px solid var(--gray-border);font-size:13px;background:var(--gray-light);color:inherit;">
+                            <option value="g">g</option><option value="mg">mg</option><option value="µg">µg</option>
+                            <option value="ml">ml</option><option value="custom">自定义</option>
+                        </select>
+                        <input type="text" id="dosageUnitCustom" placeholder="单位" maxlength="5" style="display:none;width:60px;padding:8px;border-radius:8px;border:1px solid var(--gray-border);font-size:14px;background:var(--gray-light);color:inherit;" />
+                        <span style="font-size:14px;color:var(--gray);">×</span>
+                        <input type="number" id="dosageQty" placeholder="1" step="1" min="1" value="1" style="width:52px;padding:8px;border-radius:8px;border:1px solid var(--gray-border);font-size:14px;background:var(--gray-light);color:inherit;" />
+                        <select id="dosageForm" style="width:60px;padding:8px 4px;border-radius:8px;border:1px solid var(--gray-border);font-size:13px;background:var(--gray-light);color:inherit;">
+                            <option value="粒">粒</option><option value="片">片</option><option value="包">包</option>
+                            <option value="支">支</option><option value="滴">滴</option><option value="custom">自定义</option>
+                        </select>
+                        <input type="text" id="dosageFormCustom" placeholder="单位" maxlength="5" style="display:none;width:60px;padding:8px;border-radius:8px;border:1px solid var(--gray-border);font-size:14px;background:var(--gray-light);color:inherit;" />
+                    </div>
+                    <input type="hidden" id="inputDosage" />
                 </div>
 
                 <div class="form-group">
-                    <label>🕐 用药时间 <span class="required">*</span></label>
+                    <label>📂 分组</label>
+                    <select id="inputGroup" style="width:100%;padding:8px 12px;border-radius:8px;border:1px solid var(--gray-border);font-size:14px;background:var(--gray-light);color:inherit;">
+                        <option value="">无分组</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>📅 日期区间（可选）</label>
+                    <div style="display:flex;gap:8px;align-items:center;">
+                        <input type="date" id="inputStartDate" style="flex:1;padding:6px;border-radius:8px;border:1px solid var(--gray-border);font-size:13px;background:var(--gray-light);color:inherit;" />
+                        <span>至</span>
+                        <input type="date" id="inputEndDate" style="flex:1;padding:6px;border-radius:8px;border:1px solid var(--gray-border);font-size:13px;background:var(--gray-light);color:inherit;" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>🕐 吃药时间 <span class="required">*</span></label>
                     <div class="time-list" id="timeList">
                         <!-- 由 JS 动态生成 -->
                     </div>
@@ -1082,7 +1238,7 @@
 
         <!-- ===== 页面内通知 ===== -->
         <div class="inapp-notification" id="inappNotif">
-            <div class="notif-title" id="notifTitle">⏰ 用药提醒</div>
+            <div class="notif-title" id="notifTitle">⏰ 吃药提醒</div>
             <div class="notif-body" id="notifBody"></div>
             <div class="notif-actions">
                 <button class="btn-take-now" id="notifTakeBtn">✅ 已服用</button>
@@ -1137,7 +1293,9 @@ let isLoginMode = true;
 const $ = (sel) => document.querySelector(sel);
 
 // Auth
+const authOverlay = $('#authOverlay');
 const authContainer = $('#authContainer');
+const authCloseBtn = $('#authCloseBtn');
 const authTitle = $('#authTitle');
 const authError = $('#authError');
 const statsText = $('#statsText');
@@ -1165,6 +1323,73 @@ const modalTitle = $('#modalTitle');
 const inputName = $('#inputName');
 const inputDosage = $('#inputDosage');
 const inputNote = $('#inputNote');
+const inputGroup = $('#inputGroup');
+const inputStartDate = $('#inputStartDate');
+const inputEndDate = $('#inputEndDate');
+let groups = [];
+
+// 剂量结构化输入
+const dosageValue = $('#dosageValue');
+const dosageUnit = $('#dosageUnit');
+const dosageUnitCustom = $('#dosageUnitCustom');
+const dosageQty = $('#dosageQty');
+const dosageForm = $('#dosageForm');
+const dosageFormCustom = $('#dosageFormCustom');
+
+dosageUnit.addEventListener('change', () => {
+    dosageUnitCustom.style.display = dosageUnit.value === 'custom' ? '' : 'none';
+});
+dosageForm.addEventListener('change', () => {
+    dosageFormCustom.style.display = dosageForm.value === 'custom' ? '' : 'none';
+});
+
+function composeDosage() {
+    const val = dosageValue.value.trim();
+    if (!val) return '';
+    const unit = dosageUnit.value === 'custom' ? dosageUnitCustom.value.trim() : dosageUnit.value;
+    const qty = dosageQty.value.trim();
+    if (!qty) return val + (unit || '');
+    const form = dosageForm.value === 'custom' ? dosageFormCustom.value.trim() : dosageForm.value;
+    if (!unit && !form) return val;
+    if (!unit) return val + ' × ' + qty + form;
+    return val + unit + ' × ' + qty + form;
+}
+
+function parseDosage(str) {
+    if (!str) return;
+    const match = str.match(/^([\d.]+)\s*(\S+?)\s*[×x]\s*(\d+)\s*(\S+)$/);
+    if (match) {
+        dosageValue.value = match[1];
+        const unit = match[2];
+        const presetUnits = ['g','mg','µg','ml'];
+        if (presetUnits.includes(unit)) { dosageUnit.value = unit; dosageUnitCustom.style.display = 'none'; }
+        else { dosageUnit.value = 'custom'; dosageUnitCustom.style.display = ''; dosageUnitCustom.value = unit; }
+        dosageQty.value = match[3];
+        const form = match[4];
+        const presetForms = ['粒','片','包','支','滴'];
+        if (presetForms.includes(form)) { dosageForm.value = form; dosageFormCustom.style.display = 'none'; }
+        else { dosageForm.value = 'custom'; dosageFormCustom.style.display = ''; dosageFormCustom.value = form; }
+    } else {
+        // 向后兼容：旧格式整个放入 value
+        dosageValue.value = str;
+        dosageUnit.value = 'g';
+        dosageQty.value = '1';
+        dosageForm.value = '粒';
+        dosageUnitCustom.style.display = 'none';
+        dosageFormCustom.style.display = 'none';
+    }
+}
+
+function resetDosage() {
+    dosageValue.value = '';
+    dosageUnit.value = 'g';
+    dosageUnitCustom.value = '';
+    dosageUnitCustom.style.display = 'none';
+    dosageQty.value = '1';
+    dosageForm.value = '粒';
+    dosageFormCustom.value = '';
+    dosageFormCustom.style.display = 'none';
+}
 const timeList = $('#timeList');
 const addTimeBtn = $('#addTimeBtn');
 const permBanner = $('#permBanner');
@@ -1235,12 +1460,15 @@ function loadToken() { token = localStorage.getItem('sig_token'); return !!token
 
 async function logout() {
     token = null;
+    userRole = 'user';
     localStorage.removeItem('sig_token');
+    localStorage.removeItem('sig_role');
+    if (sheetAdminBtn) sheetAdminBtn.classList.add('hidden');
     try { const db = await idb(); db.transaction('auth','readwrite').objectStore('auth').delete('token'); } catch(e) {}
     reminders = [];
-    app.classList.add('hidden');
-    authContainer.classList.add('active');
-    showAuthMode(true);
+    hideAuthModal();
+    updateBottomBarAuth();
+    render();
 }
 
 function showAuthMode(isLogin) {
@@ -1254,12 +1482,13 @@ function showAuthMode(isLogin) {
     authError.classList.remove('active');
     authError.textContent = '';
     authForm.reset();
+    // 语言选择器同步
+    const ls = document.getElementById('langSelect');
+    if (ls) ls.value = window.i18nCurrent();
     // 更新静态文本
     loadStats();
     const disc = document.getElementById('disclaimerText');
-    if (disc) disc.textContent = t('disclaimer');
-    const privacy = document.getElementById('privacyLink');
-    if (privacy) { privacy.textContent = t('privacy.text'); privacy.href = t('privacy.link'); }
+    if (disc) disc.textContent = t('disclaimerShort');
     document.title = t('app.icon') + ' ' + t('app.name');
     ['authUsername','authPassword','authDisplayName'].forEach(id => {
         const el = document.getElementById(id);
@@ -1285,16 +1514,17 @@ authForm.addEventListener('submit', async (e) => {
         if (!res.ok) { showAuthError(data.error || t('auth.operationFailed')); authSubmitBtn.disabled = false; authSubmitBtn.textContent = isLoginMode ? t('auth.loginBtn') : t('auth.registerBtn'); return; }
         saveToken(data.token);
         userRole = data.role || 'user';
-        authContainer.classList.remove('active');
-        app.classList.remove('hidden');
-        if (userRole === 'admin') { const ab = document.getElementById('adminBtn'); if (ab) ab.style.display = 'block'; }
+        localStorage.setItem('sig_role', userRole);
+        hideAuthModal();
+        if (userRole === 'admin') { if (sheetAdminBtn) sheetAdminBtn.classList.remove('hidden'); }
+        updateBottomBarAuth();
+        await loadReminders();
         await initApp();
     } catch (err) { showAuthError(t('auth.networkError')); authSubmitBtn.disabled = false; authSubmitBtn.textContent = isLoginMode ? t('auth.loginBtn') : t('auth.registerBtn'); }
 });
 
 function showAuthError(msg) { authError.textContent = msg; authError.classList.add('active'); }
 authSwitchLink.addEventListener('click', (e) => { e.preventDefault(); showAuthMode(!isLoginMode); });
-logoutBtn.addEventListener('click', () => { if (confirm(t('auth.logoutConfirm'))) logout(); });
 
 // ---------- Web Push ----------
 async function registerSW() {
@@ -1306,13 +1536,17 @@ async function registerSW() {
 async function subscribePush() {
     if (!swRegistration || !('PushManager' in window)) return;
     try {
-        const sub = await swRegistration.pushManager.subscribe({
-            userVisibleOnly: true,
-            applicationServerKey: urlB64ToUint8('BKkGp6NtPNIQIzeOH7xRg7Mqio69rPGYhwteihB5DKrhnBbpmd-Sfi-qofhA_8GYpJdIJpMWogmQ9Bp6Zyj40Hk'),
-        });
+        const sub = await Promise.race([
+            swRegistration.pushManager.subscribe({
+                userVisibleOnly: true,
+                applicationServerKey: urlB64ToUint8('BKkGp6NtPNIQIzeOH7xRg7Mqio69rPGYhwteihB5DKrhnBbpmd-Sfi-qofhA_8GYpJdIJpMWogmQ9Bp6Zyj40Hk'),
+            }),
+            new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 8000))
+        ]);
         const raw = sub.toJSON();
         await api('/push/subscribe', { method: 'POST', body: JSON.stringify({ endpoint: raw.endpoint, keys: raw.keys }) });
-    } catch (e) { console.warn('Push sub fail:', e); }
+        console.log('✅ Push 订阅成功');
+    } catch (e) { console.warn('Push sub fail:', e.message); }
 }
 
 function urlB64ToUint8(base64) {
@@ -1323,10 +1557,10 @@ function urlB64ToUint8(base64) {
 
 async function requestPushPermission() {
     if (!('Notification' in window)) return;
-    if (Notification.permission === 'granted') { await subscribePush(); permBanner.classList.add('hidden'); return; }
+    if (Notification.permission === 'granted') { permBanner.classList.add('hidden'); subscribePush(); return; }
     if (Notification.permission === 'denied') { permBanner.classList.remove('hidden'); permBtn.textContent = t('perm.denied'); permBtn.disabled = true; return; }
     const perm = await Notification.requestPermission();
-    if (perm === 'granted') { await subscribePush(); permBanner.classList.add('hidden'); }
+    if (perm === 'granted') { permBanner.classList.add('hidden'); subscribePush(); }
     else { permBanner.classList.remove('hidden'); }
 }
 
@@ -1338,14 +1572,14 @@ async function loadReminders() {
 }
 
 // ---------- CRUD ----------
-async function addReminder(name, dosage, times, note) {
-    const data = await api('/reminders', { method: 'POST', body: JSON.stringify({ name, dosage, times, note }) });
+async function addReminder(name, dosage, times, note, groupId, startDate, endDate) {
+    const data = await api('/reminders', { method: 'POST', body: JSON.stringify({ name, dosage, times, note, groupId, startDate, endDate }) });
     reminders.unshift(data.reminder);
     render();
 }
 
-async function updateReminder(id, name, dosage, times, note) {
-    const data = await api('/reminders/' + id, { method: 'PUT', body: JSON.stringify({ name, dosage, times, note }) });
+async function updateReminder(id, name, dosage, times, note, groupId, startDate, endDate) {
+    const data = await api('/reminders/' + id, { method: 'PUT', body: JSON.stringify({ name, dosage, times, note, groupId, startDate, endDate }) });
     const idx = reminders.findIndex(r => r.id == id);
     if (idx !== -1) reminders[idx] = data.reminder;
     render();
@@ -1372,14 +1606,21 @@ async function toggleTaken(reminderId, timeId) {
 
 // ---------- 渲染 ----------
 function render() {
-    let total = 0, taken = 0;
-    reminders.forEach(r => { if (r.times) { r.times.forEach(tm => { total++; if (tm.taken) taken++; }); } });
+    let total = reminders.length;
+    let taken = 0;
+    reminders.forEach(r => { if (r.times && r.times.length > 0 && r.times.every(tm => tm.taken)) taken++; });
     totalCount.textContent = total;
     takenCount.textContent = taken;
     dateBadge.textContent = formatDateDisplay();
 
     if (reminders.length === 0) {
-        listContainer.innerHTML = '<div class="empty-state"><span class="icon">' + t('app.icon') + '</span><h3>' + t('empty.title') + '</h3><p>' + t('empty.desc') + '</p></div>';
+        if (!token) {
+            listContainer.innerHTML = '<div class="empty-state"><span class="icon">' + t('app.icon') + '</span><h3>' + t('app.name') + '</h3><p>' + t('action.registerPrompt') + '</p><button id="emptyLoginBtn" style="margin-top:16px;padding:10px 36px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;font-size:15px;font-weight:600;letter-spacing:1px;box-shadow:0 3px 12px rgba(42,125,225,0.3);cursor:pointer;transition:all 0.25s">' + t('auth.loginBtn') + '</button></div>';
+            const emptyLoginBtn = document.getElementById('emptyLoginBtn');
+            if (emptyLoginBtn) emptyLoginBtn.addEventListener('click', showAuthModal);
+        } else {
+            listContainer.innerHTML = '<div class="empty-state"><span class="icon">' + t('app.icon') + '</span><h3>' + t('empty.title') + '</h3><p>' + t('empty.desc') + '</p></div>';
+        }
         return;
     }
 
@@ -1430,20 +1671,38 @@ function render() {
 }
 
 // ---------- 模态框 ----------
+async function loadGroups() {
+    if (!token) return;
+    try {
+        const data = await api('/groups');
+        groups = data.groups;
+        inputGroup.innerHTML = '<option value="">' + t('group.noGroup') + '</option>';
+        groups.forEach(g => {
+            inputGroup.innerHTML += '<option value="' + g.id + '">' + escapeHtml(g.name) + '</option>';
+        });
+    } catch(e) { groups = []; }
+}
 function openModal(editData = null) {
+    loadGroups();
     if (editData) {
         editingId = editData.id;
         modalTitle.textContent = t('modal.editTitle');
         inputName.value = editData.name;
-        inputDosage.value = editData.dosage || '';
+        parseDosage(editData.dosage || '');
         inputNote.value = editData.note || '';
+        inputGroup.value = editData.groupId || '';
+        inputStartDate.value = editData.startDate || '';
+        inputEndDate.value = editData.endDate || '';
         renderTimeInputs(editData.times.map(t => t.time));
     } else {
         editingId = null;
         modalTitle.textContent = t('modal.addTitle');
         inputName.value = '';
-        inputDosage.value = '';
+        resetDosage();
         inputNote.value = '';
+        inputGroup.value = '';
+        inputStartDate.value = '';
+        inputEndDate.value = '';
         renderTimeInputs(['08:00', '20:00']);
     }
     modalOverlay.classList.add('active');
@@ -1479,11 +1738,14 @@ async function handleSave() {
     if (!name) { alert(t('modal.drugRequired')); inputName.focus(); return; }
     const times = getTimesFromInputs();
     if (times.length === 0) { alert(t('modal.timeRequired')); return; }
-    const dosage = inputDosage.value.trim();
+    const dosage = composeDosage();
     const note = inputNote.value.trim();
+    const groupId = inputGroup.value || null;
+    const startDate = inputStartDate.value;
+    const endDate = inputEndDate.value;
     try {
-        if (editingId) { await updateReminder(editingId, name, dosage, times, note); }
-        else { await addReminder(name, dosage, times, note); }
+        if (editingId) { await updateReminder(editingId, name, dosage, times, note, groupId, startDate, endDate); }
+        else { await addReminder(name, dosage, times, note, groupId, startDate, endDate); }
         closeModal();
     } catch (e) { alert(t('modal.saveError') + e.message); }
 }
@@ -1543,7 +1805,7 @@ notifDismissBtn.addEventListener('click', () => {
         }
     }, 5 * 60 * 1000);
 });
-fabBtn.addEventListener('click', () => openModal());
+fabBtn.addEventListener('click', () => { if (!token) { showAuthModal(); return; } openModal(); });
 modalCloseBtn.addEventListener('click', closeModal);
 modalCancelBtn.addEventListener('click', closeModal);
 modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
@@ -1559,7 +1821,74 @@ addTimeBtn.addEventListener('click', () => {
     const newInputs = timeList.querySelectorAll('.time-input');
     if (newInputs.length > 0) newInputs[newInputs.length - 1].focus();
 });
+// Auth 模态框关闭
+authCloseBtn.addEventListener('click', hideAuthModal);
+authOverlay.addEventListener('click', (e) => { if (e.target === authOverlay) hideAuthModal(); });
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && authOverlay.classList.contains('active')) hideAuthModal();
+});
+
 permBtn.addEventListener('click', requestPushPermission);
+
+// ---------- 底部状态栏 ----------
+const bottomBar = document.getElementById('bottomBar');
+const bottomAccountBtn = document.getElementById('bottomAccountBtn');
+const topLangBtn = document.getElementById('topLangBtn');
+const accountSheet = document.getElementById('accountSheet');
+const sheetBackdrop = document.getElementById('sheetBackdrop');
+const sheetPwdBtn = document.getElementById('sheetPwdBtn');
+const sheetAdminBtn = document.getElementById('sheetAdminBtn');
+const sheetLogoutBtn = document.getElementById('sheetLogoutBtn');
+const sheetCancelBtn = document.getElementById('sheetCancelBtn');
+
+// 底部 tab 切换
+bottomBar.querySelectorAll('.bottom-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+        bottomBar.querySelectorAll('.bottom-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+    });
+});
+
+// 账户菜单开关
+function openAccountSheet() {
+    if (!token) { showAuthModal(); return; }
+    if (userRole === 'admin') sheetAdminBtn.classList.remove('hidden');
+    else sheetAdminBtn.classList.add('hidden');
+    accountSheet.classList.remove('hidden');
+}
+function closeAccountSheet() {
+    accountSheet.classList.add('hidden');
+}
+bottomAccountBtn.addEventListener('click', openAccountSheet);
+sheetBackdrop.addEventListener('click', closeAccountSheet);
+sheetCancelBtn.addEventListener('click', closeAccountSheet);
+
+// 账户菜单项
+sheetPwdBtn.addEventListener('click', () => { closeAccountSheet(); pwdOverlay.classList.add('active'); });
+sheetAdminBtn.addEventListener('click', () => { closeAccountSheet(); openAdminPanel(); });
+sheetLogoutBtn.addEventListener('click', () => { if (confirm(t('auth.logoutConfirm'))) { closeAccountSheet(); logout(); } });
+
+// 语言切换（顶部按钮）
+topLangBtn.addEventListener('click', async () => {
+    const langs = window.i18nList();
+    const cur = window.i18nCurrent();
+    const idx = (langs.indexOf(cur) + 1) % langs.length;
+    await window.setLang(langs[idx]);
+    refreshUI();
+});
+
+// 通知权限
+bottomBar.querySelector('[data-tab="notify"]').addEventListener('click', () => {
+    if (!token) { showAuthModal(); return; }
+    if (!('Notification' in window)) { alert('浏览器不支持通知'); return; }
+    if (Notification.permission === 'granted') {
+        alert('✅ 通知权限已开启。\n你将在设定的时间收到页面内提醒。');
+    } else if (Notification.permission === 'denied') {
+        alert('通知已被拒绝。请在浏览器设置 → 隐私 → 通知中允许本站。');
+    } else {
+        requestPushPermission();
+    }
+});
 
 // ---------- 改密码 ----------
 const pwdBtn = document.getElementById('pwdBtn');
@@ -1569,7 +1898,7 @@ const pwdCancelBtn = document.getElementById('pwdCancelBtn');
 const pwdSaveBtn = document.getElementById('pwdSaveBtn');
 const pwdMsg = document.getElementById('pwdMsg');
 
-pwdBtn.addEventListener('click', () => { pwdOverlay.classList.add('active'); pwdMsg.textContent = ''; document.getElementById('oldPassword').value = ''; document.getElementById('newPassword').value = ''; });
+if (pwdBtn) pwdBtn.addEventListener('click', () => { pwdOverlay.classList.add('active'); pwdMsg.textContent = ''; document.getElementById('oldPassword').value = ''; document.getElementById('newPassword').value = ''; });
 pwdCloseBtn.addEventListener('click', () => pwdOverlay.classList.remove('active'));
 pwdCancelBtn.addEventListener('click', () => pwdOverlay.classList.remove('active'));
 pwdOverlay.addEventListener('click', (e) => { if (e.target === pwdOverlay) pwdOverlay.classList.remove('active'); });
@@ -1591,12 +1920,11 @@ pwdSaveBtn.addEventListener('click', async () => {
 });
 
 // ---------- 管理员 ----------
-const adminBtn = document.getElementById('adminBtn');
 const adminOverlay = document.getElementById('adminOverlay');
 const adminCloseBtn = document.getElementById('adminCloseBtn');
 const adminUserList = document.getElementById('adminUserList');
 
-adminBtn.addEventListener('click', async () => {
+async function openAdminPanel() {
     try {
         const res = await fetch(API_BASE + '/admin/users', { headers: { 'Authorization': 'Bearer ' + token } });
         const data = await res.json();
@@ -1611,7 +1939,7 @@ adminBtn.addEventListener('click', async () => {
         adminUserList.innerHTML = html;
         adminOverlay.classList.add('active');
     } catch (e) { alert('加载失败: ' + e.message); }
-});
+}
 
 adminCloseBtn.addEventListener('click', () => adminOverlay.classList.remove('active'));
 adminOverlay.addEventListener('click', (e) => { if (e.target === adminOverlay) adminOverlay.classList.remove('active'); });
@@ -1620,18 +1948,26 @@ window.deleteUser = async function(id) {
     if (!confirm('确定要删除该用户吗？此操作不可恢复')) return;
     try {
         await fetch(API_BASE + '/admin/users/' + id, { method: 'DELETE', headers: { 'Authorization': 'Bearer ' + token } });
-        adminBtn.click(); // 刷新
+        openAdminPanel(); // 刷新列表
     } catch (e) { alert('删除失败: ' + e.message); }
 };
 
 // 显示推送订阅状态
-async function showPushStatus() {
-    if (!('serviceWorker' in navigator)) return;
-    const reg = await navigator.serviceWorker.getRegistration();
-    if (!reg) { console.warn('❌ SW 未注册'); return; }
-    const sub = await reg.pushManager.getSubscription();
-    if (sub) { console.log('✅ Push 已订阅'); }
-    else { console.warn('❌ Push 未订阅——请从主屏打开并允许通知'); }
+async function showPushStatus(silent = true) {
+    if (!('serviceWorker' in navigator)) return 'unsupported';
+    try {
+        const reg = await Promise.race([
+            navigator.serviceWorker.getRegistration(),
+            new Promise((_, r) => setTimeout(() => r(new Error('t')), 5000))
+        ]);
+        if (!reg) return 'no_sw';
+        const sub = await Promise.race([
+            reg.pushManager.getSubscription(),
+            new Promise((_, r) => setTimeout(() => r(new Error('t')), 5000))
+        ]);
+        if (sub) return 'subscribed';
+        return 'not_subscribed';
+    } catch(e) { return 'timeout'; }
 }
 
 // ---------- 初始化 ----------
@@ -1639,11 +1975,10 @@ async function initApp() {
     try { await loadReminders(); } catch (e) { console.warn('load fail:', e); reminders = []; }
     render();
     if ('Notification' in window) {
-        if (Notification.permission === 'granted') { permBanner.classList.add('hidden'); subscribePush(); }
+        if (Notification.permission === 'granted') { permBanner.classList.add('hidden'); subscribePush().catch(()=>{}); }
         else if (Notification.permission === 'denied') { permBanner.classList.remove('hidden'); permBtn.textContent = t('perm.denied'); permBtn.disabled = true; }
         else { permBanner.classList.remove('hidden'); }
     } else { permBanner.classList.add('hidden'); }
-    if (window.isSecureContext) showPushStatus();
     setInterval(checkReminders, 30000);
     setInterval(() => { dateBadge.textContent = formatDateDisplay(); }, 60000);
 }
@@ -1657,22 +1992,56 @@ async function loadStats() {
     } catch (e) {}
 }
 
+function showAuthModal() {
+    showAuthMode(true);
+    authOverlay.classList.add('active');
+    authOverlay.classList.remove('hidden');
+    authContainer.classList.add('active');
+    // 隐藏底层登录按钮避免双层
+    const elb = document.getElementById('emptyLoginBtn');
+    if (elb) elb.style.display = 'none';
+}
+function hideAuthModal() {
+    authOverlay.classList.remove('active');
+    authOverlay.classList.add('hidden');
+    authContainer.classList.remove('active');
+    const elb = document.getElementById('emptyLoginBtn');
+    if (elb) elb.style.display = '';
+}
+function updateBottomBarAuth() {
+    const notifyTab = bottomBar.querySelector('[data-tab="notify"]');
+    const accountTab = bottomBar.querySelector('[data-tab="account"]');
+    if (token) {
+        if (notifyTab) notifyTab.style.display = '';
+        if (accountTab) accountTab.style.display = '';
+    } else {
+        if (notifyTab) notifyTab.style.display = 'none';
+        if (accountTab) accountTab.style.display = 'none';
+    }
+}
 async function bootstrap() {
     loadStats();
     await registerSW();
+    // 始终显示 app 主界面
+    app.classList.remove('hidden');
     if (loadToken()) {
+        userRole = localStorage.getItem('sig_role') || 'user';
         try {
             const data = await api('/reminders');
             reminders = data.reminders;
-            authContainer.classList.remove('active');
-            app.classList.remove('hidden');
+            if (userRole === 'admin') { if (sheetAdminBtn) sheetAdminBtn.classList.remove('hidden'); }
+            updateBottomBarAuth();
             await initApp();
             return;
         } catch (e) { logout(); }
     }
-    authContainer.classList.add('active');
-    app.classList.add('hidden');
-    showAuthMode(true);
+    // 未登录：显示空列表
+    updateBottomBarAuth();
+    render();
+    // 监听通知权限（未登录也提示）
+    if ('Notification' in window && Notification.permission === 'default') {
+        permBanner.classList.remove('hidden');
+    }
 }
 
 // 语言切换时重新渲染
@@ -1695,7 +2064,7 @@ function refreshUI() {
         el.textContent = t(el.dataset.i18n);
     });
     const disc = document.getElementById('disclaimerText');
-    if (disc) disc.textContent = t('disclaimer');
+    if (disc) disc.textContent = t('disclaimerShort');
     const permText = document.getElementById('permBanner');
     if (permText && permText.querySelector('span')) permText.querySelector('span').textContent = t('perm.banner');
     const addTime = document.getElementById('addTimeBtn');
@@ -1723,7 +2092,10 @@ function refreshUI() {
         else permBtnEl.textContent = t('perm.enable');
     }
     document.title = t('app.icon') + ' ' + t('app.name');
-    if (!authContainer.classList.contains('active')) render();
+    // 语言选择器同步
+    const langSel = document.getElementById('langSelect');
+    if (langSel) langSel.value = window.i18nCurrent();
+    if (!authOverlay.classList.contains('active')) render();
 }
 
 // 语言选择器

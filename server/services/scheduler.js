@@ -31,7 +31,7 @@ async function checkAndNotify() {
 
     const payload = {
       title: `💊 ${m.name}`,
-      body: `${m.dosage ? m.dosage + ' · ' : ''}用药时间到了${m.note ? ' — ' + m.note : ''}`,
+      body: `${m.dosage ? m.dosage + ' · ' : ''}吃药时间到了${m.note ? ' — ' + m.note : ''}`,
       reminderId: String(m.reminder_id),
       timeId: String(m.id),
     };

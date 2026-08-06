@@ -1,5 +1,5 @@
 {
-  "app.name": "お薬リマインド",
+  "app.name": "お薬の時間",
   "app.tagline": "服薬管理、時間通りに",
   "app.icon": "💊",
 
@@ -26,6 +26,7 @@
   "stats.users": "{n} 人のユーザーが利用中",
 
   "disclaimer": "免責事項：本ツールは個人の服薬リマインダー参考用です。医師の診断や処方箋の代わりにはなりません。必ず医師の指示に従ってください。開発者は本ツールの使用により生じたいかなる結果についても責任を負いません。",
+  "disclaimerShort": "⚠️ 参考用です。医師の診断の代わりにはなりません。",
   "privacy.text": "🔒 プライバシー：データは本サーバーのみに保存、第三者への提供・販売はありません",
   "privacy.link": "https://github.com/is81/sig#privacy",
 
@@ -59,11 +60,11 @@
   "modal.timeRequired": "少なくとも1つの時間を設定してください",
   "modal.saveError": "保存に失敗: ",
 
-  "notif.title": "⏰ 服薬リマインダー",
+  "notif.title": "⏰ お薬の時間",
   "notif.body": "お薬の時間です",
   "notif.takeNow": "✅ 服用済",
   "notif.dismiss": "後で",
-  "notif.doseTime": "服薬時間です",
+  "notif.doseTime": "お薬の時間です",
 
   "perm.banner": "🔔 通知を有効にして服薬を見逃さないように",
   "perm.enable": "通知を有効にする",
@@ -80,6 +81,16 @@
 
   "sw.markFailed": "服用済マークに失敗しました",
   "sw.noToken": "トークンなし、服用済マーク不可——再ログインしてください",
+
+  "bottom.meds": "薬",
+  "bottom.reminders": "通知",
+  "bottom.language": "言語",
+  "bottom.account": "アカウント",
+
+  "group.noGroup": "グループなし",
+
+  "action.registerPrompt": "登録またはログインして服薬リマインダーを追加",
+  "action.loginRequired": "ログインしてください",
 
   "projectX.title": "Project X",
   "projectX.desc": "新プロジェクト準備中。医療データに関するアイデアがあればぜひご連絡ください。",

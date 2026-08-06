@@ -24,6 +24,7 @@ import reminderRoutes from './routes/reminders.js';
 import pushRoutes    from './routes/push.js';
 import statsRoutes   from './routes/stats.js';
 import adminRoutes   from './routes/admin.js';
+import groupRoutes   from './routes/groups.js';
 
 const app = express();
 const PORT = parseInt(process.env.PORT, 10) || 3001;
@@ -78,6 +79,7 @@ app.use(express.static(publicDir));
 // API 路由
 app.use('/api/auth',      authRoutes);
 app.use('/api/reminders', reminderRoutes);
+app.use('/api/groups',    groupRoutes);
 app.use('/api/push',      pushRoutes);
 app.use('/api/stats',     statsRoutes);
 app.use('/api/admin',     adminRoutes);
@@ -88,7 +90,7 @@ app.get('/api/health', (_req, res) => res.json({ ok: true }));
 // 启动：先初始化数据库
 initDB().then(() => {
   const server = app.listen(PORT, () => {
-    console.log(`💊 用药助手服务已启动 → http://localhost:${PORT}`);
+    console.log(`💊 吃药了服务已启动 → http://localhost:${PORT}`);
     initScheduler();
   });
 

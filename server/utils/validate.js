@@ -39,14 +39,14 @@ export function validateReminder(body) {
   if (name && name.trim().length > 30) {
     errors.push('药品名称最多 30 个字符');
   }
-  if (dosage && dosage.length > 20) {
-    errors.push('剂量最多 20 个字符');
+  if (dosage && dosage.length > 30) {
+    errors.push('剂量最多 30 个字符');
   }
   if (note && note.length > 60) {
     errors.push('备注最多 60 个字符');
   }
   if (!Array.isArray(times) || times.length === 0) {
-    errors.push('至少需要一个用药时间');
+    errors.push('至少需要一个吃药时间');
   } else {
     const timeRe = /^([01]\d|2[0-3]):[0-5]\d$/;
     for (const t of times) {

@@ -24,7 +24,7 @@ router.post('/test', authRequired, async (req, res) => {
   let sent = 0, expired = 0;
   for (const sub of subs) {
     const result = await sendPush(sub, {
-      title: '💊 用药助手',
+      title: '💊 吃药了',
       body: '这是一条测试推送。如果你能看到这条消息，说明推送功能正常！',
       reminderId: '0',
       timeId: '0',

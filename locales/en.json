@@ -1,6 +1,6 @@
 {
-  "app.name": "Med Assist",
-  "app.tagline": "Track medications, stay on schedule",
+  "app.name": "Pill Time",
+  "app.tagline": "Track your pills, stay on schedule",
   "app.icon": "💊",
 
   "auth.loginTitle": "Sign In",
@@ -23,9 +23,10 @@
   "auth.logout": "Logout",
   "auth.logoutConfirm": "Are you sure you want to logout?",
 
-  "stats.users": "{n} users are using Medication Reminder",
+  "stats.users": "{n} users are using Pill Time",
 
   "disclaimer": "Disclaimer: This tool is for personal medication reminder reference only. It does not replace medical diagnosis or prescription. Always follow your doctor's advice. The developer assumes no liability for any consequences arising from the use of this tool.",
+  "disclaimerShort": "⚠️ For reference only. Not a substitute for medical advice.",
   "privacy.text": "🔒 Privacy: Data is stored on this server only, never shared or sold",
   "privacy.link": "https://github.com/is81/sig#privacy",
 
@@ -33,13 +34,13 @@
   "header.taken": "Taken",
   "header.date": "Today",
 
-  "empty.title": "No Medication Reminders",
+  "empty.title": "No Pill Reminders",
   "empty.desc": "Tap the ＋ button to add your first reminder",
 
   "reminder.take": "Take",
   "reminder.taken": "Taken",
   "reminder.delete": "Delete",
-  "reminder.deleteConfirm": "Delete this medication reminder?",
+  "reminder.deleteConfirm": "Delete this pill reminder?",
   "reminder.untakeConfirm": "Undo the taken status?",
 
   "modal.addTitle": "Add Reminder",
@@ -59,13 +60,13 @@
   "modal.timeRequired": "Please set at least one time",
   "modal.saveError": "Save failed: ",
 
-  "notif.title": "⏰ Medication Reminder",
-  "notif.body": "Time to take your medication",
+  "notif.title": "⏰ Pill Reminder",
+  "notif.body": "Time to take your medicine",
   "notif.takeNow": "✅ Taken",
   "notif.dismiss": "Later",
-  "notif.doseTime": "Medication time",
+  "notif.doseTime": "Pill time",
 
-  "perm.banner": "🔔 Enable notifications to never miss a dose",
+  "perm.banner": "🔔 Enable notifications to never miss a pill",
   "perm.enable": "Enable",
   "perm.denied": "Notifications disabled in browser settings",
 
@@ -80,6 +81,16 @@
 
   "sw.markFailed": "Failed to mark as taken",
   "sw.noToken": "No token, cannot mark as taken — please login again",
+
+  "bottom.meds": "Meds",
+  "bottom.reminders": "Alerts",
+  "bottom.language": "Lang",
+  "bottom.account": "Account",
+
+  "group.noGroup": "No Group",
+
+  "action.registerPrompt": "Sign up or login to add pill reminders",
+  "action.loginRequired": "Please login first",
 
   "projectX.title": "Project X",
   "projectX.desc": "New project in the works. If you have ideas about healthcare data challenges, let's talk.",

@@ -1,7 +1,7 @@
 {
   "name": "sig-medication-reminder",
   "version": "1.0.0",
-  "description": "💊 用药助手 — 多用户用药提醒服务",
+  "description": "💊 吃药了 — 多用户吃药提醒服务",
   "type": "module",
   "main": "server.js",
   "scripts": {

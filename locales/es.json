@@ -1,5 +1,5 @@
 {
-  "app.name": "Medicación",
+  "app.name": "¡A Tomar!",
   "app.tagline": "Gestiona tus medicamentos, mantente al día",
   "app.icon": "💊",
 
@@ -23,9 +23,10 @@
   "auth.logout": "Salir",
   "auth.logoutConfirm": "¿Estás seguro de cerrar sesión?",
 
-  "stats.users": "{n} usuarios están usando Recordatorio Médico",
+  "stats.users": "{n} usuarios están usando ¡A Tomar!",
 
   "disclaimer": "Aviso: Esta herramienta es solo para referencia personal de recordatorio de medicamentos. No reemplaza el diagnóstico ni la prescripción médica. Sigue siempre las indicaciones de tu médico. El desarrollador no asume ninguna responsabilidad por las consecuencias derivadas del uso de esta herramienta.",
+  "disclaimerShort": "⚠️ Solo referencia. No sustituye el consejo médico.",
   "privacy.text": "🔒 Privacidad: Datos solo en este servidor, nunca compartidos ni vendidos",
   "privacy.link": "https://github.com/is81/sig#privacy",
 
@@ -59,11 +60,11 @@
   "modal.timeRequired": "Establece al menos una hora",
   "modal.saveError": "Error al guardar: ",
 
-  "notif.title": "⏰ Recordatorio",
+  "notif.title": "⏰ ¡A Tomar!",
   "notif.body": "Hora de tomar tu medicamento",
   "notif.takeNow": "✅ Tomado",
   "notif.dismiss": "Después",
-  "notif.doseTime": "Hora del medicamento",
+  "notif.doseTime": "¡Hora de tomar!",
 
   "perm.banner": "🔔 Activa notificaciones para no olvidar ninguna dosis",
   "perm.enable": "Activar",
@@ -80,6 +81,16 @@
 
   "sw.markFailed": "Error al marcar como tomado",
   "sw.noToken": "Sin token, no se puede marcar — inicia sesión de nuevo",
+
+  "bottom.meds": "Medicinas",
+  "bottom.reminders": "Alertas",
+  "bottom.language": "Idioma",
+  "bottom.account": "Cuenta",
+
+  "group.noGroup": "Sin grupo",
+
+  "action.registerPrompt": "Regístrate o inicia sesión para añadir recordatorios",
+  "action.loginRequired": "Inicia sesión primero",
 
   "projectX.title": "Project X",
   "projectX.desc": "Nuevo proyecto en desarrollo. Si tienes ideas sobre datos de salud, hablemos.",

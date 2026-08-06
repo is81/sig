@@ -1,6 +1,6 @@
 {
-  "name": "用药助手",
-  "short_name": "用药助手",
+  "name": "吃药了",
+  "short_name": "吃药了",
   "start_url": "/sig/",
   "display": "standalone",
   "background_color": "#F7F9FC",

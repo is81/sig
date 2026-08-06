@@ -13,6 +13,9 @@ function formatReminder(reminder, timeRows) {
     name: reminder.name,
     dosage: reminder.dosage,
     note: reminder.note,
+    groupId: reminder.group_id || null,
+    startDate: reminder.start_date || '',
+    endDate: reminder.end_date || '',
     times: timeRows.map(t => ({
       id: t.id,
       time: t.time,
@@ -43,6 +46,9 @@ router.get('/', (req, res) => {
         name: row.name,
         dosage: row.dosage,
         note: row.note,
+        groupId: row.group_id || null,
+        startDate: row.start_date || '',
+        endDate: row.end_date || '',
         times: [],
         createdAt: row.created_at,
       });
@@ -65,8 +71,8 @@ router.post('/', (req, res) => {
   const { valid, errors, sanitized } = validateReminder(req.body);
   if (!valid) return res.status(400).json({ error: errors.join('；') });
 
-  const { name, dosage, times, note } = sanitized;
-  const reminderId = stmts.rem_insert(req.userId, name, dosage, note);
+  const { name, dosage, times, note, groupId, startDate, endDate } = req.body;
+  const reminderId = stmts.rem_insert(req.userId, name, dosage, note, groupId, startDate, endDate);
   if (!reminderId) return res.status(500).json({ error: '创建提醒失败' });
 
   for (const t of times) {
@@ -90,12 +96,13 @@ router.put('/:id', (req, res) => {
   if (!valid) return res.status(400).json({ error: errors.join('；') });
 
   const { name, dosage, times, note } = sanitized;
+  const { groupId, startDate, endDate } = req.body;
 
   // 保留已有时间记录的 taken 状态
   const oldTimes = stmts.time_listByRem(reminder.id);
   const oldMap = new Map(oldTimes.map(t => [t.time, t]));
 
-  stmts.rem_update(name, dosage, note, reminder.id);
+  stmts.rem_update(name, dosage, note, groupId, startDate, endDate, reminder.id);
   stmts.time_deleteByRem(reminder.id);
   for (const t of times) {
     const old = oldMap.get(t);
