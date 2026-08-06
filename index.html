@@ -2193,7 +2193,7 @@ async function showPushStatus(silent = true) {
 // ---------- 初始化 ----------
 async function initApp() {
     try { await loadReminders(); } catch (e) { console.warn('load fail:', e); reminders = []; }
-    render();
+    refreshUI();
     if ('Notification' in window) {
         if (Notification.permission === 'granted') { permBanner.classList.add('hidden'); subscribePush().catch(()=>{}); }
         else if (Notification.permission === 'denied') { permBanner.classList.remove('hidden'); permBtn.textContent = t('perm.denied'); permBtn.disabled = true; }
@@ -2250,7 +2250,7 @@ async function bootstrap() {
     }
     // 未登录：显示空列表
     updateBottomBarAuth();
-    render();
+    refreshUI();
     // 监听通知权限（未登录也提示）
     if ('Notification' in window && Notification.permission === 'default') {
         permBanner.classList.remove('hidden');
