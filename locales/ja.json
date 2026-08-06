@@ -25,17 +25,18 @@
 
   "stats.users": "{n} 人のユーザーが利用中",
 
-  "disclaimer": "免責事項：本ツールは個人の服薬リマインダー参考用です。医師の診断や処方箋の代わりにはなりません。必ず医師の指示に従ってください。開発者は本ツールの使用により生じたいかなる結果についても責任を負いません。",
-  "disclaimerShort": "⚠️ 参考用です。医師の診断の代わりにはなりません。",
-  "privacy.text": "🔒 プライバシー：データは本サーバーのみに保存、第三者への提供・販売はありません",
+  "disclaimer": "免責事項：本ツールは個人の服薬リマインダー参考用です。医師の診断や処方箋の代わりにはなりません。",
+  "disclaimerShort": "参考用です。医師の診断の代わりにはなりません。",
+  "privacy.text": "🔒 プライバシー：データは本サーバーのみに保存",
   "privacy.link": "https://github.com/is81/sig#privacy",
 
-  "header.todayMeds": "本日の服薬",
+  "header.todayMeds": "本日分",
   "header.taken": "服用済",
   "header.date": "今日",
 
   "empty.title": "リマインダーはまだありません",
-  "empty.desc": "右下の ＋ ボタンをタップして最初のリマインダーを追加しましょう",
+  "empty.desc": "＋ ボタンをタップして最初のリマインダーを追加しましょう",
+  "list.end": "以上です〜",
 
   "reminder.take": "服用",
   "reminder.taken": "服用済",
@@ -45,10 +46,13 @@
 
   "modal.addTitle": "リマインダー追加",
   "modal.editTitle": "リマインダー編集",
-  "modal.drugName": "💊 薬品名",
+  "modal.drugName": "薬品名",
   "modal.drugPlaceholder": "例：アモキシシリン",
   "modal.dosage": "📏 用量",
   "modal.dosagePlaceholder": "例：500mg / 1錠",
+  "modal.group": "📂 グループ",
+  "modal.dateRange": "📅 日付範囲（任意）",
+  "modal.dateTo": "〜",
   "modal.time": "🕐 服用時間",
   "modal.note": "📝 メモ",
   "modal.notePlaceholder": "例：食後",
@@ -59,6 +63,43 @@
   "modal.drugRequired": "薬品名を入力してください",
   "modal.timeRequired": "少なくとも1つの時間を設定してください",
   "modal.saveError": "保存に失敗: ",
+
+  "dosage.value": "用量",
+  "dosage.custom": "カスタム",
+  "dosage.unit": "単位",
+  "dosage.pill": "粒",
+  "dosage.tablet": "錠",
+  "dosage.pack": "包",
+  "dosage.tube": "本",
+  "dosage.drop": "滴",
+
+  "groups.title": "📂 グループ管理",
+  "groups.name": "グループ名",
+  "groups.note": "メモ（任意）",
+  "groups.add": "＋ 新規グループ",
+  "groups.empty": "グループがありません。下から作成してください。",
+  "groups.edit": "編集",
+  "groups.delete": "削除",
+  "groups.save": "保存",
+  "groups.update": "更新",
+  "groups.cancel": "キャンセル",
+  "groups.nameRequired": "グループ名を入力してください",
+  "groups.deleteConfirm": "このグループを削除しますか？薬は削除されません。",
+  "groups.count": "{n}種",
+
+  "history.title": "📋 服薬履歴",
+  "history.empty": "期限切れの薬はありません",
+  "history.expiredTo": "まで",
+
+  "pwd.title": "🔑 パスワード変更",
+  "pwd.oldPwd": "旧パスワード",
+  "pwd.newPwd": "新パスワード",
+  "pwd.newPwdPlaceholder": "4文字以上",
+  "pwd.confirm": "確認",
+
+  "admin.title": "👥 ユーザー管理",
+  "admin.delete": "削除",
+  "admin.deleteConfirm": "このユーザーを削除しますか？元に戻せません。",
 
   "notif.title": "⏰ お薬の時間",
   "notif.body": "お薬の時間です",
@@ -74,26 +115,34 @@
   "error.loginExpiredRe": "セッション切れ、再度ログインしてください",
   "error.loginRequired": "ログインしてください",
   "error.requestFailed": "リクエストに失敗しました",
-  "error.rateLimit": "リクエストが多すぎます、しばらくしてから再試行してください",
+  "error.rateLimit": "リクエストが多すぎます",
   "error.createFailed": "リマインダーの作成に失敗しました",
   "error.notFound": "リマインダーが見つかりません",
   "error.timeNotFound": "時間枠が見つかりません",
 
   "sw.markFailed": "服用済マークに失敗しました",
-  "sw.noToken": "トークンなし、服用済マーク不可——再ログインしてください",
+  "sw.noToken": "トークンなし、服用済マーク不可",
 
   "bottom.meds": "薬",
   "bottom.reminders": "通知",
+  "bottom.groups": "グループ",
+  "bottom.add": "追加",
   "bottom.language": "言語",
   "bottom.account": "アカウント",
 
   "group.noGroup": "グループなし",
 
+  "menu.history": "服薬履歴",
+  "menu.changePwd": "パスワード変更",
+  "menu.admin": "ユーザー管理",
+  "menu.logout": "ログアウト",
+  "menu.cancel": "キャンセル",
+
   "action.registerPrompt": "登録またはログインして服薬リマインダーを追加",
   "action.loginRequired": "ログインしてください",
 
   "projectX.title": "Project X",
-  "projectX.desc": "新プロジェクト準備中。医療データに関するアイデアがあればぜひご連絡ください。",
+  "projectX.desc": "新プロジェクト準備中。",
   "projectX.meta": "準備中",
   "projectX.cta": "アイデアを共有 →"
 }

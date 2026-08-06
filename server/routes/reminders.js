@@ -41,29 +41,14 @@ router.get('/', (req, res) => {
   const map = new Map();
   for (const row of rows) {
     if (!map.has(row.id)) {
-      map.set(row.id, {
-        id: row.id,
-        name: row.name,
-        dosage: row.dosage,
-        note: row.note,
-        groupId: row.group_id || null,
-        startDate: row.start_date || '',
-        endDate: row.end_date || '',
-        times: [],
-        createdAt: row.created_at,
-      });
+      map.set(row.id, { reminder: row, times: [] });
     }
     if (row.t_id !== null) {
-      map.get(row.id).times.push({
-        id: row.t_id,
-        time: row.t_time,
-        taken: row.t_taken === 1,
-        takenDate: row.t_taken_date,
-      });
+      map.get(row.id).times.push({ id: row.t_id, time: row.t_time, taken: row.t_taken, taken_date: row.t_taken_date });
     }
   }
 
-  res.json({ reminders: [...map.values()] });
+  res.json({ reminders: [...map.values()].map(({ reminder, times }) => formatReminder(reminder, times)) });
 });
 
 // POST /api/reminders

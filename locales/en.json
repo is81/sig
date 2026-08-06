@@ -25,17 +25,18 @@
 
   "stats.users": "{n} users are using Pill Time",
 
-  "disclaimer": "Disclaimer: This tool is for personal medication reminder reference only. It does not replace medical diagnosis or prescription. Always follow your doctor's advice. The developer assumes no liability for any consequences arising from the use of this tool.",
-  "disclaimerShort": "⚠️ For reference only. Not a substitute for medical advice.",
+  "disclaimer": "Disclaimer: This tool is for personal medication reminder reference only. Not a substitute for medical advice.",
+  "disclaimerShort": "For reference only. Not a substitute for medical advice.",
   "privacy.text": "🔒 Privacy: Data is stored on this server only, never shared or sold",
   "privacy.link": "https://github.com/is81/sig#privacy",
 
-  "header.todayMeds": "Today",
-  "header.taken": "Taken",
+  "header.todayMeds": "Due",
+  "header.taken": "Done",
   "header.date": "Today",
 
   "empty.title": "No Pill Reminders",
   "empty.desc": "Tap the ＋ button to add your first reminder",
+  "list.end": "That's all ~",
 
   "reminder.take": "Take",
   "reminder.taken": "Taken",
@@ -45,10 +46,13 @@
 
   "modal.addTitle": "Add Reminder",
   "modal.editTitle": "Edit Reminder",
-  "modal.drugName": "💊 Drug Name",
+  "modal.drugName": "Drug Name",
   "modal.drugPlaceholder": "e.g. Amoxicillin",
   "modal.dosage": "📏 Dosage",
   "modal.dosagePlaceholder": "e.g. 500mg / 1 tablet",
+  "modal.group": "📂 Group",
+  "modal.dateRange": "📅 Date Range (optional)",
+  "modal.dateTo": "to",
   "modal.time": "🕐 Time",
   "modal.note": "📝 Note",
   "modal.notePlaceholder": "e.g. After meal",
@@ -59,6 +63,43 @@
   "modal.drugRequired": "Please enter drug name",
   "modal.timeRequired": "Please set at least one time",
   "modal.saveError": "Save failed: ",
+
+  "dosage.value": "Dose",
+  "dosage.custom": "Custom",
+  "dosage.unit": "Unit",
+  "dosage.pill": "pill",
+  "dosage.tablet": "tab",
+  "dosage.pack": "pack",
+  "dosage.tube": "tube",
+  "dosage.drop": "drop",
+
+  "groups.title": "📂 Groups",
+  "groups.name": "Group Name",
+  "groups.note": "Note (optional)",
+  "groups.add": "＋ New Group",
+  "groups.empty": "No groups yet. Create one below.",
+  "groups.edit": "Edit",
+  "groups.delete": "Delete",
+  "groups.save": "Save",
+  "groups.update": "Update",
+  "groups.cancel": "Cancel",
+  "groups.nameRequired": "Please enter a group name",
+  "groups.deleteConfirm": "Delete this group? Meds will not be deleted.",
+  "groups.count": "{n} meds",
+
+  "history.title": "📋 History",
+  "history.empty": "No expired medications",
+  "history.expiredTo": "to",
+
+  "pwd.title": "🔑 Change Password",
+  "pwd.oldPwd": "Old Password",
+  "pwd.newPwd": "New Password",
+  "pwd.newPwdPlaceholder": "At least 4 characters",
+  "pwd.confirm": "Confirm",
+
+  "admin.title": "👥 User Management",
+  "admin.delete": "Delete",
+  "admin.deleteConfirm": "Delete this user? This cannot be undone.",
 
   "notif.title": "⏰ Pill Reminder",
   "notif.body": "Time to take your medicine",
@@ -84,10 +125,18 @@
 
   "bottom.meds": "Meds",
   "bottom.reminders": "Alerts",
+  "bottom.groups": "Groups",
+  "bottom.add": "Add",
   "bottom.language": "Lang",
   "bottom.account": "Account",
 
   "group.noGroup": "No Group",
+
+  "menu.history": "History",
+  "menu.changePwd": "Change Password",
+  "menu.admin": "Admin",
+  "menu.logout": "Logout",
+  "menu.cancel": "Cancel",
 
   "action.registerPrompt": "Sign up or login to add pill reminders",
   "action.loginRequired": "Please login first",

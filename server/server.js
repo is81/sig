@@ -65,7 +65,7 @@ setInterval(() => {
 }, 60000);
 
 // 中间件
-app.use(cors({ origin: true }));
+app.use(cors({ origin: ['https://is81.net', 'http://localhost:3001', 'http://127.0.0.1:3001'] }));
 app.use(express.json());
 
 // 认证接口限流：每 IP 每分钟 20 次
@@ -90,7 +90,7 @@ app.get('/api/health', (_req, res) => res.json({ ok: true }));
 // 启动：先初始化数据库
 initDB().then(() => {
   const server = app.listen(PORT, () => {
-    console.log(`💊 吃药了服务已启动 → http://localhost:${PORT}`);
+    console.log(`💊 吃药啦服务已启动 → http://localhost:${PORT}`);
     initScheduler();
   });
 

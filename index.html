@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="吃药了" />
+    <meta name="apple-mobile-web-app-title" content="吃药啦" />
     <link rel="manifest" href="manifest.json" />
-    <title>💊 吃药了</title>
+    <title>💊 吃药啦</title>
     <script src="locales/i18n.js"></script>
     <style>
         /* ===== CSS 变量 & 重置 ===== */
@@ -107,7 +107,7 @@
         /* 顶部栏大字化 */
         .app-header .title { font-size: 18px; }
         .app-header .title span { font-size: 20px; }
-        .app-header .date-badge { font-size: inherit; }
+        .app-header .date-badge { font-size: 14px; padding: 4px 12px; }
 
         /* ===== 底部状态栏 ===== */
         .bottom-bar {
@@ -149,6 +149,21 @@
         }
         .bottom-tab:active {
             background: rgba(0,0,0,0.05);
+        }
+        .bottom-tab-add {
+            font-size: 28px !important;
+            font-weight: 300;
+            color: #fff !important;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark)) !important;
+            border-radius: 50% !important;
+            width: 44px;
+            height: 44px;
+            padding: 0 !important;
+            margin-top: -10px;
+            box-shadow: 0 3px 12px rgba(42,125,225,0.35);
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
         }
 
         /* ===== 账户操作菜单 ===== */
@@ -221,9 +236,8 @@
             color: var(--gray);
         }
         .empty-state .icon {
-            font-size: 68px;
-            margin-bottom: 16px;
             display: block;
+            margin: 0 auto 16px;
         }
         .empty-state h3 {
             font-size: 20px;
@@ -950,9 +964,11 @@
             margin-bottom: 28px;
         }
         .auth-container .auth-header .auth-icon {
-            font-size: 56px;
+            width: 56px;
+            height: 56px;
             display: block;
-            margin-bottom: 8px;
+            margin: 0 auto 8px;
+            border-radius: 10px;
         }
         .auth-container .auth-header h2 {
             font-size: 22px;
@@ -961,8 +977,17 @@
         }
         .auth-container .auth-header p {
             font-size: 14px;
-            color: var(--gray);
+            color: #5A6270;
             margin-top: 4px;
+        }
+        .auth-container .close-btn {
+            background: rgba(0,0,0,0.15);
+            width: 30px; height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
         }
         .auth-container .auth-form {
             display: flex;
@@ -1098,11 +1123,10 @@
     <div class="auth-container" id="authContainer">
         <button class="close-btn" id="authCloseBtn" style="position:absolute;top:12px;right:12px;z-index:10;">✕</button>
         <div class="auth-header">
-            <span class="auth-icon">💊</span>
-            <h2 id="authTitle">登录吃药了</h2>
+            <img src="logo.png" class="auth-icon" style="width:56px;height:56px;display:block;margin:0 auto 8px;">
+            <h2 id="authTitle">登录吃药啦</h2>
             <p data-i18n="app.tagline">记录吃药，准时提醒</p>
         </div>
-        <div class="auth-stats" id="statsText"></div>
         <div class="auth-error" id="authError"></div>
         <form class="auth-form" id="authForm" autocomplete="off">
             <input type="text" id="authUsername" placeholder="" data-i18n-placeholder="auth.username" maxlength="30" autocomplete="username" />
@@ -1121,17 +1145,19 @@
         <!-- ===== 顶部 ===== -->
         <header class="app-header">
             <div class="top-row">
-                <div class="title"><span>💊</span> <span id="appTitle">吃药了</span></div>
-                <button id="topLangBtn" title="切换语言" style="background:rgba(255,255,255,0.18);border:none;color:#fff;font-size:15px;padding:3px 8px;border-radius:20px;cursor:pointer;backdrop-filter:blur(4px);">🌐</button>
+                <div class="title"><img src="logo.png" style="width:28px;height:28px;vertical-align:middle;border-radius:5px;"> <span id="appTitle">吃药啦</span></div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <div class="date-badge" id="dateBadge">今天</div>
+                    <button id="topLangBtn" title="切换语言" style="background:rgba(255,255,255,0.18);border:none;color:#fff;font-size:15px;padding:3px 8px;border-radius:20px;cursor:pointer;backdrop-filter:blur(4px);">🌐</button>
+                </div>
             </div>
             <div class="stats">
                 <div class="stat-item">
-                    📋 <span id="labelTotalMeds">今日吃药</span> <span class="num" id="totalCount">0</span>
+                    📋 <span id="labelTotalMeds">今日应吃</span> <span class="num" id="totalCount">0</span>
                 </div>
                 <div class="stat-item">
-                    ✅ <span id="labelTaken">已服</span> <span class="num" id="takenCount">0</span>
+                    ✅ <span id="labelTaken">已吃</span> <span class="num" id="takenCount">0</span>
                 </div>
-                <div class="date-badge" id="dateBadge" style="margin-left:auto;background:none;padding:0;font-size:inherit;opacity:0.7;">今天</div>
             </div>
         </header>
 
@@ -1150,22 +1176,58 @@
         <nav class="bottom-bar" id="bottomBar">
             <button class="bottom-tab active" data-tab="meds" title="药品">💊<span data-i18n="bottom.meds">药品</span></button>
             <button class="bottom-tab" data-tab="notify" title="提醒">🔔<span data-i18n="bottom.reminders">提醒</span></button>
+            <button class="bottom-tab" data-tab="groups" id="bottomGroupsBtn" title="分组">📂<span data-i18n="bottom.groups">分组</span></button>
+            <button class="bottom-tab" id="bottomAddBtn" title="加药">➕<span data-i18n="bottom.add">加药</span></button>
             <button class="bottom-tab" data-tab="account" id="bottomAccountBtn" title="账户">👤<span data-i18n="bottom.account">账户</span></button>
         </nav>
+
+        <!-- ===== 用药历史弹窗 ===== -->
+        <div class="modal-overlay hidden" id="historyOverlay">
+            <div class="modal">
+                <div class="modal-header">
+                    <h2 data-i18n="history.title">📋 用药历史</h2>
+                    <button class="close-btn" id="historyCloseBtn">✕</button>
+                </div>
+                <div id="historyList" style="max-height:60vh;overflow-y:auto;"></div>
+            </div>
+        </div>
+
+        <!-- ===== 分组管理弹窗 ===== -->
+        <div class="modal-overlay hidden" id="groupsOverlay">
+            <div class="modal">
+                <div class="modal-header">
+                    <h2 data-i18n="groups.title">📂 分组管理</h2>
+                    <button class="close-btn" id="groupsCloseBtn">✕</button>
+                </div>
+                <div id="groupsList" style="max-height:50vh;overflow-y:auto;margin-bottom:12px;"></div>
+                <div class="form-group" id="groupForm" style="display:none;">
+                    <input type="text" id="groupName" data-i18n-placeholder="groups.name" placeholder="分组名称" maxlength="30" style="margin-bottom:8px;" />
+                    <div style="display:flex;gap:6px;margin-bottom:8px;">
+                        <input type="date" id="groupStartDate" style="flex:1;" title="开始日期" />
+                        <input type="date" id="groupEndDate" style="flex:1;" title="结束日期" />
+                    </div>
+                    <input type="text" id="groupNote" data-i18n-placeholder="groups.note" placeholder="备注（选填）" maxlength="60" style="margin-bottom:8px;" />
+                    <div style="display:flex;gap:8px;">
+                        <button class="btn-cancel" id="groupFormCancel" style="flex:1;padding:12px;font-size:15px;border-radius:10px;" data-i18n="groups.cancel">取消</button>
+                        <button class="btn-save" id="groupFormSave" style="flex:1;padding:12px;font-size:15px;border-radius:10px;" data-i18n="groups.save">保存</button>
+                    </div>
+                </div>
+                <button class="btn-add-time" id="groupsAddBtn" style="width:100%;" data-i18n="groups.add">＋ 新建分组</button>
+            </div>
+        </div>
 
         <!-- ===== 账户菜单 ===== -->
         <div class="account-sheet hidden" id="accountSheet">
             <div class="sheet-backdrop" id="sheetBackdrop"></div>
             <div class="sheet-content">
-                <button class="sheet-item" id="sheetPwdBtn">🔑 <span>修改密码</span></button>
-                <button class="sheet-item hidden" id="sheetAdminBtn">⚙️ <span>用户管理</span></button>
-                <button class="sheet-item sheet-item-danger" id="sheetLogoutBtn">🚪 <span>退出登录</span></button>
-                <button class="sheet-item sheet-cancel" id="sheetCancelBtn">取消</button>
+                <button class="sheet-item" id="sheetHistoryBtn">📋 <span data-i18n="menu.history">用药历史</span></button>
+                <button class="sheet-item" id="sheetPwdBtn">🔑 <span data-i18n="menu.changePwd">修改密码</span></button>
+                <button class="sheet-item hidden" id="sheetAdminBtn">⚙️ <span data-i18n="menu.admin">用户管理</span></button>
+                <button class="sheet-item sheet-item-danger" id="sheetLogoutBtn">🚪 <span data-i18n="menu.logout">退出登录</span></button>
+                <button class="sheet-item sheet-cancel" id="sheetCancelBtn" data-i18n="menu.cancel">取消</button>
             </div>
         </div>
 
-        <!-- ===== 浮动添加按钮 ===== -->
-        <button class="fab" id="fabBtn" aria-label="添加吃药提醒">＋</button>
 
         <!-- ===== 模态框 ===== -->
         <div class="modal-overlay" id="modalOverlay">
@@ -1176,48 +1238,52 @@
                 </div>
 
                 <div class="form-group">
-                    <label>💊 药品名称 <span class="required">*</span></label>
+                    <label>💊 <span data-i18n="modal.drugName">药品名称</span> <span class="required">*</span></label>
                     <input type="text" id="inputName" placeholder="" data-i18n-placeholder="modal.drugPlaceholder" maxlength="30" />
                 </div>
 
                 <div class="form-group">
-                    <label>📏 剂量</label>
+                    <label data-i18n="modal.dosage">📏 剂量</label>
                     <div class="dosage-row" style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
-                        <input type="number" id="dosageValue" placeholder="剂量" step="any" min="0" style="width:64px;padding:8px;border-radius:8px;border:1px solid var(--gray-border);font-size:14px;background:var(--gray-light);color:inherit;" />
+                        <input type="number" id="dosageValue" data-i18n-placeholder="dosage.value" placeholder="剂量" step="any" min="0" style="width:64px;padding:8px;border-radius:8px;border:1px solid var(--gray-border);font-size:14px;background:var(--gray-light);color:inherit;" />
                         <select id="dosageUnit" style="width:68px;padding:8px 4px;border-radius:8px;border:1px solid var(--gray-border);font-size:13px;background:var(--gray-light);color:inherit;">
                             <option value="g">g</option><option value="mg">mg</option><option value="µg">µg</option>
-                            <option value="ml">ml</option><option value="custom">自定义</option>
+                            <option value="ml">ml</option><option value="custom" data-i18n="dosage.custom">自定义</option>
                         </select>
-                        <input type="text" id="dosageUnitCustom" placeholder="单位" maxlength="5" style="display:none;width:60px;padding:8px;border-radius:8px;border:1px solid var(--gray-border);font-size:14px;background:var(--gray-light);color:inherit;" />
+                        <input type="text" id="dosageUnitCustom" data-i18n-placeholder="dosage.unit" placeholder="单位" maxlength="5" style="display:none;width:60px;padding:8px;border-radius:8px;border:1px solid var(--gray-border);font-size:14px;background:var(--gray-light);color:inherit;" />
                         <span style="font-size:14px;color:var(--gray);">×</span>
                         <input type="number" id="dosageQty" placeholder="1" step="1" min="1" value="1" style="width:52px;padding:8px;border-radius:8px;border:1px solid var(--gray-border);font-size:14px;background:var(--gray-light);color:inherit;" />
                         <select id="dosageForm" style="width:60px;padding:8px 4px;border-radius:8px;border:1px solid var(--gray-border);font-size:13px;background:var(--gray-light);color:inherit;">
-                            <option value="粒">粒</option><option value="片">片</option><option value="包">包</option>
-                            <option value="支">支</option><option value="滴">滴</option><option value="custom">自定义</option>
+                            <option value="粒" data-i18n="dosage.pill">粒</option>
+                            <option value="片" data-i18n="dosage.tablet">片</option>
+                            <option value="包" data-i18n="dosage.pack">包</option>
+                            <option value="支" data-i18n="dosage.tube">支</option>
+                            <option value="滴" data-i18n="dosage.drop">滴</option>
+                            <option value="custom" data-i18n="dosage.custom">自定义</option>
                         </select>
-                        <input type="text" id="dosageFormCustom" placeholder="单位" maxlength="5" style="display:none;width:60px;padding:8px;border-radius:8px;border:1px solid var(--gray-border);font-size:14px;background:var(--gray-light);color:inherit;" />
+                        <input type="text" id="dosageFormCustom" data-i18n-placeholder="dosage.unit" placeholder="单位" maxlength="5" style="display:none;width:60px;padding:8px;border-radius:8px;border:1px solid var(--gray-border);font-size:14px;background:var(--gray-light);color:inherit;" />
                     </div>
                     <input type="hidden" id="inputDosage" />
                 </div>
 
                 <div class="form-group">
-                    <label>📂 分组</label>
+                    <label data-i18n="modal.group">📂 分组</label>
                     <select id="inputGroup" style="width:100%;padding:8px 12px;border-radius:8px;border:1px solid var(--gray-border);font-size:14px;background:var(--gray-light);color:inherit;">
                         <option value="">无分组</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label>📅 日期区间（可选）</label>
+                    <label data-i18n="modal.dateRange">📅 日期区间（可选）</label>
                     <div style="display:flex;gap:8px;align-items:center;">
                         <input type="date" id="inputStartDate" style="flex:1;padding:6px;border-radius:8px;border:1px solid var(--gray-border);font-size:13px;background:var(--gray-light);color:inherit;" />
-                        <span>至</span>
+                        <span data-i18n="modal.dateTo">至</span>
                         <input type="date" id="inputEndDate" style="flex:1;padding:6px;border-radius:8px;border:1px solid var(--gray-border);font-size:13px;background:var(--gray-light);color:inherit;" />
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>🕐 吃药时间 <span class="required">*</span></label>
+                    <label><span data-i18n="modal.time">🕐 吃药时间</span> <span class="required">*</span></label>
                     <div class="time-list" id="timeList">
                         <!-- 由 JS 动态生成 -->
                     </div>
@@ -1225,13 +1291,13 @@
                 </div>
 
                 <div class="form-group">
-                    <label>📝 备注</label>
+                    <label data-i18n="modal.note">📝 备注</label>
                     <textarea id="inputNote" placeholder="" data-i18n-placeholder="modal.notePlaceholder" maxlength="60" rows="2"></textarea>
                 </div>
 
                 <div class="form-actions">
-                    <button class="btn-cancel" id="modalCancelBtn">取消</button>
-                    <button class="btn-save" id="modalSaveBtn">保存</button>
+                    <button class="btn-cancel" id="modalCancelBtn" data-i18n="modal.cancel">取消</button>
+                    <button class="btn-save" id="modalSaveBtn" data-i18n="modal.save">保存</button>
                 </div>
             </div>
         </div>
@@ -1251,14 +1317,14 @@
     <div class="modal-overlay" id="pwdOverlay">
         <div class="modal">
             <div class="modal-header">
-                <h2>🔑 修改密码</h2>
+                <h2 data-i18n="pwd.title">🔑 修改密码</h2>
                 <button class="close-btn" id="pwdCloseBtn">✕</button>
             </div>
-            <div class="form-group"><label>旧密码</label><input type="password" id="oldPassword" /></div>
-            <div class="form-group"><label>新密码</label><input type="password" id="newPassword" placeholder="至少4个字符" /></div>
+            <div class="form-group"><label data-i18n="pwd.oldPwd">旧密码</label><input type="password" id="oldPassword" /></div>
+            <div class="form-group"><label data-i18n="pwd.newPwd">新密码</label><input type="password" id="newPassword" data-i18n-placeholder="pwd.newPwdPlaceholder" placeholder="至少4个字符" /></div>
             <div class="form-actions">
-                <button class="btn-cancel" id="pwdCancelBtn">取消</button>
-                <button class="btn-save" id="pwdSaveBtn">确认修改</button>
+                <button class="btn-cancel" id="pwdCancelBtn" data-i18n="modal.cancel">取消</button>
+                <button class="btn-save" id="pwdSaveBtn" data-i18n="pwd.confirm">确认修改</button>
             </div>
             <div id="pwdMsg" style="text-align:center;margin-top:10px;font-size:14px;"></div>
         </div>
@@ -1268,7 +1334,7 @@
     <div class="modal-overlay" id="adminOverlay">
         <div class="modal">
             <div class="modal-header">
-                <h2>👥 用户管理</h2>
+                <h2 data-i18n="admin.title">👥 用户管理</h2>
                 <button class="close-btn" id="adminCloseBtn">✕</button>
             </div>
             <div id="adminUserList" style="max-height:50vh;overflow-y:auto;"></div>
@@ -1314,7 +1380,6 @@ const dateBadge = $('#dateBadge');
 const totalCount = $('#totalCount');
 const takenCount = $('#takenCount');
 const listContainer = $('#listContainer');
-const fabBtn = $('#fabBtn');
 const modalOverlay = $('#modalOverlay');
 const modalCloseBtn = $('#modalCloseBtn');
 const modalCancelBtn = $('#modalCancelBtn');
@@ -1327,6 +1392,16 @@ const inputGroup = $('#inputGroup');
 const inputStartDate = $('#inputStartDate');
 const inputEndDate = $('#inputEndDate');
 let groups = [];
+
+inputGroup.addEventListener('change', () => {
+    const gid = inputGroup.value;
+    if (!gid) return;
+    const g = groups.find(x => x.id == gid);
+    if (g) {
+        if (g.startDate && !inputStartDate.value) inputStartDate.value = g.startDate;
+        if (g.endDate && !inputEndDate.value) inputEndDate.value = g.endDate;
+    }
+});
 
 // 剂量结构化输入
 const dosageValue = $('#dosageValue');
@@ -1420,9 +1495,7 @@ function timeToMinutes(str) {
 }
 
 function escapeHtml(str) {
-    const div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML;
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
 function timeArg(timeStr) {
@@ -1486,13 +1559,11 @@ function showAuthMode(isLogin) {
     const ls = document.getElementById('langSelect');
     if (ls) ls.value = window.i18nCurrent();
     // 更新静态文本
-    loadStats();
     const disc = document.getElementById('disclaimerText');
     if (disc) disc.textContent = t('disclaimerShort');
-    document.title = t('app.icon') + ' ' + t('app.name');
-    ['authUsername','authPassword','authDisplayName'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.placeholder = t(el.dataset.i18nPlaceholder || '');
+    document.title = t('app.name');
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        el.placeholder = t(el.dataset.i18nPlaceholder || '');
     });
 }
 
@@ -1605,21 +1676,30 @@ async function toggleTaken(reminderId, timeId) {
 }
 
 // ---------- 渲染 ----------
+function isExpired(r) {
+    if (!r.endDate) return false;
+    const today = new Date(); today.setHours(0,0,0,0);
+    return new Date(r.endDate) < today;
+}
+
 function render() {
-    let total = reminders.length;
-    let taken = 0;
-    reminders.forEach(r => { if (r.times && r.times.length > 0 && r.times.every(tm => tm.taken)) taken++; });
+    const activeReminders = reminders.filter(r => !isExpired(r));
+    let total = 0, taken = 0;
+    activeReminders.forEach(r => { if (r.times) { r.times.forEach(tm => { total++; if (tm.taken) taken++; }); } });
     totalCount.textContent = total;
     takenCount.textContent = taken;
     dateBadge.textContent = formatDateDisplay();
 
-    if (reminders.length === 0) {
+    if (activeReminders.length === 0) {
         if (!token) {
-            listContainer.innerHTML = '<div class="empty-state"><span class="icon">' + t('app.icon') + '</span><h3>' + t('app.name') + '</h3><p>' + t('action.registerPrompt') + '</p><button id="emptyLoginBtn" style="margin-top:16px;padding:10px 36px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;font-size:15px;font-weight:600;letter-spacing:1px;box-shadow:0 3px 12px rgba(42,125,225,0.3);cursor:pointer;transition:all 0.25s">' + t('auth.loginBtn') + '</button></div>';
+            listContainer.innerHTML = '<div class="empty-state"><img src="logo.png" class="icon" style="width:56px;height:56px;border-radius:12px;"><h3>' + t('app.name') + '</h3><p>' + t('action.registerPrompt') + '</p><button id="emptyLoginBtn" style="margin-top:16px;padding:10px 36px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;font-size:15px;font-weight:600;letter-spacing:1px;box-shadow:0 3px 12px rgba(42,125,225,0.3);cursor:pointer;transition:all 0.25s">' + t('auth.loginBtn') + '</button><p style="margin-top:12px;font-size:13px;color:var(--gray);">' + t('auth.noAccount') + ' <a href="#" id="emptyRegLink" style="color:var(--primary);text-decoration:none;font-weight:500;">' + t('auth.toRegister') + '</a></p><p id="statsText" style="margin-top:16px;font-size:12px;color:var(--gray);opacity:0.6;"></p></div>';
             const emptyLoginBtn = document.getElementById('emptyLoginBtn');
+            const emptyRegLink = document.getElementById('emptyRegLink');
             if (emptyLoginBtn) emptyLoginBtn.addEventListener('click', showAuthModal);
+            if (emptyRegLink) emptyRegLink.addEventListener('click', (e) => { e.preventDefault(); showAuthMode(false); showAuthModal(); });
+            loadStats();
         } else {
-            listContainer.innerHTML = '<div class="empty-state"><span class="icon">' + t('app.icon') + '</span><h3>' + t('empty.title') + '</h3><p>' + t('empty.desc') + '</p></div>';
+            listContainer.innerHTML = '<div class="empty-state"><img src="logo.png" class="icon" style="width:56px;height:56px;border-radius:12px;"><h3>' + t('empty.title') + '</h3><p>' + t('empty.desc') + '</p></div>';
         }
         return;
     }
@@ -1627,7 +1707,7 @@ function render() {
     const now = new Date();
     const currentMinutes = now.getHours() * 60 + now.getMinutes();
     const items = [];
-    reminders.forEach(r => {
+    activeReminders.forEach(r => {
         if (r.times) {
             r.times.forEach(tm => {
                 const mins = timeToMinutes(tm.time);
@@ -1647,7 +1727,7 @@ function render() {
         const noteDisplay = r.note ? '📌 ' + escapeHtml(r.note) : '';
         html += '<div class="' + cardClass + '" data-reminder-id="' + r.id + '" data-time-id="' + tm.id + '">' +
             '<div class="card-top"><div class="card-left"><div class="card-name">' +
-            '<span class="drug-icon">' + t('app.icon') + '</span>' + escapeHtml(r.name) +
+            '<span class="drug-icon">💊</span>' + escapeHtml(r.name) +
             (dosageDisplay ? '<span class="card-dosage">' + dosageDisplay + '</span>' : '') +
             '</div></div><div class="card-time">' + tm.time + '</div></div>' + // just show time as-is
             (noteDisplay ? '<div class="card-note">' + noteDisplay + '</div>' : '') +
@@ -1655,7 +1735,7 @@ function render() {
             '<button class="btn-take ' + (isTaken ? 'taken-btn' : '') + '" data-action="take">' + (isTaken ? t('reminder.taken') : t('reminder.take')) + '</button>' +
             '<button class="btn-delete" data-action="delete" aria-label="' + t('reminder.delete') + '">🗑</button></div></div>';
     });
-    listContainer.innerHTML = html;
+    listContainer.innerHTML = html + '<div style="text-align:center;padding:24px 0 8px;color:var(--gray);font-size:13px;opacity:0.5;">' + t('list.end') + '</div>';
 
     listContainer.querySelectorAll('.reminder-card').forEach(card => {
         const remId = Number(card.dataset.reminderId), timeId = Number(card.dataset.timeId);
@@ -1780,7 +1860,7 @@ async function checkReminders() {
                 if (activeNotifId === tm.id) return;
                 const dosage = r.dosage ? ' (' + r.dosage + ')' : '';
                 const body = t('notif.doseTime') + dosage + (r.note ? '，' + r.note : '');
-                showInAppNotification(t('app.icon') + ' ' + r.name, body, r.id, tm.id);
+                showInAppNotification(r.name, body, r.id, tm.id);
                 if (navigator.vibrate) navigator.vibrate(200);
             }
         });
@@ -1801,11 +1881,13 @@ notifDismissBtn.addEventListener('click', () => {
         const remId = Number(inappNotif.dataset.reminderId), timeId = Number(inappNotif.dataset.timeId);
         if (remId && timeId) {
             const r = reminders.find(rem => rem.id == remId);
-            if (r) { const t = r.times.find(tm => tm.id == timeId); if (t && !t.taken) { const dosage = r.dosage ? ' (' + r.dosage + ')' : ''; showInAppNotification(t('app.icon') + ' ' + r.name, t('notif.doseTime') + dosage + (r.note ? '，'+r.note : ''), remId, timeId); } }
+            if (r) { const t = r.times.find(tm => tm.id == timeId); if (t && !t.taken) { const dosage = r.dosage ? ' (' + r.dosage + ')' : ''; showInAppNotification(r.name, t('notif.doseTime') + dosage + (r.note ? '，'+r.note : ''), remId, timeId); } }
         }
     }, 5 * 60 * 1000);
 });
-fabBtn.addEventListener('click', () => { if (!token) { showAuthModal(); return; } openModal(); });
+// 底部栏 + 按钮
+const bottomAddBtn = document.getElementById('bottomAddBtn');
+bottomAddBtn.addEventListener('click', () => { if (!token) { showAuthModal(); return; } openModal(); });
 modalCloseBtn.addEventListener('click', closeModal);
 modalCancelBtn.addEventListener('click', closeModal);
 modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
@@ -1852,7 +1934,8 @@ bottomBar.querySelectorAll('.bottom-tab').forEach(tab => {
 // 账户菜单开关
 function openAccountSheet() {
     if (!token) { showAuthModal(); return; }
-    if (userRole === 'admin') sheetAdminBtn.classList.remove('hidden');
+    const role = userRole || localStorage.getItem('sig_role') || 'user';
+    if (role === 'admin') sheetAdminBtn.classList.remove('hidden');
     else sheetAdminBtn.classList.add('hidden');
     accountSheet.classList.remove('hidden');
 }
@@ -1864,6 +1947,34 @@ sheetBackdrop.addEventListener('click', closeAccountSheet);
 sheetCancelBtn.addEventListener('click', closeAccountSheet);
 
 // 账户菜单项
+// 用药历史
+const historyOverlay = document.getElementById('historyOverlay');
+const historyCloseBtn = document.getElementById('historyCloseBtn');
+const historyList = document.getElementById('historyList');
+const sheetHistoryBtn = document.getElementById('sheetHistoryBtn');
+
+function showHistory() {
+    const expired = reminders.filter(r => isExpired(r));
+    if (expired.length === 0) {
+        historyList.innerHTML = '<div style="text-align:center;padding:30px;color:var(--gray);">' + t('history.empty') + '</div>';
+    } else {
+        let html = '';
+        expired.forEach(r => {
+            html += '<div style="padding:10px 8px;border-bottom:1px solid var(--gray-border);">';
+            html += '<strong>' + escapeHtml(r.name) + '</strong>';
+            if (r.dosage) html += ' · ' + escapeHtml(r.dosage);
+            if (r.endDate) html += ' <span style="color:var(--gray);font-size:12px;">（' + t('history.expiredTo') + ' ' + r.endDate + '）</span>';
+            html += '</div>';
+        });
+        historyList.innerHTML = html;
+    }
+    historyOverlay.classList.remove('hidden');
+    historyOverlay.classList.add('active');
+}
+sheetHistoryBtn.addEventListener('click', () => { closeAccountSheet(); showHistory(); });
+historyCloseBtn.addEventListener('click', () => { historyOverlay.classList.remove('active'); historyOverlay.classList.add('hidden'); });
+historyOverlay.addEventListener('click', (e) => { if (e.target === historyOverlay) { historyOverlay.classList.remove('active'); historyOverlay.classList.add('hidden'); } });
+
 sheetPwdBtn.addEventListener('click', () => { closeAccountSheet(); pwdOverlay.classList.add('active'); });
 sheetAdminBtn.addEventListener('click', () => { closeAccountSheet(); openAdminPanel(); });
 sheetLogoutBtn.addEventListener('click', () => { if (confirm(t('auth.logoutConfirm'))) { closeAccountSheet(); logout(); } });
@@ -1889,6 +2000,115 @@ bottomBar.querySelector('[data-tab="notify"]').addEventListener('click', () => {
         requestPushPermission();
     }
 });
+
+// ---------- 分组管理 ----------
+const groupsOverlay = document.getElementById('groupsOverlay');
+const groupsCloseBtn = document.getElementById('groupsCloseBtn');
+const groupsList = document.getElementById('groupsList');
+const groupsAddBtn = document.getElementById('groupsAddBtn');
+const groupForm = document.getElementById('groupForm');
+const groupName = document.getElementById('groupName');
+const groupStartDate = document.getElementById('groupStartDate');
+const groupEndDate = document.getElementById('groupEndDate');
+const groupNote = document.getElementById('groupNote');
+const groupFormSave = document.getElementById('groupFormSave');
+const groupFormCancel = document.getElementById('groupFormCancel');
+let editingGroupId = null;
+
+async function openGroups() {
+    if (!token) { showAuthModal(); return; }
+    await loadGroups();
+    renderGroupList();
+    groupForm.style.display = 'none';
+    groupsOverlay.classList.remove('hidden');
+    groupsOverlay.classList.add('active');
+}
+
+function renderGroupList() {
+    if (groups.length === 0) {
+        groupsList.innerHTML = '<div style="text-align:center;padding:20px;color:var(--gray);">' + t('groups.empty') + '</div>';
+        return;
+    }
+    let html = '';
+    groups.forEach(g => {
+        html += '<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 8px;border-bottom:1px solid var(--gray-border);">';
+        html += '<div><strong>' + escapeHtml(g.name) + '</strong> <span style="color:var(--gray);font-size:12px;">(' + t('groups.count', {n: g.medCount}) + ')</span>';
+        if (g.startDate || g.endDate) html += '<br><span style="font-size:11px;color:var(--gray);">' + (g.startDate||'?') + ' ~ ' + (g.endDate||'?') + '</span>';
+        if (g.note) html += '<br><span style="font-size:11px;color:var(--gray);">' + escapeHtml(g.note) + '</span>';
+        html += '</div>';
+        html += '<div style="display:flex;gap:4px;">';
+        html += '<button onclick="editGroup(' + g.id + ')" style="font-size:12px;padding:2px 8px;border:1px solid var(--gray-border);border-radius:6px;background:none;cursor:pointer;">' + t('groups.edit') + '</button>';
+        html += '<button onclick="deleteGroup(' + g.id + ')" style="font-size:12px;padding:2px 8px;border:1px solid var(--danger);color:var(--danger);border-radius:6px;background:none;cursor:pointer;">' + t('groups.delete') + '</button>';
+        html += '</div></div>';
+    });
+    groupsList.innerHTML = html;
+}
+
+function showGroupForm(editData = null) {
+    if (editData) {
+        editingGroupId = editData.id;
+        groupName.value = editData.name;
+        groupStartDate.value = editData.startDate || '';
+        groupEndDate.value = editData.endDate || '';
+        groupNote.value = editData.note || '';
+        groupFormSave.textContent = t('groups.update');
+    } else {
+        editingGroupId = null;
+        groupName.value = '';
+        groupStartDate.value = '';
+        groupEndDate.value = '';
+        groupNote.value = '';
+        groupFormSave.textContent = t('groups.save');
+    }
+    groupForm.style.display = 'block';
+    groupsAddBtn.style.display = 'none';
+    setTimeout(() => groupName.focus(), 100);
+}
+
+function hideGroupForm() {
+    groupForm.style.display = 'none';
+    groupsAddBtn.style.display = '';
+    editingGroupId = null;
+}
+
+groupFormSave.addEventListener('click', async () => {
+    const name = groupName.value.trim();
+    if (!name) { alert(t('groups.nameRequired')); return; }
+    try {
+        if (editingGroupId) {
+            await api('/groups/' + editingGroupId, { method: 'PUT', body: JSON.stringify({
+                name, startDate: groupStartDate.value, endDate: groupEndDate.value, note: groupNote.value.trim()
+            })});
+        } else {
+            await api('/groups', { method: 'POST', body: JSON.stringify({
+                name, startDate: groupStartDate.value, endDate: groupEndDate.value, note: groupNote.value.trim()
+            })});
+        }
+        await loadGroups();
+        renderGroupList();
+        hideGroupForm();
+    } catch(e) { alert('保存失败: ' + e.message); }
+});
+
+groupFormCancel.addEventListener('click', hideGroupForm);
+groupsAddBtn.addEventListener('click', () => showGroupForm());
+groupsCloseBtn.addEventListener('click', () => { groupsOverlay.classList.remove('active'); groupsOverlay.classList.add('hidden'); });
+groupsOverlay.addEventListener('click', (e) => { if (e.target === groupsOverlay) { groupsOverlay.classList.remove('active'); groupsOverlay.classList.add('hidden'); } });
+
+document.getElementById('bottomGroupsBtn').addEventListener('click', openGroups);
+
+window.editGroup = function(id) {
+    const g = groups.find(x => x.id === id);
+    if (g) showGroupForm(g);
+};
+window.deleteGroup = async function(id) {
+    if (!confirm(t('groups.deleteConfirm'))) return;
+    try {
+        await api('/groups/' + id, { method: 'DELETE' });
+        await loadGroups();
+        renderGroupList();
+    } catch(e) { alert('删除失败: ' + e.message); }
+};
 
 // ---------- 改密码 ----------
 const pwdBtn = document.getElementById('pwdBtn');
@@ -1932,7 +2152,7 @@ async function openAdminPanel() {
         for (const u of data.users) {
             html += '<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--gray-border);">';
             html += '<span><strong>' + escapeHtml(u.username) + '</strong> (' + escapeHtml(u.display_name||'-') + ') <span style="color:var(--gray);font-size:12px;">' + u.created_at + '</span></span>';
-            html += '<span>' + (u.role === 'admin' ? '👑' : '') + (u.username !== 'zt' ? '<button onclick="deleteUser(' + u.id + ')" style="background:var(--danger-light);color:var(--danger);border:none;padding:2px 8px;border-radius:6px;cursor:pointer;font-size:12px;">删除</button>' : '') + '</span>';
+            html += '<span>' + (u.role === 'admin' ? '👑' : '') + (u.username !== 'zt' ? '<button onclick="deleteUser(' + u.id + ')" style="background:var(--danger-light);color:var(--danger);border:none;padding:2px 8px;border-radius:6px;cursor:pointer;font-size:12px;">' + t('admin.delete') + '</button>' : '') + '</span>';
             html += '</div>';
         }
         html += '</div>';
@@ -1945,7 +2165,7 @@ adminCloseBtn.addEventListener('click', () => adminOverlay.classList.remove('act
 adminOverlay.addEventListener('click', (e) => { if (e.target === adminOverlay) adminOverlay.classList.remove('active'); });
 
 window.deleteUser = async function(id) {
-    if (!confirm('确定要删除该用户吗？此操作不可恢复')) return;
+    if (!confirm(t('admin.deleteConfirm'))) return;
     try {
         await fetch(API_BASE + '/admin/users/' + id, { method: 'DELETE', headers: { 'Authorization': 'Bearer ' + token } });
         openAdminPanel(); // 刷新列表
@@ -1988,7 +2208,8 @@ async function loadStats() {
     try {
         const res = await fetch(API_BASE + '/stats');
         const data = await res.json();
-        statsText.textContent = t('stats.users', { n: data.userCount });
+        const el = document.getElementById('statsText');
+        if (el) el.textContent = t('stats.users', { n: data.userCount });
     } catch (e) {}
 }
 
@@ -2009,15 +2230,7 @@ function hideAuthModal() {
     if (elb) elb.style.display = '';
 }
 function updateBottomBarAuth() {
-    const notifyTab = bottomBar.querySelector('[data-tab="notify"]');
-    const accountTab = bottomBar.querySelector('[data-tab="account"]');
-    if (token) {
-        if (notifyTab) notifyTab.style.display = '';
-        if (accountTab) accountTab.style.display = '';
-    } else {
-        if (notifyTab) notifyTab.style.display = 'none';
-        if (accountTab) accountTab.style.display = 'none';
-    }
+    // 所有菜单始终显示，未登录点击时各按钮自行判断弹出登录
 }
 async function bootstrap() {
     loadStats();
@@ -2049,16 +2262,8 @@ function refreshUI() {
     loadStats();
     showAuthMode(isLoginMode);
     // 静态占位符
-    ['authUsername','authPassword','authDisplayName'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.placeholder = t(el.dataset.i18nPlaceholder || '');
-    });
-    ['inputName','inputDosage','inputNote'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) {
-            const key = { inputName: 'modal.drugPlaceholder', inputDosage: 'modal.dosagePlaceholder', inputNote: 'modal.notePlaceholder' }[id];
-            if (key && el) el.placeholder = t(key);
-        }
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        el.placeholder = t(el.dataset.i18nPlaceholder || '');
     });
     document.querySelectorAll('[data-i18n]').forEach(el => {
         el.textContent = t(el.dataset.i18n);
@@ -2091,7 +2296,7 @@ function refreshUI() {
         if ('Notification' in window && Notification.permission === 'denied') permBtnEl.textContent = t('perm.denied');
         else permBtnEl.textContent = t('perm.enable');
     }
-    document.title = t('app.icon') + ' ' + t('app.name');
+    document.title = t('app.name');
     // 语言选择器同步
     const langSel = document.getElementById('langSelect');
     if (langSel) langSel.value = window.i18nCurrent();
@@ -2112,7 +2317,7 @@ window.addEventListener('langchange', refreshUI);
 
 // 等待 i18n 就绪再启动
 window.i18nReady.then(() => {
-    document.title = t('app.icon') + ' ' + t('app.name');
+    document.title = t('app.name');
     bootstrap();
 });
 })();

@@ -185,10 +185,6 @@ export const stmts = {
     db.run('DELETE FROM users WHERE id = ?', [id]);
     flushSync();
   },
-  admin_setRole(id, role) {
-    db.run('UPDATE users SET role = ? WHERE id = ?', [role, id]);
-    flushSync();
-  },
 
   // reminders
   rem_list(userId) {
@@ -211,7 +207,7 @@ export const stmts = {
     db.run('INSERT INTO reminders (user_id, name, dosage, note, group_id, start_date, end_date) VALUES (?, ?, ?, ?, ?, ?, ?)',
       [userId, name, dosage, note, groupId || null, startDate || '', endDate || '']);
     const id = lastInsertId();
-    flushSync();
+    saveToDisk();
     return id;
   },
   rem_update(name, dosage, note, groupId, startDate, endDate, id) {

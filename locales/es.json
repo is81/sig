@@ -25,9 +25,9 @@
 
   "stats.users": "{n} usuarios están usando ¡A Tomar!",
 
-  "disclaimer": "Aviso: Esta herramienta es solo para referencia personal de recordatorio de medicamentos. No reemplaza el diagnóstico ni la prescripción médica. Sigue siempre las indicaciones de tu médico. El desarrollador no asume ninguna responsabilidad por las consecuencias derivadas del uso de esta herramienta.",
-  "disclaimerShort": "⚠️ Solo referencia. No sustituye el consejo médico.",
-  "privacy.text": "🔒 Privacidad: Datos solo en este servidor, nunca compartidos ni vendidos",
+  "disclaimer": "Aviso: Esta herramienta es solo para referencia personal. No reemplaza el diagnóstico médico.",
+  "disclaimerShort": "Solo referencia. No sustituye el consejo médico.",
+  "privacy.text": "🔒 Privacidad: Datos solo en este servidor",
   "privacy.link": "https://github.com/is81/sig#privacy",
 
   "header.todayMeds": "Hoy",
@@ -35,7 +35,8 @@
   "header.date": "Hoy",
 
   "empty.title": "Sin recordatorios",
-  "empty.desc": "Toca el botón ＋ para añadir tu primer recordatorio",
+  "empty.desc": "Toca ＋ para añadir tu primer recordatorio",
+  "list.end": "¡Eso es todo!",
 
   "reminder.take": "Tomar",
   "reminder.taken": "Tomado",
@@ -45,10 +46,13 @@
 
   "modal.addTitle": "Añadir Recordatorio",
   "modal.editTitle": "Editar Recordatorio",
-  "modal.drugName": "💊 Medicamento",
+  "modal.drugName": "Medicamento",
   "modal.drugPlaceholder": "ej. Amoxicilina",
   "modal.dosage": "📏 Dosis",
   "modal.dosagePlaceholder": "ej. 500mg / 1 comprimido",
+  "modal.group": "📂 Grupo",
+  "modal.dateRange": "📅 Rango de fechas (opcional)",
+  "modal.dateTo": "a",
   "modal.time": "🕐 Hora",
   "modal.note": "📝 Nota",
   "modal.notePlaceholder": "ej. Después de comer",
@@ -59,6 +63,43 @@
   "modal.drugRequired": "Ingresa el nombre del medicamento",
   "modal.timeRequired": "Establece al menos una hora",
   "modal.saveError": "Error al guardar: ",
+
+  "dosage.value": "Dosis",
+  "dosage.custom": "Personalizado",
+  "dosage.unit": "Unidad",
+  "dosage.pill": "píldora",
+  "dosage.tablet": "tab",
+  "dosage.pack": "sobre",
+  "dosage.tube": "tubo",
+  "dosage.drop": "gota",
+
+  "groups.title": "📂 Grupos",
+  "groups.name": "Nombre del grupo",
+  "groups.note": "Nota (opcional)",
+  "groups.add": "＋ Nuevo Grupo",
+  "groups.empty": "Sin grupos. Crea uno abajo.",
+  "groups.edit": "Editar",
+  "groups.delete": "Eliminar",
+  "groups.save": "Guardar",
+  "groups.update": "Actualizar",
+  "groups.cancel": "Cancelar",
+  "groups.nameRequired": "Ingresa un nombre de grupo",
+  "groups.deleteConfirm": "¿Eliminar este grupo? Los medicamentos no se borrarán.",
+  "groups.count": "{n} meds",
+
+  "history.title": "📋 Historial",
+  "history.empty": "No hay medicamentos vencidos",
+  "history.expiredTo": "hasta",
+
+  "pwd.title": "🔑 Cambiar Contraseña",
+  "pwd.oldPwd": "Contraseña anterior",
+  "pwd.newPwd": "Nueva contraseña",
+  "pwd.newPwdPlaceholder": "Al menos 4 caracteres",
+  "pwd.confirm": "Confirmar",
+
+  "admin.title": "👥 Administración",
+  "admin.delete": "Eliminar",
+  "admin.deleteConfirm": "¿Eliminar este usuario? No se puede deshacer.",
 
   "notif.title": "⏰ ¡A Tomar!",
   "notif.body": "Hora de tomar tu medicamento",
@@ -74,26 +115,34 @@
   "error.loginExpiredRe": "Sesión expirada, inicia sesión de nuevo",
   "error.loginRequired": "Inicia sesión primero",
   "error.requestFailed": "Solicitud fallida",
-  "error.rateLimit": "Demasiadas solicitudes, intenta más tarde",
+  "error.rateLimit": "Demasiadas solicitudes",
   "error.createFailed": "Error al crear recordatorio",
   "error.notFound": "Recordatorio no encontrado",
   "error.timeNotFound": "Horario no encontrado",
 
   "sw.markFailed": "Error al marcar como tomado",
-  "sw.noToken": "Sin token, no se puede marcar — inicia sesión de nuevo",
+  "sw.noToken": "Sin token, no se puede marcar",
 
   "bottom.meds": "Medicinas",
   "bottom.reminders": "Alertas",
+  "bottom.groups": "Grupos",
+  "bottom.add": "Añadir",
   "bottom.language": "Idioma",
   "bottom.account": "Cuenta",
 
   "group.noGroup": "Sin grupo",
 
+  "menu.history": "Historial",
+  "menu.changePwd": "Cambiar Contraseña",
+  "menu.admin": "Administrar",
+  "menu.logout": "Cerrar Sesión",
+  "menu.cancel": "Cancelar",
+
   "action.registerPrompt": "Regístrate o inicia sesión para añadir recordatorios",
   "action.loginRequired": "Inicia sesión primero",
 
   "projectX.title": "Project X",
-  "projectX.desc": "Nuevo proyecto en desarrollo. Si tienes ideas sobre datos de salud, hablemos.",
+  "projectX.desc": "Nuevo proyecto en desarrollo.",
   "projectX.meta": "Próximamente",
   "projectX.cta": "Compartir Ideas →"
 }

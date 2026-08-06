@@ -15,9 +15,16 @@ function today() {
     String(d.getDate()).padStart(2, '0');
 }
 
+// 防止同一分钟重复推送
+const _sentCache = new Map();
+
 /** 发送提醒 */
 async function checkAndNotify() {
   const now = timeNow();
+  const cacheKey = `${now}`;
+  if (_sentCache.get(cacheKey) === today()) return; // 本分钟已发过，跳过
+  _sentCache.set(cacheKey, today());
+
   console.log(`[调度] 检查提醒: ${now}`);
 
   const matches = stmts.time_matchNow(now);
@@ -30,7 +37,7 @@ async function checkAndNotify() {
     const subs = stmts.push_findByUser(m.user_id);
 
     const payload = {
-      title: `💊 ${m.name}`,
+      title: m.name,
       body: `${m.dosage ? m.dosage + ' · ' : ''}吃药时间到了${m.note ? ' — ' + m.note : ''}`,
       reminderId: String(m.reminder_id),
       timeId: String(m.id),

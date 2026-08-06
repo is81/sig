@@ -1,6 +1,9 @@
 import jwt from 'jsonwebtoken';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'dev-secret';
+if (!process.env.JWT_SECRET) {
+  console.warn('[WARN] JWT_SECRET 未设置，使用默认值（不安全）');
+}
 
 /** Express 中间件：验证 JWT，将 userId/username/role 注入 req */
 export function authRequired(req, res, next) {
