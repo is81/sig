@@ -17,10 +17,12 @@
 
 ## Features
 
-- 👥 **Multi-user** — Register / login with JWT authentication
+- 👥 **Multi-user** — Register / login with JWT authentication, admin role
 - 💊 **Medication CRUD** — Add drug name, structured dosage (value + unit × quantity), time slots, notes
 - 📂 **Medicine Groups** — Organize meds into groups with date ranges and notes
-- 📋 **Medication History** — Expired meds auto-hide, viewable in history
+- 😕 **Miss Tracking** — Mark as not-taken with reason (forgot / sick / no meds / no longer needed / other)
+- 💬 **Side Effect Feedback** — Optional symptom reporting after taking medication
+- 📊 **Admin Dashboard** — User demographics and monthly feedback analytics
 - 🔔 **Web Push** — System notifications even when browser is closed (iOS PWA supported)
 - 🌐 **i18n** — 中文 / English / 日本語 / Español
 - 📱 **PWA** — Add to home screen for native app experience
@@ -47,8 +49,11 @@
 sig/
 ├── logo.png                 # App logo
 ├── index.html               # SPA frontend
+├── style.css                # Stylesheet (extracted CSS)
 ├── sw.js                    # Service Worker (push receiver)
 ├── manifest.json            # PWA manifest
+├── README.md                # This file
+├── TODO.md                  # Roadmap & pending issues
 ├── locales/
 │   ├── zh-CN.json / en.json / ja.json / es.json
 │   └── i18n.js              # i18n module
@@ -60,11 +65,12 @@ sig/
     ├── middleware/auth.js    # JWT middleware
     ├── routes/
     │   ├── auth.js          # Register / login / change password
-    │   ├── reminders.js     # CRUD + toggle
+    │   ├── reminders.js     # CRUD + mark taken/missed
     │   ├── groups.js        # Medicine groups CRUD
+    │   ├── feedback.js      # Miss reasons & side effects
     │   ├── push.js          # Push subscription & test
     │   ├── stats.js         # Public user count
-    │   └── admin.js         # Admin user management
+    │   └── admin.js         # Admin: users + data dashboard
     ├── services/
     │   ├── scheduler.js     # node-cron: 30s check + daily reset
     │   └── push.js          # web-push sender
@@ -97,7 +103,7 @@ See `CLAUDE.md` in repo root for IIS + pm2 deployment guide.
 
 - 🔒 Passwords hashed with bcrypt, JWT tokens expire after 7 days
 - 🔐 HTTPS required in production
-- 🗄️ SQLite — no cloud, no analytics, no tracking
+- 🗄️ SQLite — no cloud database, your data stays local
 - 🔔 Push via standard Web Push protocol
 - 📍 [is81.net/sig](https://is81.net/sig/) is the official hosted instance — feel free to use it
 
