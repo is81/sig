@@ -5,6 +5,7 @@ server/.env
 vapid-keys.json
 test-browser.mjs
 *.7z
+TODO.md
 docs/sig-dev-story-wechat.md
 docs/update-*.md
 docs/update-pic/
