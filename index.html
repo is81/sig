@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="吃药啦" />
@@ -339,7 +339,6 @@ const authSwitchLink = $('#authSwitchLink');
 
 // App
 const app = $('#app');
-const logoutBtn = $('#logoutBtn');
 const dateBadge = $('#dateBadge');
 const totalCount = $('#totalCount');
 const takenCount = $('#takenCount');
@@ -463,9 +462,6 @@ function escapeHtml(str) {
     return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-function timeArg(timeStr) {
-    return t('notif.doseTimeArg', { time: timeStr });
-}
 
 // ---------- API ----------
 async function api(path, options = {}) {
@@ -492,7 +488,6 @@ function idb() {
 async function saveToken(tok) {
     token = tok;
     localStorage.setItem('sig_token', tok);
-    try { const db = await idb(); db.transaction('auth','readwrite').objectStore('auth').put(tok, 'token'); } catch(e) {}
 }
 function loadToken() { token = localStorage.getItem('sig_token'); return !!token; }
 
@@ -506,7 +501,6 @@ async function logout() {
     try { const db = await idb(); db.transaction('auth','readwrite').objectStore('auth').delete('token'); } catch(e) {}
     reminders = [];
     hideAuthModal();
-    updateBottomBarAuth();
     render();
 }
 
@@ -560,8 +554,7 @@ authForm.addEventListener('submit', async (e) => {
         localStorage.setItem('sig_role', userRole);
         hideAuthModal();
         if (userRole === 'admin') { if (sheetAdminBtn) sheetAdminBtn.classList.remove('hidden'); if (sheetDashboardBtn) sheetDashboardBtn.classList.remove('hidden'); }
-        updateBottomBarAuth();
-        await loadReminders();
+            await loadReminders();
         await initApp();
     } catch (err) { showAuthError(t('auth.networkError')); authSubmitBtn.disabled = false; authSubmitBtn.textContent = isLoginMode ? t('auth.loginBtn') : t('auth.registerBtn'); }
 });
@@ -777,7 +770,7 @@ function render() {
             '<div class="card-top"><div class="card-left"><div class="card-name">' +
             '<span class="drug-icon">💊</span>' + escapeHtml(r.name) +
             (dosageDisplay ? '<span class="card-dosage">' + dosageDisplay + '</span>' : '') +
-            '</div></div><div class="card-time">' + tm.time + '</div></div>' + // just show time as-is
+            '</div></div><div class="card-time">' + escapeHtml(tm.time) + '</div></div>' +
             (noteDisplay ? '<div class="card-note">' + noteDisplay + '</div>' : '') +
             '<div class="card-actions">' +
             (isMissed
@@ -936,7 +929,7 @@ async function checkReminders() {
 // ---------- 事件绑定 ----------
 notifTakeBtn.addEventListener('click', async () => {
     const remId = Number(inappNotif.dataset.reminderId), timeId = Number(inappNotif.dataset.timeId);
-    if (remId && timeId) { try { await toggleTaken(remId, timeId); } catch (e) {} }
+    if (remId && timeId) { try { await markTaken(remId, timeId, 1); } catch (e) {} }
     hideInAppNotification();
 });
 notifDismissBtn.addEventListener('click', () => {
@@ -1057,7 +1050,7 @@ function showHistory() {
             html += '<div style="padding:10px 8px;border-bottom:1px solid var(--gray-border);">';
             html += '<strong>' + escapeHtml(r.name) + '</strong>';
             if (r.dosage) html += ' · ' + escapeHtml(r.dosage);
-            if (r.endDate) html += ' <span style="color:var(--gray);font-size:12px;">（' + t('history.expiredTo') + ' ' + r.endDate + '）</span>';
+            if (r.endDate) html += ' <span style="color:var(--gray);font-size:12px;">（' + t('history.expiredTo') + ' ' + escapeHtml(r.endDate) + '）</span>';
             html += '</div>';
         });
         historyList.innerHTML = html;
@@ -1128,7 +1121,7 @@ function renderGroupList() {
     groups.forEach(g => {
         html += '<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 8px;border-bottom:1px solid var(--gray-border);">';
         html += '<div><strong>' + escapeHtml(g.name) + '</strong> <span style="color:var(--gray);font-size:12px;">(' + t('groups.count', {n: g.medCount}) + ')</span>';
-        if (g.startDate || g.endDate) html += '<br><span style="font-size:11px;color:var(--gray);">' + (g.startDate||'?') + ' ~ ' + (g.endDate||'?') + '</span>';
+        if (g.startDate || g.endDate) html += '<br><span style="font-size:11px;color:var(--gray);">' + escapeHtml(g.startDate||'?') + ' ~ ' + escapeHtml(g.endDate||'?') + '</span>';
         if (g.note) html += '<br><span style="font-size:11px;color:var(--gray);">' + escapeHtml(g.note) + '</span>';
         html += '</div>';
         html += '<div style="display:flex;gap:4px;">';
@@ -1206,14 +1199,12 @@ window.deleteGroup = async function(id) {
 };
 
 // ---------- 改密码 ----------
-const pwdBtn = document.getElementById('pwdBtn');
 const pwdOverlay = document.getElementById('pwdOverlay');
 const pwdCloseBtn = document.getElementById('pwdCloseBtn');
 const pwdCancelBtn = document.getElementById('pwdCancelBtn');
 const pwdSaveBtn = document.getElementById('pwdSaveBtn');
 const pwdMsg = document.getElementById('pwdMsg');
 
-if (pwdBtn) pwdBtn.addEventListener('click', () => { pwdOverlay.classList.add('active'); pwdMsg.textContent = ''; document.getElementById('oldPassword').value = ''; document.getElementById('newPassword').value = ''; });
 pwdCloseBtn.addEventListener('click', () => pwdOverlay.classList.remove('active'));
 pwdCancelBtn.addEventListener('click', () => pwdOverlay.classList.remove('active'));
 pwdOverlay.addEventListener('click', (e) => { if (e.target === pwdOverlay) pwdOverlay.classList.remove('active'); });
@@ -1274,22 +1265,23 @@ async function openDashboard() {
         html += '<div style="margin-bottom:20px;"><h3 style="font-size:15px;margin-bottom:10px;">👥 用户画像（共 ' + s.totalUsers + ' 人）</h3>';
         html += '<div style="display:flex;flex-wrap:wrap;gap:10px;font-size:13px;">';
         if (s.avgBirth) html += '<span style="background:var(--gray-light);padding:4px 12px;border-radius:20px;">📅 平均出生年份: <b>' + s.avgBirth + '</b></span>';
-        s.genders.forEach(g => {
+        if (s.genders) s.genders.forEach(g => {
             const label = g.gender === 'male' ? '♂ 男' : g.gender === 'female' ? '♀ 女' : g.gender === 'other' ? '其他' : g.gender;
-            const pct = Math.round(g.cnt / s.totalUsers * 100);
+            const pct = s.totalUsers > 0 ? Math.round(g.cnt / s.totalUsers * 100) : 0;
             html += '<span style="background:var(--gray-light);padding:4px 12px;border-radius:20px;">' + label + ' <b>' + pct + '%</b></span>';
         });
-        if (s.regions.length > 0) {
+        if (s.regions && s.regions.length > 0) {
             html += '<span style="background:var(--gray-light);padding:4px 12px;border-radius:20px;">📍 ' + s.regions.slice(0,3).map(r => r.region).join(' / ') + '</span>';
         }
         html += '</div></div>';
 
         // 反馈统计
         const fb = s.feedback;
+        if (fb) {
         html += '<div><h3 style="font-size:15px;margin-bottom:10px;">📋 反馈统计（本月）</h3>';
         html += '<div style="display:flex;flex-wrap:wrap;gap:10px;font-size:13px;">';
 
-        if (fb.missReasons.length > 0) {
+        if (fb.missReasons && fb.missReasons.length > 0) {
             const total = fb.missReasons.reduce((sum, r) => sum + r.cnt, 0);
             html += '<span style="background:var(--gray-light);padding:4px 12px;border-radius:20px;">漏服原因: ';
             html += fb.missReasons.map(r => {
@@ -1303,6 +1295,7 @@ async function openDashboard() {
         if (fb.missReasons.length === 0 && fb.sideEffectCount === 0 && fb.symptomTotal === 0) html += '<span style="color:var(--gray);">暂无本月反馈数据</span>';
 
         html += '</div></div>';
+        }
         dashboardContent.innerHTML = html;
         dashboardOverlay.classList.add('active');
     } catch (e) { alert('加载失败: ' + e.message); }
@@ -1376,27 +1369,21 @@ function hideAuthModal() {
     const elb = document.getElementById('emptyLoginBtn');
     if (elb) elb.style.display = '';
 }
-function updateBottomBarAuth() {
-    // 所有菜单始终显示，未登录点击时各按钮自行判断弹出登录
-}
 async function bootstrap() {
     loadStats();
     await registerSW();
     // 始终显示 app 主界面
-    app.classList.remove('hidden');
     if (loadToken()) {
         userRole = localStorage.getItem('sig_role') || 'user';
         try {
             const data = await api('/reminders');
             reminders = data.reminders;
             if (userRole === 'admin') { if (sheetAdminBtn) sheetAdminBtn.classList.remove('hidden'); if (sheetDashboardBtn) sheetDashboardBtn.classList.remove('hidden'); }
-            updateBottomBarAuth();
-            await initApp();
+                    await initApp();
             return;
         } catch (e) { logout(); }
     }
     // 未登录：显示空列表
-    updateBottomBarAuth();
     refreshUI();
     // 监听通知权限（未登录也提示）
     if ('Notification' in window && Notification.permission === 'default') {
@@ -1432,8 +1419,6 @@ function refreshUI() {
     if (notifDismissEl) notifDismissEl.textContent = t('notif.dismiss');
     const appTitle = document.getElementById('appTitle');
     if (appTitle) appTitle.textContent = t('app.name');
-    const logoutBtnEl = document.getElementById('logoutBtn');
-    // logout button is now icon 🚪, no text update needed
     const labelTotal = document.getElementById('labelTotalMeds');
     if (labelTotal) labelTotal.textContent = t('header.todayMeds');
     const labelTaken = document.getElementById('labelTaken');
@@ -1447,19 +1432,7 @@ function refreshUI() {
     }
     document.title = t('app.name');
     // 语言选择器同步
-    const langSel = document.getElementById('langSelect');
-    if (langSel) langSel.value = window.i18nCurrent();
     if (!authOverlay.classList.contains('active')) render();
-}
-
-// 语言选择器
-const langSelect = document.getElementById('langSelect');
-if (langSelect) {
-    langSelect.value = window.i18nCurrent();
-    langSelect.addEventListener('change', async (e) => {
-        await window.setLang(e.target.value);
-        refreshUI();
-    });
 }
 
 window.addEventListener('langchange', refreshUI);

@@ -68,9 +68,6 @@ export function initScheduler() {
   _tasks.push(cron.schedule('*/30 * * * * *', checkAndNotify));
   _tasks.push(cron.schedule('1 0 * * *', resetDaily));
 
-  // 启动时也执行一次每日重置
-  resetDaily();
-
   console.log('[调度] 定时器已启动 (30s 提醒检查 + 每日0:01重置)');
 }
 

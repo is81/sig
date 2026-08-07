@@ -75,7 +75,7 @@ app.use('/api/reminders', rateLimit(60, 60000, req => req.ip));
 
 // 静态文件（前端）
 const publicDir = path.join(__dirname, '..');
-app.use(express.static(publicDir));
+app.use(express.static(publicDir, { index: false }));
 
 // API 路由
 app.use('/api/auth',      authRoutes);
@@ -88,6 +88,12 @@ app.use('/api/admin',     adminRoutes);
 
 // 健康检查
 app.get('/api/health', (_req, res) => res.json({ ok: true }));
+
+// 全局错误处理
+app.use((err, _req, res, _next) => {
+  console.error('[ERROR]', err.message || err);
+  res.status(500).json({ error: '服务器内部错误' });
+});
 
 // 启动：先初始化数据库
 initDB().then(() => {
@@ -109,4 +115,7 @@ initDB().then(() => {
   };
   process.on('SIGTERM', () => shutdown('SIGTERM'));
   process.on('SIGINT',  () => shutdown('SIGINT'));
+}).catch(err => {
+  console.error('[FATAL] 数据库初始化失败:', err.message);
+  process.exit(1);
 });

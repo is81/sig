@@ -22,7 +22,7 @@ function lookupRegion(ip) {
     if (!ip || ip === '127.0.0.1' || ip === '::1' || ip === '::ffff:127.0.0.1' || ip.startsWith('192.168.') || ip.startsWith('10.')) {
       return resolve('');
     }
-    https.get('https://ipapi.co/' + encodeURIComponent(ip) + '/json/', (res) => {
+    const req = https.get('https://ipapi.co/' + encodeURIComponent(ip) + '/json/', (res) => {
       let data = '';
       res.on('data', chunk => data += chunk);
       res.on('end', () => {
@@ -36,6 +36,7 @@ function lookupRegion(ip) {
         } catch (e) { resolve(''); }
       });
     }).on('error', () => resolve(''));
+    req.setTimeout(5000, () => { req.destroy(); resolve(''); });
   });
 }
 

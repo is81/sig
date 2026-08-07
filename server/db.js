@@ -37,11 +37,11 @@ export async function initDB() {
   `);
 
   // 迁移：旧表补 role 列
-  try { db.run('ALTER TABLE users ADD COLUMN role TEXT DEFAULT \'user\''); } catch(e) { /* already exists */ }
-  try { db.run('ALTER TABLE users ADD COLUMN last_login TEXT DEFAULT \'\''); } catch(e) { /* already exists */ }
-  try { db.run('ALTER TABLE users ADD COLUMN birth_year TEXT DEFAULT \'\''); } catch(e) { /* already exists */ }
-  try { db.run('ALTER TABLE users ADD COLUMN gender TEXT DEFAULT \'\''); } catch(e) { /* already exists */ }
-  try { db.run('ALTER TABLE users ADD COLUMN region TEXT DEFAULT \'\''); } catch(e) { /* already exists */ }
+  try { db.run("ALTER TABLE users ADD COLUMN role TEXT DEFAULT 'user'"); } catch(e) { if (!e.message.includes('duplicate')) console.error('[DB] 迁移失败:', e.message); }
+  try { db.run("ALTER TABLE users ADD COLUMN last_login TEXT DEFAULT ''"); } catch(e) { if (!e.message.includes('duplicate')) console.error('[DB] 迁移失败:', e.message); }
+  try { db.run("ALTER TABLE users ADD COLUMN birth_year TEXT DEFAULT ''"); } catch(e) { if (!e.message.includes('duplicate')) console.error('[DB] 迁移失败:', e.message); }
+  try { db.run("ALTER TABLE users ADD COLUMN gender TEXT DEFAULT ''"); } catch(e) { if (!e.message.includes('duplicate')) console.error('[DB] 迁移失败:', e.message); }
+  try { db.run("ALTER TABLE users ADD COLUMN region TEXT DEFAULT ''"); } catch(e) { if (!e.message.includes('duplicate')) console.error('[DB] 迁移失败:', e.message); }
 
   // 药品分组表
   db.run(`
@@ -303,6 +303,9 @@ export const stmts = {
   // push
   push_findByUser(userId) {
     return getAll(db.prepare('SELECT * FROM push_subscriptions WHERE user_id = ?', [userId]));
+  },
+  push_findByEndpoint(endpoint) {
+    return getRow(db.prepare('SELECT * FROM push_subscriptions WHERE endpoint = ?', [endpoint]));
   },
   push_upsert(userId, endpoint, p256dh, auth) {
     // 先删除同 endpoint 的旧记录

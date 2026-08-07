@@ -158,21 +158,6 @@ body {
 .bottom-tab:active {
     background: rgba(0,0,0,0.05);
 }
-.bottom-tab-add {
-    font-size: 28px !important;
-    font-weight: 300;
-    color: #fff !important;
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark)) !important;
-    border-radius: 50% !important;
-    width: 44px;
-    height: 44px;
-    padding: 0 !important;
-    margin-top: -10px;
-    box-shadow: 0 3px 12px rgba(42,125,225,0.35);
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-}
 
 /* ===== 账户操作菜单 ===== */
 .account-sheet {
@@ -451,16 +436,6 @@ body {
     transform: scale(0.96);
 }
 
-.reminder-card .time-tag {
-    display: inline-block;
-    background: var(--primary-light);
-    color: var(--primary);
-    font-size: 12px;
-    font-weight: 600;
-    padding: 2px 10px;
-    border-radius: 12px;
-    margin-right: 4px;
-}
 
 @keyframes cardIn {
     from {
@@ -473,32 +448,6 @@ body {
     }
 }
 
-/* ===== 浮动添加按钮 ===== */
-.fab {
-    position: fixed;
-    bottom: 84px;
-    right: 24px;
-    width: 62px;
-    height: 62px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-    color: #fff;
-    border: none;
-    font-size: 34px;
-    font-weight: 300;
-    box-shadow: var(--shadow-lg);
-    cursor: pointer;
-    transition: all 0.25s ease;
-    z-index: 65;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    touch-action: manipulation;
-}
-.fab:active {
-    transform: scale(0.90);
-    box-shadow: 0 4px 16px rgba(42, 125, 225, 0.3);
-}
 
 /* ===== 模态框 ===== */
 .modal-overlay {
@@ -819,7 +768,6 @@ body {
     .app-header .date-badge { font-size: 12px; padding: 2px 10px; }
     .reminder-card .card-name { font-size: 15px; }
     .reminder-card .card-time { font-size: 17px; }
-    .fab { width: 54px; height: 54px; font-size: 28px; right: 18px; bottom: calc(18px + var(--safe-bottom)); }
     .modal { padding: 18px 14px calc(14px + var(--safe-bottom)); }
 }
 
@@ -840,7 +788,6 @@ body {
         position: relative;
     }
     .app-header { border-radius: 0 0 24px 24px; }
-    .fab { right: calc(50% - 250px + 24px); }
     .inapp-notification {
         left: 50%;
         transform: translateX(-50%);
@@ -888,12 +835,10 @@ body {
     .side-banner a { color: var(--success); }
     .empty-state h3 { color: #C8D0D8; }
     .empty-state p { color: var(--gray); }
-    .fab { background: linear-gradient(135deg, #3A7BD5, #1A5CA8); }
     .modal .time-item .remove-time { background: #3A1A1A; color: var(--danger); }
     .modal .time-item .remove-time:active { background: var(--danger); color: #fff; }
     .reminder-card .btn-take { background: #1A3050; color: #6AA8F0; }
     .reminder-card .btn-take.taken-btn { background: #1A3A2A; color: var(--success); }
-    .reminder-card .time-tag { background: #1A3050; color: #6AA8F0; }
     .bottom-bar { background: rgba(30,35,44,0.95); border-top-color: var(--gray-border); }
     .bottom-tab { color: #7A8290; }
     .bottom-tab.active { color: #6AA8F0; }
@@ -1044,34 +989,8 @@ body {
 }
 .auth-container .auth-error.active { display: block; }
 
-.btn-logout {
-    background: rgba(255, 255, 255, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: #fff;
-    padding: 3px 10px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    white-space: nowrap;
-}
-.btn-logout:active {
-    background: rgba(255, 255, 255, 0.25);
-    transform: scale(0.95);
-}
-
-.auth-lang { position: absolute; top: 0; right: 8px; }
-.auth-lang select { cursor: pointer; }
 .auth-container { position: relative; }
 
-.auth-stats {
-    text-align: center;
-    font-size: 13px;
-    color: var(--gray);
-    margin-top: 10px;
-    margin-bottom: 4px;
-}
 .auth-disclaimer {
     text-align: center;
     font-size: 11px;

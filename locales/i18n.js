@@ -47,7 +47,7 @@ const I18N = (() => {
     }
     if (args) {
       for (const [k, v] of Object.entries(args)) {
-        s = s.replace(`{${k}}`, v);
+        s = s.replace(new RegExp(`{${k}}`, 'g'), v);
       }
     }
     return s;

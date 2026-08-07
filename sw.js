@@ -90,7 +90,7 @@ async function markTaken(reminderId, timeId) {
   try {
     const token = await getToken();
     if (!token) { console.warn('[SW] 无 token，无法标记已服——请重新登录'); return; }
-    await fetch(`${API_BASE}/reminders/${reminderId}/times/${timeId}/toggle`, {
+    await fetch(`${API_BASE}/reminders/${reminderId}/times/${timeId}/mark`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

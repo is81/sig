@@ -1,8 +1,12 @@
 import jwt from 'jsonwebtoken';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'dev-secret';
-if (!process.env.JWT_SECRET) {
-  console.warn('[WARN] JWT_SECRET 未设置，使用默认值（不安全）');
+function getSecret() {
+  const s = process.env.JWT_SECRET;
+  if (!s) {
+    console.error('[FATAL] JWT_SECRET 未设置');
+    throw new Error('JWT_SECRET not configured');
+  }
+  return s;
 }
 
 /** Express 中间件：验证 JWT，将 userId/username/role 注入 req */
@@ -12,7 +16,7 @@ export function authRequired(req, res, next) {
     return res.status(401).json({ error: '请先登录' });
   }
   try {
-    const payload = jwt.verify(header.slice(7), JWT_SECRET);
+    const payload = jwt.verify(header.slice(7), getSecret());
     req.userId = payload.userId;
     req.username = payload.username;
     req.userRole = payload.role || 'user';
@@ -34,7 +38,7 @@ export function adminRequired(req, res, next) {
 export function signToken(user) {
   return jwt.sign(
     { userId: user.id, username: user.username, role: user.role || 'user' },
-    JWT_SECRET,
+    getSecret(),
     { expiresIn: '7d' }
   );
 }

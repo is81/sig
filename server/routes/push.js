@@ -51,6 +51,8 @@ router.post('/subscribe', authRequired, (req, res) => {
 router.delete('/unsubscribe', authRequired, (req, res) => {
   const { endpoint } = req.body || {};
   if (!endpoint) return res.status(400).json({ error: '缺少 endpoint' });
+  const sub = stmts.push_findByEndpoint(endpoint);
+  if (!sub || sub.user_id !== req.userId) return res.status(403).json({ error: '无权操作' });
   stmts.push_delete(endpoint);
   res.json({ ok: true });
 });
