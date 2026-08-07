@@ -40,9 +40,18 @@
 
   "reminder.take": "Take",
   "reminder.taken": "Taken",
+  "reminder.miss": "Missed",
   "reminder.delete": "Delete",
   "reminder.deleteConfirm": "Delete this pill reminder?",
   "reminder.untakeConfirm": "Undo the taken status?",
+
+  "feedback.missTitle": "Why did you miss it?",
+  "feedback.forgot": "Forgot",
+  "feedback.sick": "Not feeling well",
+  "feedback.noMed": "No meds on hand",
+  "feedback.noNeed": "No longer needed",
+  "feedback.other": "Other",
+  "feedback.skip": "Skip",
 
   "modal.addTitle": "Add Reminder",
   "modal.editTitle": "Edit Reminder",
@@ -137,6 +146,15 @@
   "menu.admin": "Admin",
   "menu.logout": "Logout",
   "menu.cancel": "Cancel",
+
+  "profile.more": "▸ More info (optional)",
+  "profile.birthYear": "Birth year",
+  "profile.gender": "Gender",
+  "profile.region": "Region",
+  "gender.male": "Male",
+  "gender.female": "Female",
+  "gender.other": "Other",
+  "gender.skip": "Prefer not to say",
 
   "action.registerPrompt": "Sign up or login to add pill reminders",
   "action.loginRequired": "Please login first",

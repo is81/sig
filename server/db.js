@@ -39,6 +39,9 @@ export async function initDB() {
   // 迁移：旧表补 role 列
   try { db.run('ALTER TABLE users ADD COLUMN role TEXT DEFAULT \'user\''); } catch(e) { /* already exists */ }
   try { db.run('ALTER TABLE users ADD COLUMN last_login TEXT DEFAULT \'\''); } catch(e) { /* already exists */ }
+  try { db.run('ALTER TABLE users ADD COLUMN birth_year TEXT DEFAULT \'\''); } catch(e) { /* already exists */ }
+  try { db.run('ALTER TABLE users ADD COLUMN gender TEXT DEFAULT \'\''); } catch(e) { /* already exists */ }
+  try { db.run('ALTER TABLE users ADD COLUMN region TEXT DEFAULT \'\''); } catch(e) { /* already exists */ }
 
   // 药品分组表
   db.run(`
@@ -91,6 +94,18 @@ export async function initDB() {
   db.run('CREATE INDEX IF NOT EXISTS idx_reminder_times_rid ON reminder_times(reminder_id)');
   db.run('CREATE INDEX IF NOT EXISTS idx_push_sub_user ON push_subscriptions(user_id)');
   db.run('CREATE INDEX IF NOT EXISTS idx_med_groups_user ON med_groups(user_id, sort_order)');
+
+  db.run(`
+    CREATE TABLE IF NOT EXISTS med_feedback (
+      id          INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id     INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      reminder_id INTEGER REFERENCES reminders(id) ON DELETE SET NULL,
+      type        TEXT    NOT NULL,
+      value       TEXT    NOT NULL,
+      created_at  TEXT    DEFAULT (datetime('now','localtime'))
+    )
+  `);
+  db.run('CREATE INDEX IF NOT EXISTS idx_med_feedback_user ON med_feedback(user_id, type)');
 
   // 迁移：reminders 表补新列
   try { db.run('ALTER TABLE reminders ADD COLUMN group_id INTEGER DEFAULT NULL'); } catch(e) { /* already exists */ }
@@ -164,8 +179,9 @@ export const stmts = {
   user_findById(id) {
     return getRow(db.prepare('SELECT id, username, display_name, created_at FROM users WHERE id = ?', [id]));
   },
-  user_insert(username, password_hash, displayName) {
-    db.run('INSERT INTO users (username, password_hash, display_name) VALUES (?, ?, ?)', [username, password_hash, displayName]);
+  user_insert(username, password_hash, displayName, birthYear, gender, region) {
+    db.run('INSERT INTO users (username, password_hash, display_name, birth_year, gender, region) VALUES (?, ?, ?, ?, ?, ?)',
+      [username, password_hash, displayName, birthYear || '', gender || '', region || '']);
     const id = lastInsertId();
     flushSync();
     return id;
@@ -184,7 +200,7 @@ export const stmts = {
   },
   // admin
   admin_listUsers() {
-    return getAll(db.prepare('SELECT id, username, display_name, role, created_at, last_login FROM users ORDER BY id'));
+    return getAll(db.prepare('SELECT id, username, display_name, role, created_at, last_login, birth_year, gender, region FROM users ORDER BY id'));
   },
   admin_getAdminIds() {
     return getAll(db.prepare('SELECT id FROM users WHERE role = \'admin\''));
@@ -299,5 +315,12 @@ export const stmts = {
   },
   group_findById(id) {
     return getRow(db.prepare('SELECT * FROM med_groups WHERE id = ?', [id]));
+  },
+
+  // 反馈
+  feedback_insert(userId, reminderId, type, value) {
+    db.run('INSERT INTO med_feedback (user_id, reminder_id, type, value) VALUES (?, ?, ?, ?)',
+      [userId, reminderId, type, value]);
+    saveToDisk();
   },
 };

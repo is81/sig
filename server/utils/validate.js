@@ -4,7 +4,7 @@
 
 export function validateRegister(body) {
   const errors = [];
-  const { username, password, displayName } = body || {};
+  const { username, password, displayName, birthYear, gender, region } = body || {};
 
   if (!username || typeof username !== 'string' || username.trim().length < 2) {
     errors.push('用户名至少 2 个字符');
@@ -18,6 +18,14 @@ export function validateRegister(body) {
   if (password && password.length > 64) {
     errors.push('密码最多 64 个字符');
   }
+  const b = (birthYear || '').trim();
+  if (b && (!/^\d{4}$/.test(b) || parseInt(b) < 1920 || parseInt(b) > 2020)) {
+    errors.push('出生年份格式无效');
+  }
+  const g = (gender || '').trim();
+  if (g && !['male','female','other',''].includes(g)) {
+    errors.push('性别选项无效');
+  }
   return {
     valid: errors.length === 0,
     errors,
@@ -25,6 +33,9 @@ export function validateRegister(body) {
       username: username.trim(),
       password,
       displayName: (displayName || '').trim().slice(0, 30),
+      birthYear: b,
+      gender: g,
+      region: (region || '').trim().slice(0, 20),
     } : null,
   };
 }

@@ -25,6 +25,7 @@ import pushRoutes    from './routes/push.js';
 import statsRoutes   from './routes/stats.js';
 import adminRoutes   from './routes/admin.js';
 import groupRoutes   from './routes/groups.js';
+import feedbackRoutes from './routes/feedback.js';
 
 const app = express();
 const PORT = parseInt(process.env.PORT, 10) || 3001;
@@ -80,6 +81,7 @@ app.use(express.static(publicDir));
 app.use('/api/auth',      authRoutes);
 app.use('/api/reminders', reminderRoutes);
 app.use('/api/groups',    groupRoutes);
+app.use('/api/feedback',  feedbackRoutes);
 app.use('/api/push',      pushRoutes);
 app.use('/api/stats',     statsRoutes);
 app.use('/api/admin',     adminRoutes);

@@ -40,9 +40,18 @@
 
   "reminder.take": "Tomar",
   "reminder.taken": "Tomado",
+  "reminder.miss": "Olvidado",
   "reminder.delete": "Eliminar",
   "reminder.deleteConfirm": "¿Eliminar este recordatorio?",
   "reminder.untakeConfirm": "¿Deshacer el estado tomado?",
+
+  "feedback.missTitle": "¿Por qué lo olvidaste?",
+  "feedback.forgot": "Olvidé",
+  "feedback.sick": "No me siento bien",
+  "feedback.noMed": "No lo tengo",
+  "feedback.noNeed": "Ya no lo necesito",
+  "feedback.other": "Otro",
+  "feedback.skip": "Saltar",
 
   "modal.addTitle": "Añadir Recordatorio",
   "modal.editTitle": "Editar Recordatorio",
@@ -137,6 +146,15 @@
   "menu.admin": "Administrar",
   "menu.logout": "Cerrar Sesión",
   "menu.cancel": "Cancelar",
+
+  "profile.more": "▸ Más información (opcional)",
+  "profile.birthYear": "Año de nacimiento",
+  "profile.gender": "Género",
+  "profile.region": "Región",
+  "gender.male": "Masculino",
+  "gender.female": "Femenino",
+  "gender.other": "Otro",
+  "gender.skip": "Prefiero no decir",
 
   "action.registerPrompt": "Regístrate o inicia sesión para añadir recordatorios",
   "action.loginRequired": "Inicia sesión primero",

@@ -40,9 +40,18 @@
 
   "reminder.take": "服用",
   "reminder.taken": "服用済",
+  "reminder.miss": "飲み忘れ",
   "reminder.delete": "削除",
   "reminder.deleteConfirm": "このリマインダーを削除しますか？",
   "reminder.untakeConfirm": "服用済みを取り消しますか？",
+
+  "feedback.missTitle": "なぜ飲み忘れましたか？",
+  "feedback.forgot": "忘れた",
+  "feedback.sick": "体調不良",
+  "feedback.noMed": "手元にない",
+  "feedback.noNeed": "必要なくなった",
+  "feedback.other": "その他",
+  "feedback.skip": "スキップ",
 
   "modal.addTitle": "リマインダー追加",
   "modal.editTitle": "リマインダー編集",
@@ -137,6 +146,15 @@
   "menu.admin": "ユーザー管理",
   "menu.logout": "ログアウト",
   "menu.cancel": "キャンセル",
+
+  "profile.more": "▸ 詳細情報（任意）",
+  "profile.birthYear": "生まれ年",
+  "profile.gender": "性別",
+  "profile.region": "地域",
+  "gender.male": "男性",
+  "gender.female": "女性",
+  "gender.other": "その他",
+  "gender.skip": "回答しない",
 
   "action.registerPrompt": "登録またはログインして服薬リマインダーを追加",
   "action.loginRequired": "ログインしてください",

@@ -40,9 +40,18 @@
 
   "reminder.take": "标记已服",
   "reminder.taken": "已服用",
+  "reminder.miss": "漏服",
   "reminder.delete": "删除",
   "reminder.deleteConfirm": "确定要删除这个吃药提醒吗？",
   "reminder.untakeConfirm": "确定要撤销已服用状态吗？",
+
+  "feedback.missTitle": "😕 为什么没吃？",
+  "feedback.forgot": "忘了",
+  "feedback.sick": "不舒服",
+  "feedback.noMed": "没带药",
+  "feedback.noNeed": "不需要了",
+  "feedback.other": "其他原因",
+  "feedback.skip": "跳过",
 
   "modal.addTitle": "添加吃药提醒",
   "modal.editTitle": "编辑吃药提醒",
@@ -137,6 +146,15 @@
   "menu.admin": "用户管理",
   "menu.logout": "退出登录",
   "menu.cancel": "取消",
+
+  "profile.more": "▸ 更多信息（选填）",
+  "profile.birthYear": "出生年份",
+  "profile.gender": "性别",
+  "profile.region": "地区",
+  "gender.male": "男",
+  "gender.female": "女",
+  "gender.other": "其他",
+  "gender.skip": "不填",
 
   "action.registerPrompt": "注册或登录后即可添加吃药提醒",
   "action.loginRequired": "请先登录",

@@ -12,13 +12,13 @@ router.post('/register', (req, res) => {
   const { valid, errors, sanitized } = validateRegister(req.body);
   if (!valid) return res.status(400).json({ error: errors.join('；') });
 
-  const { username, password, displayName } = sanitized;
+  const { username, password, displayName, birthYear, gender, region } = sanitized;
 
   const existing = stmts.user_findByUsername(username);
   if (existing) return res.status(409).json({ error: '用户名已被注册' });
 
   const password_hash = bcrypt.hashSync(password, 10);
-  const userId = stmts.user_insert(username, password_hash, displayName);
+  const userId = stmts.user_insert(username, password_hash, displayName, birthYear || '', gender || '', region || '');
 
   const user = stmts.user_findById(userId);
   const token = signToken(user);
