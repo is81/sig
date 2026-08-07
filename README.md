@@ -4,6 +4,7 @@
   <a href="https://is81.net/sig/"><img src="https://img.shields.io/badge/demo-is81.net%2Fsig-2A7DE1?style=flat-square" alt="Demo"></a>
   <a href="LICENSE"><img src="https://img.shields.io/github/license/is81/sig?style=flat-square&color=2EBB77" alt="License MIT"></a>
   <a href="#"><img src="https://img.shields.io/badge/i18n-4%20languages-8b5cf6?style=flat-square" alt="4 languages"></a>
+  <a href="#"><img src="https://img.shields.io/badge/version-2.0-2A7DE1?style=flat-square" alt="v2.0"></a>
 </p>
 
 吃药啦 (Pill Time) is a simple, caring medication reminder. Set up your meds in seconds, get gentle nudges when it's time, and share it with family — each person's data stays private.
