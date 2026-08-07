@@ -19,7 +19,7 @@ function formatReminder(reminder, timeRows) {
     times: timeRows.map(t => ({
       id: t.id,
       time: t.time,
-      taken: t.taken === 1,
+      taken: t.taken,
       takenDate: t.taken_date,
     })),
     createdAt: reminder.created_at,
@@ -115,8 +115,8 @@ router.delete('/:id', (req, res) => {
   res.json({ ok: true });
 });
 
-// PATCH /api/reminders/:id/times/:timeId/toggle
-router.patch('/:id/times/:timeId/toggle', (req, res) => {
+// PATCH /api/reminders/:id/times/:timeId/mark
+router.patch('/:id/times/:timeId/mark', (req, res) => {
   const reminder = stmts.rem_findById(req.params.id);
   if (!reminder || reminder.user_id !== req.userId) {
     return res.status(404).json({ error: '提醒不存在' });
@@ -127,16 +127,19 @@ router.patch('/:id/times/:timeId/toggle', (req, res) => {
     return res.status(404).json({ error: '时间点不存在' });
   }
 
-  const newTaken = time.taken === 1 ? 0 : 1;
-  const newDate = newTaken ? today() : '';
+  const { taken } = req.body || {}; // 1=已服, 2=没吃, 0=撤销
+  if (![0, 1, 2].includes(taken)) {
+    return res.status(400).json({ error: '无效的状态值' });
+  }
 
-  stmts.time_toggle(newTaken, newDate, time.id);
+  const newDate = taken ? today() : '';
+  stmts.time_toggle(taken, newDate, time.id);
 
   res.json({
     time: {
       id: time.id,
       time: time.time,
-      taken: newTaken === 1,
+      taken: taken,
       takenDate: newDate,
     },
   });

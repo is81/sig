@@ -32,19 +32,24 @@
 
   "header.todayMeds": "今日应吃",
   "header.taken": "已吃",
+  "header.missed": "没吃",
   "header.date": "今天",
 
   "empty.title": "还没有吃药提醒",
   "empty.desc": "点击 ＋ 按钮添加你的第一个吃药提醒吧",
   "list.end": "没有啦",
 
-  "reminder.take": "标记已服",
-  "reminder.taken": "已服用",
-  "reminder.miss": "漏服",
+  "reminder.take": "标记已吃",
+  "reminder.taken": "已吃",
+  "reminder.miss": "没吃",
+  "reminder.missBtn": "⚠️ 没吃",
   "reminder.delete": "删除",
   "reminder.deleteConfirm": "确定要删除这个吃药提醒吗？",
-  "reminder.untakeConfirm": "确定要撤销已服用状态吗？",
+  "reminder.untakeConfirm": "确定要撤销已吃状态吗？",
+  "reminder.unmissConfirm": "确定要撤销没吃状态吗？",
 
+  "feedback.sideTitle": "有任何不适吗？",
+  "feedback.symptomAsk": "感觉如何？",
   "feedback.missTitle": "😕 为什么没吃？",
   "feedback.forgot": "忘了",
   "feedback.sick": "不舒服",
@@ -112,7 +117,7 @@
 
   "notif.title": "⏰ 吃药提醒",
   "notif.body": "该吃药啦",
-  "notif.takeNow": "✅ 已服用",
+  "notif.takeNow": "✅ 已吃",
   "notif.dismiss": "稍后",
   "notif.doseTime": "吃药时间到了",
 
@@ -154,7 +159,7 @@
   "gender.male": "男",
   "gender.female": "女",
   "gender.other": "其他",
-  "gender.skip": "不填",
+  "gender.skip": "保密",
 
   "action.registerPrompt": "注册或登录后即可添加吃药提醒",
   "action.loginRequired": "请先登录",

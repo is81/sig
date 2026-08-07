@@ -18,4 +18,10 @@ router.post('/', (req, res) => {
   res.status(201).json({ ok: true });
 });
 
+// DELETE /api/feedback/:reminderId — 删除该提醒的漏服原因（撤销没吃时调用）
+router.delete('/:reminderId', (req, res) => {
+  stmts.feedback_deleteByReminder(req.userId, req.params.reminderId, 'miss_reason');
+  res.json({ ok: true });
+});
+
 export default router;

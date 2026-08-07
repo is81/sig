@@ -22,4 +22,10 @@ router.delete('/users/:id', (req, res) => {
   res.json({ ok: true });
 });
 
+// GET /api/admin/stats
+router.get('/stats', (_req, res) => {
+  const stats = stmts.admin_getStats();
+  res.json(stats);
+});
+
 export default router;

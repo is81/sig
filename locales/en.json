@@ -32,6 +32,7 @@
 
   "header.todayMeds": "Due",
   "header.taken": "Done",
+  "header.missed": "Missed",
   "header.date": "Today",
 
   "empty.title": "No Pill Reminders",
@@ -41,10 +42,14 @@
   "reminder.take": "Take",
   "reminder.taken": "Taken",
   "reminder.miss": "Missed",
+  "reminder.missBtn": "⚠️ Miss",
   "reminder.delete": "Delete",
   "reminder.deleteConfirm": "Delete this pill reminder?",
   "reminder.untakeConfirm": "Undo the taken status?",
+  "reminder.unmissConfirm": "Undo the missed status?",
 
+  "feedback.sideTitle": "Any side effects?",
+  "feedback.symptomAsk": "How are you feeling?",
   "feedback.missTitle": "Why did you miss it?",
   "feedback.forgot": "Forgot",
   "feedback.sick": "Not feeling well",
@@ -154,7 +159,7 @@
   "gender.male": "Male",
   "gender.female": "Female",
   "gender.other": "Other",
-  "gender.skip": "Prefer not to say",
+  "gender.skip": "Private",
 
   "action.registerPrompt": "Sign up or login to add pill reminders",
   "action.loginRequired": "Please login first",

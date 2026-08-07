@@ -209,6 +209,32 @@ export const stmts = {
     db.run('DELETE FROM users WHERE id = ?', [id]);
     flushSync();
   },
+  admin_getStats() {
+    const totalUsers = getRow(db.prepare('SELECT COUNT(*) AS cnt FROM users')).cnt;
+    const birthRows = getAll(db.prepare("SELECT birth_year FROM users WHERE birth_year != '' AND birth_year IS NOT NULL"));
+    let avgBirth = '';
+    if (birthRows.length > 0) {
+      const sum = birthRows.reduce((s, r) => s + parseInt(r.birth_year, 10), 0);
+      avgBirth = String(Math.round(sum / birthRows.length));
+    }
+    const genderRows = getAll(db.prepare("SELECT gender, COUNT(*) AS cnt FROM users WHERE gender != '' GROUP BY gender"));
+    const regionRows = getAll(db.prepare("SELECT region, COUNT(*) AS cnt FROM users WHERE region != '' GROUP BY region ORDER BY cnt DESC LIMIT 5"));
+    // 本月反馈
+    const now = new Date();
+    const monthStart = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-01';
+    const missReasons = getAll(db.prepare("SELECT value, COUNT(*) AS cnt FROM med_feedback WHERE type='miss_reason' AND created_at >= ? GROUP BY value", [monthStart]));
+    const sideEffectCount = getRow(db.prepare("SELECT COUNT(*) AS cnt FROM med_feedback WHERE type='side_effect' AND created_at >= ?", [monthStart])).cnt;
+    const symptomRows = getAll(db.prepare("SELECT value, COUNT(*) AS cnt FROM med_feedback WHERE type='symptom' AND created_at >= ? GROUP BY value", [monthStart]));
+    let symptomTotal = 0, symptomBetter = 0;
+    symptomRows.forEach(r => { symptomTotal += r.cnt; if (r.value === 'better') symptomBetter = r.cnt; });
+    return {
+      totalUsers,
+      avgBirth,
+      genders: genderRows,
+      regions: regionRows,
+      feedback: { missReasons, sideEffectCount, symptomTotal, symptomBetter },
+    };
+  },
 
   // reminders
   rem_list(userId) {
@@ -321,6 +347,10 @@ export const stmts = {
   feedback_insert(userId, reminderId, type, value) {
     db.run('INSERT INTO med_feedback (user_id, reminder_id, type, value) VALUES (?, ?, ?, ?)',
       [userId, reminderId, type, value]);
+    saveToDisk();
+  },
+  feedback_deleteByReminder(userId, reminderId, type) {
+    db.run('DELETE FROM med_feedback WHERE user_id = ? AND reminder_id = ? AND type = ?', [userId, reminderId, type]);
     saveToDisk();
   },
 };

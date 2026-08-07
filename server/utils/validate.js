@@ -4,7 +4,7 @@
 
 export function validateRegister(body) {
   const errors = [];
-  const { username, password, displayName, birthYear, gender, region } = body || {};
+  const { username, password, birthYear, gender } = body || {};
 
   if (!username || typeof username !== 'string' || username.trim().length < 2) {
     errors.push('用户名至少 2 个字符');
@@ -32,10 +32,8 @@ export function validateRegister(body) {
     sanitized: errors.length === 0 ? {
       username: username.trim(),
       password,
-      displayName: (displayName || '').trim().slice(0, 30),
       birthYear: b,
       gender: g,
-      region: (region || '').trim().slice(0, 20),
     } : null,
   };
 }

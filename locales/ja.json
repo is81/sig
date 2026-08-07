@@ -32,6 +32,7 @@
 
   "header.todayMeds": "本日分",
   "header.taken": "服用済",
+  "header.missed": "飲み忘れ",
   "header.date": "今日",
 
   "empty.title": "リマインダーはまだありません",
@@ -41,10 +42,14 @@
   "reminder.take": "服用",
   "reminder.taken": "服用済",
   "reminder.miss": "飲み忘れ",
+  "reminder.missBtn": "⚠️ 飲み忘れ",
   "reminder.delete": "削除",
   "reminder.deleteConfirm": "このリマインダーを削除しますか？",
   "reminder.untakeConfirm": "服用済みを取り消しますか？",
+  "reminder.unmissConfirm": "飲み忘れを取り消しますか？",
 
+  "feedback.sideTitle": "副作用はありますか？",
+  "feedback.symptomAsk": "調子はどうですか？",
   "feedback.missTitle": "なぜ飲み忘れましたか？",
   "feedback.forgot": "忘れた",
   "feedback.sick": "体調不良",
@@ -154,7 +159,7 @@
   "gender.male": "男性",
   "gender.female": "女性",
   "gender.other": "その他",
-  "gender.skip": "回答しない",
+  "gender.skip": "非公開",
 
   "action.registerPrompt": "登録またはログインして服薬リマインダーを追加",
   "action.loginRequired": "ログインしてください",

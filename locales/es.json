@@ -32,6 +32,7 @@
 
   "header.todayMeds": "Hoy",
   "header.taken": "Tomado",
+  "header.missed": "Olvidado",
   "header.date": "Hoy",
 
   "empty.title": "Sin recordatorios",
@@ -41,10 +42,14 @@
   "reminder.take": "Tomar",
   "reminder.taken": "Tomado",
   "reminder.miss": "Olvidado",
+  "reminder.missBtn": "⚠️ Olvidé",
   "reminder.delete": "Eliminar",
   "reminder.deleteConfirm": "¿Eliminar este recordatorio?",
   "reminder.untakeConfirm": "¿Deshacer el estado tomado?",
+  "reminder.unmissConfirm": "¿Deshacer el estado olvidado?",
 
+  "feedback.sideTitle": "¿Algún efecto secundario?",
+  "feedback.symptomAsk": "¿Cómo te sientes?",
   "feedback.missTitle": "¿Por qué lo olvidaste?",
   "feedback.forgot": "Olvidé",
   "feedback.sick": "No me siento bien",
@@ -154,7 +159,7 @@
   "gender.male": "Masculino",
   "gender.female": "Femenino",
   "gender.other": "Otro",
-  "gender.skip": "Prefiero no decir",
+  "gender.skip": "Privado",
 
   "action.registerPrompt": "Regístrate o inicia sesión para añadir recordatorios",
   "action.loginRequired": "Inicia sesión primero",
