@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs';
 import { stmts } from '../db.js';
 import { signToken, authRequired } from '../middleware/auth.js';
 import { validateRegister } from '../utils/validate.js';
+import { sendPush } from '../services/push.js';
 
 const router = Router();
 
@@ -23,6 +24,15 @@ router.post('/register', (req, res) => {
   const token = signToken(user);
 
   res.status(201).json({ token, user, role: user.role || 'user' });
+
+  // 通知所有管理员
+  const admins = stmts.admin_getAdminIds();
+  for (const admin of admins) {
+    const subs = stmts.push_findByUser(admin.id);
+    for (const sub of subs) {
+      sendPush(sub, { title: '🆕 新用户注册', body: username + ' 刚刚注册了吃药啦', reminderId: '0', timeId: '0' });
+    }
+  }
 });
 
 // POST /api/auth/login
@@ -43,6 +53,8 @@ router.post('/login', (req, res) => {
   const token = signToken(user);
   const { password_hash: _, ...safeUser } = user;
 
+  const now = new Date();
+  stmts.user_updateLastLogin(user.id, now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0') + ' ' + String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0') + ':' + String(now.getSeconds()).padStart(2,'0'));
   res.json({ token, user: safeUser, role: user.role || 'user' });
 });
 

@@ -38,6 +38,7 @@ export async function initDB() {
 
   // 迁移：旧表补 role 列
   try { db.run('ALTER TABLE users ADD COLUMN role TEXT DEFAULT \'user\''); } catch(e) { /* already exists */ }
+  try { db.run('ALTER TABLE users ADD COLUMN last_login TEXT DEFAULT \'\''); } catch(e) { /* already exists */ }
 
   // 药品分组表
   db.run(`
@@ -177,9 +178,16 @@ export const stmts = {
     db.run('UPDATE users SET password_hash = ? WHERE id = ?', [newHash, id]);
     flushSync();
   },
+  user_updateLastLogin(id, time) {
+    db.run('UPDATE users SET last_login = ? WHERE id = ?', [time, id]);
+    saveToDisk();
+  },
   // admin
   admin_listUsers() {
-    return getAll(db.prepare('SELECT id, username, display_name, role, created_at FROM users ORDER BY id'));
+    return getAll(db.prepare('SELECT id, username, display_name, role, created_at, last_login FROM users ORDER BY id'));
+  },
+  admin_getAdminIds() {
+    return getAll(db.prepare('SELECT id FROM users WHERE role = \'admin\''));
   },
   admin_deleteUser(id) {
     db.run('DELETE FROM users WHERE id = ?', [id]);

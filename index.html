@@ -221,9 +221,6 @@
             font-weight: 600;
             color: var(--gray);
         }
-        .dark-mode .sheet-content { background: #1E232C; }
-        .dark-mode .sheet-item:active { background: rgba(255,255,255,0.06); }
-
         /* ===== 提醒列表 ===== */
         .list-container {
             padding: 16px 16px 80px;
@@ -947,6 +944,20 @@
                 background: #1A3050;
                 color: #6AA8F0;
             }
+            /* 新增暗色元素 */
+            .bottom-bar {
+                background: rgba(30,35,44,0.95);
+                border-top-color: var(--gray-border);
+            }
+            .bottom-tab { color: #7A8290; }
+            .bottom-tab.active { color: #6AA8F0; }
+            .auth-container { background: #1E232C; }
+            .auth-container .auth-switch { color: #A8B0B8; }
+            .account-sheet .sheet-content { background: #1E232C; }
+            .account-sheet .sheet-item { color: #C8D0D8; }
+            .account-sheet .sheet-item:active { background: rgba(255,255,255,0.06); }
+            .account-sheet .sheet-cancel { border-top-color: var(--gray-border); color: #7A8290; }
+            .empty-state button { box-shadow: 0 3px 12px rgba(58,123,213,0.2) !important; }
         }
         /* ===== 登录/注册 ===== */
         .auth-container {
@@ -1102,8 +1113,14 @@
 
         /* 暗色模式 - 登录页 */
         @media (prefers-color-scheme: dark) {
+            .auth-container {
+                background: #1E232C;
+            }
             .auth-container .auth-header h2 {
                 color: #E8EDF2;
+            }
+            .auth-container .auth-header p {
+                color: #7A8290;
             }
             .auth-container .auth-form input {
                 background: #14181F;
@@ -1113,6 +1130,12 @@
             .auth-container .auth-form input:focus {
                 background: #1A1F28;
                 border-color: var(--primary);
+            }
+            .auth-container .auth-switch {
+                color: #A8B0B8;
+            }
+            .auth-disclaimer {
+                color: #7A8290;
             }
         }
     </style>
@@ -1176,9 +1199,9 @@
         <!-- ===== 底部状态栏 ===== -->
         <nav class="bottom-bar" id="bottomBar">
             <button class="bottom-tab active" data-tab="meds" title="药品">💊<span data-i18n="bottom.meds">药品</span></button>
-            <button class="bottom-tab" data-tab="notify" title="提醒">🔔<span data-i18n="bottom.reminders">提醒</span></button>
             <button class="bottom-tab" data-tab="groups" id="bottomGroupsBtn" title="分组">📂<span data-i18n="bottom.groups">分组</span></button>
             <button class="bottom-tab" id="bottomAddBtn" title="加药">➕<span data-i18n="bottom.add">加药</span></button>
+            <button class="bottom-tab" data-tab="notify" title="提醒">🔔<span data-i18n="bottom.reminders">提醒</span></button>
             <button class="bottom-tab" data-tab="account" id="bottomAccountBtn" title="账户">👤<span data-i18n="bottom.account">账户</span></button>
         </nav>
 
@@ -2152,7 +2175,7 @@ async function openAdminPanel() {
         let html = '<div style="font-size:14px;">';
         for (const u of data.users) {
             html += '<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--gray-border);">';
-            html += '<span><strong>' + escapeHtml(u.username) + '</strong> (' + escapeHtml(u.display_name||'-') + ') <span style="color:var(--gray);font-size:12px;">' + u.created_at + '</span></span>';
+            html += '<span><strong>' + escapeHtml(u.username) + '</strong> (' + escapeHtml(u.display_name||'-') + ') <span style="color:var(--gray);font-size:11px;">' + (u.last_login || u.created_at) + '</span></span>';
             html += '<span>' + (u.role === 'admin' ? '👑' : '') + (u.username !== 'zt' ? '<button onclick="deleteUser(' + u.id + ')" style="background:var(--danger-light);color:var(--danger);border:none;padding:2px 8px;border-radius:6px;cursor:pointer;font-size:12px;">' + t('admin.delete') + '</button>' : '') + '</span>';
             html += '</div>';
         }
